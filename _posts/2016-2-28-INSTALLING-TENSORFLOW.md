@@ -2,6 +2,7 @@
 layout: post
 title: Installing Tensorflow
 ---
+![Image of Yaktocat](https://www.tensorflow.org/images/logo-alt@2x.png)
 In this post we'll go over installing Tensorflow using python. I prefer using the Jupyter notebook for my python scripts so we'll go through installing Anaconda(which includes Jupyter Notebook) and how to install Tensorflow using this environment.
 
 ### Step 1. Install Anaconda
