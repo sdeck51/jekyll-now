@@ -24,9 +24,9 @@ Currently Tensorflow only supports Python 3.5, though you can download an unoffi
 - type _conda install tensorflow-gpu_
 
 #### Python 3.6
-- Download wheel file
+- Download tensorflow_gpu‑0.12.1‑cp36‑cp36m‑win_amd64.whl from website
 - Open Anaconda Prompt
-- Type _pip install "directory of wheel file"_
+- Type _pip install tensorflow_gpu‑0.12.1‑cp36‑cp36m‑win_amd64.whl_
 
 ### Verify Installation
 There are two things we need to check to make sure tensorflow is correctly installed.
