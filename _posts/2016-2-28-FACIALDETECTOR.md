@@ -13,14 +13,14 @@ The purpose of this tutorial is to train a model to be able to detect facial fea
 #Data
 The data used can be found [here](https://www.kaggle.com/c/facial-keypoints-detection/data). Training data consists of 7049 images. There are 30 labels, represented as an x and y coordinate for 15 features of the face. **Talk about how data is accessed. Also that its all in a csv that needs to be extracted
 
-#Process
+# Process
 To begin I want to start by building a simple neural network to see how it fares. Afterwards I'll implement a larger convolutional neural network and implement concepts that have shown to boost performance of networks, namely:
-####Concepts being implemented
+#### Concepts being implemented
 - dropout
 - data augmentation
 - optimizer optimizations (momentum, learning rate)
 
-####6 networks to compare
+#### 6 networks to compare
 - Basic NN
 - Conv
 - Conv improved learning rate
@@ -28,17 +28,17 @@ To begin I want to start by building a simple neural network to see how it fares
 - Conv decaying learning rate
 - Conv dropout
 
-####CNN Model
+#### CNN Model
 - 3 convolution layers
 - each followed by a max pooling layer
 - 3 fully connected layers
 *Make picture of model
 *Include dimensions
 
-####Progress
+#### Progress
 I have a bunch of different working models demonstrating concepts that improve the model. I would like to do additional models to improve results even more if I have enough time.
 
-#Results
+# Results
 ![](http://i.imgur.com/qMv2z9k.png)
 
 Acronyms in Model Name: 
