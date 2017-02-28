@@ -3,6 +3,8 @@ layout: post
 title: Facial Feature Detector
 ---
 
+In this post I go over how to make a facial feature detector!
+
 # Intro
 This tutorial is based on an excellent post by [Daniel Nouri](http://danielnouri.org/notes/2014/12/17/using-convolutional-neural-nets-to-detect-facial-keypoints-tutorial/#dropout). I've implemented his ideas into Tensorflow. We learn how to create a convolutional neural network that can detect facial features.
 
