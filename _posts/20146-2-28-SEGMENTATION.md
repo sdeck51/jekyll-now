@@ -90,8 +90,8 @@ As we can see it's starting to see bushes.
 
 ![](http://imgur.com/svHMXUF.png)
 
-![](http://i.imgur.com/AyWvWf6.png)
+![](http://imgur.com/AyWvWf6.png)
 
-![](http://imgur.com/OxmzT4V.png)
+![](http://imgur.com/BhJCNm8.png)
 
-![](http://imgur.com/RgiBdkR.png)
+![](http://imgur.com/1XUpg8k.png)
