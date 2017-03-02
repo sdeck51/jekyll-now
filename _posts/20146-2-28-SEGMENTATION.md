@@ -86,6 +86,6 @@ As we can see it's starting to see bushes.
 
 ![](http://imgur.com/vFVNBXv.png.png)
 
-![](http://imgur.com/Rgkqubs)
+![](http://imgur.com/Rgkqubs.png)
 
 ![](http://imgur.com/svHMXUF.png)
