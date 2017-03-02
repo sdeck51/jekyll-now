@@ -84,8 +84,14 @@ Predicted Label
 
 As we can see it's starting to see bushes.
 
-![](http://imgur.com/vFVNBXv.png.png)
+![](http://imgur.com/vFVNBXv.png)
 
 ![](http://imgur.com/Rgkqubs.png)
 
 ![](http://imgur.com/svHMXUF.png)
+
+![](http://i.imgur.com/AyWvWf6.png)
+
+![](http://imgur.com/OxmzT4V.png)
+
+![](http://imgur.com/RgiBdkR.png)
