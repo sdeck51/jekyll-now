@@ -4,6 +4,7 @@ title: Transfer Learning using Inception v3.
 ---
 
 In this post I'll go over how you can harness a deep neural network and classify your own images quickly!
+Full code [here](https://github.com/sdeck51/CNNTutorials/blob/master/5.%20TransferLearning_Tutorial/TransferLearningWithInception.ipynb)
 
 # Intro
 Here we learn how we can transfer learned features from one dataset to another.
