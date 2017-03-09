@@ -59,7 +59,31 @@ import random
 
 from IPython.display import Image, display
 
-code goes here
+{% endhighlight %}
+
+{% highlight python %}
+def createConvolutionLayer(x_input, kernel_size, features, depth):
+    # createConvolutionLayer generates a convolution layer in the session graph
+    # by assigning weights, biases, convolution and relu function
+    #
+    # x_input - output from the previous layer
+    # kernel_size - size of the feature kernels
+    # depth - number of feature kernels
+    #
+    # returns convolution layer in graph
+    #
+    print("conv: input size: " + str(x_input.get_shape()))
+    weights = tf.get_variable('weights', shape=[kernel_size, kernel_size, features, depth],
+                             initializer = tf.contrib.layers.xavier_initializer())
+    
+    biases = tf.get_variable('biases', shape=[depth], initializer=tf.constant_initializer(0))
+    
+    convolution = tf.nn.conv2d(x_input, weights, strides=[1,1,1,1], padding='SAME')
+    
+    added = tf.nn.bias_add(convolution, biases)
+    
+    return tf.nn.relu(added)
+
 {% endhighlight %}
 
 # Results
