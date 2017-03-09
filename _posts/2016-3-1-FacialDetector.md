@@ -61,7 +61,7 @@ from IPython.display import Image, display
 
 {% endhighlight %}
 
-{% highlight c %}
+{% highlight ruby %}
 def createConvolutionLayer(x_input, kernel_size, features, depth):
     # createConvolutionLayer generates a convolution layer in the session graph
     # by assigning weights, biases, convolution and relu function
@@ -85,6 +85,13 @@ def createConvolutionLayer(x_input, kernel_size, features, depth):
     return tf.nn.relu(added)
 
 {% endhighlight %}
+
+```python
+import urllib2
+def function():
+    #This is a function
+```
+
 
 # Results
 ![](http://i.imgur.com/qMv2z9k.png)
