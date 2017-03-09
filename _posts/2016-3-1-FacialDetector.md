@@ -41,7 +41,7 @@ To begin I want to start by building a simple neural network to see how it fares
 I have a bunch of different working models demonstrating concepts that improve the model. I would like to do additional models to improve results even more if I have enough time.
 
 ###Code Syntax Test
-```python
+{% highlight text %}
 import tensorflow as tf
 import numpy as np
 import matplotlib.pyplot as plt
@@ -58,7 +58,9 @@ import pickle
 import random
 
 from IPython.display import Image, display
-```
+
+code goes here
+{% endhighlight %}
 
 # Results
 ![](http://i.imgur.com/qMv2z9k.png)
