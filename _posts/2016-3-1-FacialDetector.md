@@ -41,10 +41,23 @@ To begin I want to start by building a simple neural network to see how it fares
 I have a bunch of different working models demonstrating concepts that improve the model. I would like to do additional models to improve results even more if I have enough time.
 
 ###Code Syntax Test
-```ruby
-require 'redcarpet'
-markdown = Redcarpet.new("Hello World!")
-puts markdown.to_html
+```python
+import tensorflow as tf
+import numpy as np
+import matplotlib.pyplot as plt
+import os
+from sklearn.metrics import confusion_matrix
+
+### Used for importing the model
+import urllib.request
+import tarfile
+import zipfile
+import sys
+import os
+import pickle
+import random
+
+from IPython.display import Image, display
 ```
 
 # Results
