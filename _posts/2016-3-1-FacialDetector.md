@@ -40,6 +40,13 @@ To begin I want to start by building a simple neural network to see how it fares
 #### Progress
 I have a bunch of different working models demonstrating concepts that improve the model. I would like to do additional models to improve results even more if I have enough time.
 
+###Code Syntax Test
+```ruby
+require 'redcarpet'
+markdown = Redcarpet.new("Hello World!")
+puts markdown.to_html
+```
+
 # Results
 ![](http://i.imgur.com/qMv2z9k.png)
 
