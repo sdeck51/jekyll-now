@@ -61,7 +61,7 @@ from IPython.display import Image, display
 
 {% endhighlight %}
 
-{% highlight python %}
+{% highlight c %}
 def createConvolutionLayer(x_input, kernel_size, features, depth):
     # createConvolutionLayer generates a convolution layer in the session graph
     # by assigning weights, biases, convolution and relu function
