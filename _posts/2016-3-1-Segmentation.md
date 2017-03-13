@@ -95,3 +95,5 @@ As we can see it's starting to see bushes.
 ![](http://imgur.com/BhJCNm8.png)
 
 ![](http://imgur.com/1XUpg8k.png)
+
+I want to show a few train/validation predictions over the course over training the network. Also recording loss over time.
