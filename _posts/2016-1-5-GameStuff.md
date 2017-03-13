@@ -2,8 +2,8 @@
 layout: post
 title: Game Gifs
 ---
-![](http://i.imgur.com/ui5OqbW.gifv)
+![](http://imgur.com/ui5OqbW.gif)
 
-![](http://i.imgur.com/9uBWcSK.gifv)
+![](http://imgur.com/9uBWcSK.gif)
 
-![](http://i.imgur.com/daCLUMQ.gifv)
+![](http://imgur.com/daCLUMQ.gif)
