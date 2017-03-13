@@ -117,3 +117,4 @@ Red points represent labels, while green points represent label predictions. You
 
 ## Things I want to add
 - gif showing validation image predicted labels migrate while model is being trained
+- Already have code working to do this. Will demonstrate the beginning training process using 1 batch steps.
