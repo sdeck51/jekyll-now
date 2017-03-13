@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Segmentation
+title: Tensorflow - Segmentation
 ---
 
 In this post I'll show how you can perform segmentation using CNNs! Full code [here](https://github.com/sdeck51/CNNTutorials/blob/master/6.%20Segmentation_Tutorial/Segmentation2.ipynb)
