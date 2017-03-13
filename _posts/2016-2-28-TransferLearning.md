@@ -21,6 +21,16 @@ For the data in this tutorial we'll be looking at JPEG files. One problem I have
 - caching image bottlenecks
 - implementing new classification layer
 
+# Showing examples using 3 datasets
+One thing I want to demonstrate is showing the 6 class bird dataset, where some of the classes have already been trained on while the others haven't.
+
+Case with 257 class data
+
+Case with faces.
+
+Have confusion matrices for all. Overall accuracy.
+
+
 ### Progress
 Code works! Just need to format results.
 
