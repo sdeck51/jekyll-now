@@ -22,12 +22,15 @@ I'm going to demonstrate transfer learning using a few different datasets. In on
 #### Loading a Model
 - download/loading
 - loading weights
+
 #### Using Model to Classify 
 - functions to do this
+
 #### Transfer Learning
 - setting up train/validation/test sets
 - caching data
 - build small network to attach
+
 #### Training Modified Model
 - Optimization, batching, etc
 
