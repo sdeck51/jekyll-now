@@ -179,7 +179,7 @@ classify('cropped_panda.jpg', 5)
 
 So it can classify a panda, but what else? From here find any image you want and just set the path in the function. Here's it's take on a forklift.
 
-![alt text](https://github.com/sdeck51/sdeck51.github.io/blob/master/images/Forklift-Truck.jpg)
+![alt text](https://github.com/sdeck51/sdeck51.github.io/raw/master/images/Forklift-Truck.jpg)
     0.9826 forklift
     0.0002 barbell
     0.0002 tractor
