@@ -60,15 +60,6 @@ This is a pretty cute panda that's included to use as input for the model.
 
 ##### imagenet_2012_challenge_label_map_proto.pbtxt
     ...
-    n02867592	bomb calorimeter, bomb
-    n02867715	bomber
-    n02867966	bomber jacket
-    n02868240	bomblet, cluster bomblet
-    n02868429	bomb rack
-    n02868546	bombshell
-    n02868638	bomb shelter, air-raid shelter, bombproof
-    n02868975	bone-ash cup, cupel, refractory pot
-    n02869155	bone china
     n02869249	bones, castanets, clappers, finger cymbals
     n02869563	boneshaker
     n02869737	bongo, bongo drum
@@ -82,15 +73,6 @@ This is a pretty cute panda that's included to use as input for the model.
     n02871314	bookmobile
     n02871439	bookshelf
     n02871525	bookshop, bookstore, bookstall
-    n02871631	boom
-    n02871824	boom, microphone boom
-    n02871963	boomerang, throwing stick, throw stick
-    n02872333	booster, booster rocket, booster unit, takeoff booster, takeoff rocket
-    n02872529	booster, booster amplifier, booster station, relay link, relay station, relay transmitter
-    n02872752	boot
-    n02873520	boot
-    n02873623	boot camp
-    n02873733	bootee, bootie
     ...
 Each class that was used for training in inception v3 has a class value as well as class id. This file maps the class id to the class value.
 
@@ -107,58 +89,6 @@ Each class that was used for training in inception v3 has a class value as well 
     entry {
       target_class: 393
       target_class_string: "n01580077"
-    }
-    entry {
-      target_class: 394
-      target_class_string: "n01582220"
-    }
-    entry {
-      target_class: 395
-      target_class_string: "n01592084"
-    }
-    entry {
-      target_class: 396
-      target_class_string: "n01601694"
-    }
-    entry {
-      target_class: 397
-      target_class_string: "n01608432"
-    }
-    entry {
-      target_class: 398
-      target_class_string: "n01614925"
-    }
-    entry {
-      target_class: 399
-      target_class_string: "n01616318"
-    }
-    entry {
-      target_class: 400
-      target_class_string: "n01622779"
-    }
-    entry {
-      target_class: 494
-      target_class_string: "n01629819"
-    }
-    entry {
-      target_class: 495
-      target_class_string: "n01630670"
-    }
-    entry {
-      target_class: 496
-      target_class_string: "n01631663"
-    }
-    entry {
-      target_class: 497
-      target_class_string: "n01632458"
-    }
-    entry {
-      target_class: 498
-      target_class_string: "n01632777"
-    }
-    entry {
-      target_class: 499
-      target_class_string: "n01641577"
     }
     ...
 Each class also should have a name for us humans to easily understand what the classes are. This file maps the class id to a class name.
