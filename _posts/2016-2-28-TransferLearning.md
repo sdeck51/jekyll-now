@@ -191,6 +191,9 @@ So it can classify a panda, but what else? From here find any image you want and
 If you were able to get things working up to this point then congratulations! You have control of an extremely powerful image classifier. If you have problems that involve the classes this model was trained for then you're ready to go! This however isn't likely. You probably don't need to classify that x image was a forklift or y image was a panda. You probably have images in mind that you want to classify. What can we do about this? We have this large, powerful model that we would like to use but it doesn't classify what we want. Thankfully there's a method we can use to take advantage of this model and it's learned features, called Transfer Learning.
 
 ## Transfer Learning
+
+![alt text](https://github.com/sdeck51/sdeck51.github.io/raw/master/images/inception2.png)
+
 Transfer Learning is a method where we transfer what a model has learned into a new classifier, one which we define on our own. If we want to classify different types of birds then we know that this model will benefit that as it has trained on birds and has learned features from that. What we're going to do is remove the last fully connected layer and classification layer and create a new one. This process takes a few steps to optimally perform. We're dealing with a very large model and training it can take a lot of time if we're not clever about how to handle it.
 
 What we'll be doing is in essence training a very small classification network. The input of this network however will be an output from the inception model. The inception model has so many generalized features that they can be used beyond the classes it was trained for, so we are going to have new data to classify, and classify quickly!
