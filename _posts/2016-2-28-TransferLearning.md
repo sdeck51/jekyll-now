@@ -170,12 +170,21 @@ Let's use the given panda image and see what the model classifies it as
 classify('cropped_panda.jpg', 5)
 {% endhighlight %}
 
-![alt text](https://github.com/sdeck51/sdeck51.github.io/raw/master/images/cropped_panda.jpg)
-0.8923 giant panda
-0.0086 indri
-0.0026 lesser panda
-0.0014 custard apple
-0.0011 earthstar
+    ![alt text](https://github.com/sdeck51/sdeck51.github.io/raw/master/images/cropped_panda.jpg)
+    0.8923 giant panda
+    0.0086 indri
+    0.0026 lesser panda
+    0.0014 custard apple
+    0.0011 earthstar
+
+So it can classify a panda, but what else? From here find any image you want and just set the path in the function. Here's it's take on a forklift.
+
+    ![alt text](https://github.com/sdeck51/sdeck51.github.io/blob/master/images/Forklift-Truck.jpg)
+    0.9826 forklift
+    0.0002 barbell
+    0.0002 tractor
+    0.0002 crane
+    0.0001 golfcart
 
 If you were able to get things working up to this point then congratulations! You have control of an extremely powerful image classifier. If you have problems that involve the classes this model was trained for then you're ready to go! This however isn't likely. You probably don't need to classify that x image was a mushroom or y image was a panda. You probably have a dataset in mind for classification. What can we do about this? We have this large, powerful model that we would like to use but it doesn't classify what we want. Thankfully there's a method we can use to take advantage of this model and it's learned features, called Transfer Learning.
 
