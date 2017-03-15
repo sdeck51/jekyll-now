@@ -51,11 +51,11 @@ def download(url, directory):
 Now what is included in this zipped file is a little complicated. Let's go through each file
 
 ##### classification_image_graph_def.pd
-![alt text](https://github.com/sdeck51/sdeck51.github.io/blob/master/images/inceptionArchitecture.png)
+![alt text](https://github.com/sdeck51/sdeck51.github.io/raw/master/images/inceptionArchitecture.png)
 This is the actual model, which includes every layer that makes up inception v3, the connects to and from each layer, as well as the pretrained weights and biases. What we're going to do is load this using python and then have the ability to classify with the model.
 
 ##### cropped_panda.jpg
-![alt text](https://github.com/sdeck51/sdeck51.github.io/blob/master/images/cropped_panda.jpg)
+![alt text](https://github.com/sdeck51/sdeck51.github.io/raw/master/images/cropped_panda.jpg)
 This is a pretty cute panda that's included to use as input for the model.
 
 ##### imagenet_2012_challenge_label_map_proto.pbtxt
