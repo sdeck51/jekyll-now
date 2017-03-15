@@ -195,7 +195,42 @@ What we'll be doing is in essence training a very small classification network. 
 
 The input our network will be taking in will come from what is called the "bottleneck" layer. This layer comes right before the classification layer, so you can imagine we are just replacing classification layers. Putting images through the model up to this layer can take quite a bit of time for larger datasets. One of the datasets I classify took over 20 minutes to pass each image into the network. If we want to train our new network for several epochs(an epoch meaning every image has passed through the network) then this will take time. What we can do though is since passing each image through inception will yield the same output, we can run them through once, and then just use these "bottleneck values".
 
+To obtain bottleneck values we need to have access to the bottleneck tensor in the model. With this tensor we can run a session where we return the output of the bottleneck tensor.
 
+{% highlight python %}
+def getBottleneckValues(image_path):
+    image_data = tf.gfile.FastGFile(image_path, 'rb').read()
+    bottleneck_values = session.run(bottleneck_layer, feed_dict={jpeg_tensor_name: image_data})
+
+    return np.squeeze(bottleneck_values)
+{% endhighlight %}
+
+Because this process can take a while to get, it's a good idea to cache the values onto disk so if you want to use it later you can just pull the values from a file rather than recalculating the values. For caching I use the pickle module and 
+
+{% highlight python %}
+def bottleneckCache(cache_path, images=None, image_paths=None):
+
+    if os.path.exists(cache_path):
+    # Load the cached data from the file.
+        with open(cache_path, mode='rb') as file:
+            bottleneck_values = pickle.load(file)
+
+        print("Data loaded: " + cache_path)
+    else:
+        # The cache-file does not exist.
+
+        # Call the function / class-init with the supplied arguments.
+        bottleneck_values = processImages(images=images, image_paths=image_paths)
+        try:
+        # Save the data to a cache-file.
+            with open(cache_path, mode='wb') as file:
+                pickle.dump(bottleneck_values, file)
+        except EOFError:
+            return {}
+        print("Data saved: " + cache_path)
+
+    return bottleneck_values
+{% endhighlight %}
 
 #### Training Modified Model
 - Optimization, batching, etc
