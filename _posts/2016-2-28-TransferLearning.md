@@ -51,13 +51,13 @@ def download(url, directory):
 Now what is included in this zipped file is a little complicated. Let's go through each file
 
 ##### classification_image_graph_def.pd
-    This is the actual model, which includes every layer that makes up inception v3, the connects to and from each layer, as well as the pretrained weights and biases. What we're going to do is load this using python and then have the ability to classify with the model.
+This is the actual model, which includes every layer that makes up inception v3, the connects to and from each layer, as well as the pretrained weights and biases. What we're going to do is load this using python and then have the ability to classify with the model.
 ##### cropped_panda.jpg
-    This is a pretty cute panda that's included to use as input for the model.
+This is a pretty cute panda that's included to use as input for the model.
 ##### imagenet_2012_challenge_label_map_proto.pbtxt
-    Each class that was used for training in inception v3 has a class value as well as class id. This file maps the class id to the class value.
+Each class that was used for training in inception v3 has a class value as well as class id. This file maps the class id to the class value.
 ##### imagenet_synset_to_human_label_map
-    Each class also should have a name for us humans to easily understand what the classes are. This file maps the class id to a class name.
+Each class also should have a name for us humans to easily understand what the classes are. This file maps the class id to a class name.
     
 Each of these files are needed to be able to load up the Inception v3 model, and then classify and understand the output of classification.
 
