@@ -23,6 +23,31 @@ I'm going to demonstrate transfer learning using a few different datasets. In on
 - download/loading
 - loading weights
 
+The first thing we need to do is get access a large, pretrained CNN model. There are various models available online, and for this tutorial I'll demonstrate how to access the Inception V3 model from Google. Google makes it fairly easy to download and use their model. If you wish to manually access it you can simply go [here](http://download.tensorflow.org/models/image/imagenet/inception-2015-12-05.tgz). Otherwise there is various code for downloading(as well as extracting) tar zipped files.
+{% highlight python %}
+def download(url, directory):
+    
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+    filename = url.split('/')[-1]
+    filepath = os.path.join(directory, filename)
+    if not os.path.exists(filepath):
+    
+        def _progress(count, block_size, total_size):
+            sys.stdout.write('\r>> Downloading %s %.1f%%' %
+                           (filename,
+                            float(count * block_size) / float(total_size) * 100.0))
+            sys.stdout.flush()
+    
+        filepath, _ = urllib.request.urlretrieve(url,filepath,  _progress)
+        print()
+        statinfo = os.stat(filepath)
+    else:
+        print('File already downloaded')
+    tarfile.open(filepath, 'r:gz').extractall(directory)
+
+{% endhighlight %}
+
 #### Using Model to Classify 
 - functions to do this
 
