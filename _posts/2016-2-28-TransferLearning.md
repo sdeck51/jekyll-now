@@ -93,7 +93,24 @@ Each class that was used for training in inception v3 has a class value as well 
     ...
 Each class also should have a name for us humans to easily understand what the classes are. This file maps the class id to a class name.
     
-Each of these files are needed to be able to load up the Inception v3 model, and then classify and understand the output of classification.
+Each of these files are needed to be able to load up the Inception v3 model, and then classify and understand the output of classification. From this we can parse the files to get class values and class ids from the dataset that was used to train Inception v3. Look at the code for more detail on how this is done.
+
+After we have an understanding of the files we can now build the model as a graph in tensorflow. This is fairly simple as a user to do as the tensorflow api is native with the model file's .pd format.
+
+{% highlight python %}
+graph = tf.Graph()
+
+with graph.as_default():
+
+    path = os.path.join(model_directory, map_graph_def)
+    with tf.gfile.FastGFile(path, 'rb') as file:
+        graph_def = tf.GraphDef()
+
+        graph_def.ParseFromString(file.read())
+
+        #remember to set name to empty string else it doesn't work
+        tf.import_graph_def(graph_def, name='')
+{% endhighlight %}
 
 
 #### Using Model to Classify 
