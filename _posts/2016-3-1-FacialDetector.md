@@ -21,7 +21,6 @@ The data is formatted in a csv file, where each row represents an image and it's
 
 {% highlight python %}
 def load():
-    
     filename = testing_filename if isTesting else training_filename
     df = pd.read_csv(filename)  # load pandas dataframe
 
@@ -48,7 +47,7 @@ def load():
     images, labels = zip(*zipped_values)
     
     return images, labels
-{% endhighlight %}
+
 
 # Wrapper for load() that reshapes the input to a image_size x image_size x channels
 def loadData():
@@ -56,6 +55,51 @@ def loadData():
     x_image = x_image.reshape(-1, image_size, image_size, channels)
     return x_image, y_label
     
+{% endhighlight %}
+
+With the above code we can successfully load the data. With this we need to simply split up the data in some fashion. In deep learning cross validation isn't as often used due to time. Deep networks can train from hours to days, weeks to months, and using cross validation isn't as helpful, along with the fact that cross validation is used when data is limited. In deep networks we use large datasets that (hopefully) span the set we'll test with.
+
+# Building Neural Networks
+For this tutorial we're going to build several different models. The reason for this is to demonstrate different technical techniques that can be used to optimize the model to create the best performing model. To make this easier to create and deplot we'll look at building some generating functions that we can call that will build the layers of the models that we will need. If you get lost refer to the [theory page](https://sdeck51.github.io/Convolutional_Neural_Network_Concepts/).
+
+### Fully Connected Layer
+Fully connected layers are the most basic layer. Every input weight and bias is connected up to every node, hence it's fully connected. 
+
+{% highlight python %}
+def createFullyConnectedLayer(x_input, width):
+    # createFullyConnectedLayer generates a fully connected layer in the session graph
+    # 
+    # x_input - output from previous layer
+    # width - width of the layer (eg for a 10 class output you need to end with a 10 width layer
+    #
+    # returns fully connected layer in graph
+    #
+    print("fc: input size: " + str(x_input.get_shape()))
+    weights = tf.get_variable('weights', shape=[x_input.get_shape()[1], width],
+                             initializer = tf.contrib.layers.xavier_initializer())
+    biases = tf.get_variable('biases', shape=[width], initializer=tf.constant_initializer(0))
+     
+    matrix_multiply = tf.matmul(x_input, weights)
+    
+    return tf.nn.bias_add(matrix_multiply, biases)
+{% endhighlight %}
+A few things need to be discussed here. A fully connected layer has weights and biases. In real world practices these need to be initialized such that the weights and biases learn different features of the input.
+Generally the layers are connected to a saturating function. In our case we're looking at using linear rectifiers, as they are fast and prone to vanishing gradients.
+
+{% highlight python %}
+def createLinearRectifier(x_input):
+    # createLinearRectifier generates a ReLu in the session graph
+    # 
+    # The reason this exists is due to the last fully connected layer not needing a relu while others do
+    # x_input - output from previous layer
+    # width - width of the layer
+    #
+    # returns ReLu in graph
+    # 
+    
+    return tf.nn.relu(x_input)
+{% endhighlight %}
+
 # Process
 To begin I want to start by building a simple neural network to see how it fares. Afterwards I'll implement a larger convolutional neural network and implement concepts that have shown to boost performance of networks, namely:
 
@@ -99,7 +143,7 @@ def createLinearRectifier(x_input):
 These two functions are all we need for now to build a simple model. We can create one more function that will be used to actually build the model.
 
 {% highlight python %}
-def createNetwork1(x_input):
+def createSimpleNetwork(x_input):
     with tf.variable_scope('in'):
         x_input = tf.reshape(x_input, [-1, image_size*image_size])
     with tf.variable_scope('hidden'):
@@ -109,6 +153,44 @@ def createNetwork1(x_input):
         return createFullyConnectedLayer(relu_layer, 30)
 {% endhighlight %}
 
+What we're doing here is creating a simple 2 layermodel in the tensorflow graph. It has a single hidden layer and output layer. Now I know this will not be a very good model, however we will see how certain techniques as well as building a deep convolutional neural network will be better.
+
+With a model defined there is still additional work to be done. We need to define how to optimize the model.
+
+### Optimization
+Optimization is how a neural network learns. When you feed input to the model, it will also give an output. We're working with supervised learning, so when training we compare the output of a model with the actual label. If the prediction isn't a match with the label then we need to adjust the model. This is done by changing the weights and biases, which is done via optimization. I tried a few different optimizer and settled on stochastic gradient descent.
+
+{% highlight python %}
+graph = tf.Graph()
+
+with graph.as_default():
+    
+    x_input = tf.placeholder(tf.float32, shape=[None, image_size, image_size, 1])
+    y_output = tf.placeholder(tf.float32, shape=[None, num_labels])
+    is_training = tf.placeholder(tf.bool)
+
+    #current_epoch = tf.Variable(0)  # count the number of epochs
+    
+    num_epochs=2000
+    dropout = True
+    global_step = tf.Variable(0, trainable=False)
+    #learning rate
+    learning_rate = tf.train.exponential_decay(.0005, global_step, num_epochs, 0.90, staircase = True) 
+    #learning_rate = 0.04
+    
+    #optimizer
+    momentum_rate = 0.9
+    
+    # get model
+    prediction_output = createNetwork2(x_input, is_training)
+    
+    #loss_function = tf.reduce_mean(-tf.reduce_sum(y_ * tf.log(y), reduction_indices=[1]))
+    loss_function = tf.reduce_mean(tf.square(prediction_output - y_output))
+    optimizer = tf.train.MomentumOptimizer(learning_rate, momentum_rate, use_nesterov=True).minimize(loss_function, global_step = global_step)
+
+{% endhighlight %}
+
+To optimize we obviously need a cost function to optimize. For this problem we're dealing with error in distances of several points, so we're using mean squared error for the loss function.
 
 #### Concepts being implemented
 - dropout
