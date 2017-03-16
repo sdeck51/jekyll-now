@@ -7,14 +7,19 @@ title: Tensorflow - Facial Feature Detector
 In this post I go over how to make a facial feature detector. Full code [here](https://github.com/sdeck51/CNNTutorials/blob/master/7.%20FacialFeatureDetection_Tutorial/FaceDetector.ipynb).
 
 # Intro
-This tutorial is based on an excellent post by [Daniel Nouri](http://danielnouri.org/notes/2014/12/17/using-convolutional-neural-nets-to-detect-facial-keypoints-tutorial/#dropout). I've implemented his ideas into Tensorflow. We learn how to create a convolutional neural network that can detect facial features.
+
 
 # Purpose/Goal
-What are the goals of this tutorial?
-The purpose of this tutorial is to train a model to be able to detect facial features in an image. These features include eyes, eyebrows, nose. and mouth. 
+The main goal for this tutorial is to demonstrate how one can build a facial feature detector from scratch using tensorflow. We'll go through several different models to demonstrate how one can make improvements that lead to an optimized model. We'll also talk about improvements that can be made.
 
-#Data
-The data used can be found [here](https://www.kaggle.com/c/facial-keypoints-detection/data). Training data consists of 7049 images. There are 30 labels, represented as an x and y coordinate for 15 features of the face. **Talk about how data is accessed. Also that its all in a csv that needs to be extracted
+# Data
+The data for a feature detector is fairly important. Unlike classification where you can simply define a label to an image, feature detection needs to know where the features in the image are. The data I'm using can be found [here](https://www.kaggle.com/c/facial-keypoints-detection/data). Labeled data consists of 7049 images. There are 30 unique labels, represented as an x and y coordinate for 15 features of the face. 
+![](http://i.imgur.com/rPjZh9h.png)
+<p align="center">
+  <http://i.imgur.com/rPjZh9h.png />
+</p>
+The data is formatted in a csv file, where each row represents an image and it's labels. 
+**Talk about how data is accessed. Also that its all in a csv that needs to be extracted
 
 # Process
 To begin I want to start by building a simple neural network to see how it fares. Afterwards I'll implement a larger convolutional neural network and implement concepts that have shown to boost performance of networks, namely:
