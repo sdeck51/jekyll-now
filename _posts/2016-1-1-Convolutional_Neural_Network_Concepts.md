@@ -42,4 +42,5 @@ Show image of max pooling.
 
 ## References
 <img src="https://ujwlkarn.files.wordpress.com/2016/08/screen-shot-2016-08-10-at-3-38-39-am.png" width="22">
-{% include image.html url="https://ujwlkarn.files.wordpress.com/2016/08/screen-shot-2016-08-10-at-3-38-39-am.png" description="Max Pooling. [CITEHERE3]" size="300" %}
+<center>{% include image.html url="https://ujwlkarn.files.wordpress.com/2016/08/screen-shot-2016-08-10-at-3-38-39-am.png"
+</center>description="Max Pooling. [CITEHERE3]" size="300" %}
