@@ -17,6 +17,58 @@ The data used can be found [here](https://www.kaggle.com/c/facial-keypoints-dete
 
 # Process
 To begin I want to start by building a simple neural network to see how it fares. Afterwards I'll implement a larger convolutional neural network and implement concepts that have shown to boost performance of networks, namely:
+
+To start off we're going to look at a very simple neural network and see what kind of results we can obtain from that. To do this we need to be able to build fully connected layers.
+
+{% highlight python %}
+def createFullyConnectedLayer(x_input, width):
+    # createFullyConnectedLayer generates a fully connected layer in the session graph
+    # 
+    # x_input - output from previous layer
+    # width - width of the layer (eg for a 10 class output you need to end with a 10 width layer
+    #
+    # returns fully connected layer in graph
+    #
+    print("fc: input size: " + str(x_input.get_shape()))
+    weights = tf.get_variable('weights', shape=[x_input.get_shape()[1], width],
+                             initializer = tf.contrib.layers.xavier_initializer())
+    biases = tf.get_variable('biases', shape=[width], initializer=tf.constant_initializer(0))
+     
+    matrix_multiply = tf.matmul(x_input, weights)
+    
+    return tf.nn.bias_add(matrix_multiply, biases)
+{% endhighlight %}
+
+We'll need to be making multiple fully connected layers, as well as other types of layers, so I'll be making functions to generate these. The above will create a fully connected layer. Along with this we need to implement the node function. In neural networks each node has some sort of saturating function, such as the sigmoind, or hyperbolic tangent. For deep networks, due to speed concerns as well as vanishing gradient issues, linear rectifiers are used. Also called ReLu, this function is simply the function x with a floor of zero.
+
+{% highlight python %}
+def createLinearRectifier(x_input):
+    # createLinearRectifier generates a ReLu in the session graph
+    # 
+    # The reason this exists is due to the last fully connected layer not needing a relu while others do
+    # x_input - output from previous layer
+    # width - width of the layer
+    #
+    # returns ReLu in graph
+    # 
+    
+    return tf.nn.relu(x_input)
+{% endhighlight %}
+
+These two functions are all we need for now to build a simple model. We can create one more function that will be used to actually build the model.
+
+{% highlight python %}
+def createNetwork1(x_input):
+    with tf.variable_scope('in'):
+        x_input = tf.reshape(x_input, [-1, image_size*image_size])
+    with tf.variable_scope('hidden'):
+        hidden_fully_connected_layer = createFullyConnectedLayer(x_input, 100)
+        relu_layer = createLinearRectifier(hidden_fully_connected_layer)
+    with tf.variable_scope('out'):
+        return createFullyConnectedLayer(relu_layer, 30)
+{% endhighlight %}
+
+
 #### Concepts being implemented
 - dropout
 - data augmentation
