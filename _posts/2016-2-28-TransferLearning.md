@@ -101,6 +101,8 @@ Each class also should have a name for us humans to easily understand what the c
     
 Each of these files are needed to be able to load up the Inception v3 model, and then classify and understand the output of classification. From this we can parse the files to get class values and class ids from the dataset that was used to train Inception v3. Look at the code for more detail on how this is done.
 
+### Building the Model
+
 After we have an understanding of the files we can now build the model as a graph in tensorflow. This is fairly simple as a user to do as the tensorflow api is native with the model file's .pd format.
 
 {% highlight python %}
@@ -210,7 +212,9 @@ def getBottleneckValues(image_path):
     return np.squeeze(bottleneck_values)
 {% endhighlight %}
 
-Because this process can take a while to get, it's a good idea to cache the values onto disk so if you want to use it later you can just pull the values from a file rather than recalculating the values. For caching I use the pickle module and 
+
+
+Because this process can take a while to run, it's a good idea to cache the values onto disk so if you want to use it later you can just pull the values from a file rather than recalculating the values. For caching I use the pickle module and 
 
 {% highlight python %}
 def bottleneckCache(cache_path, images=None, image_paths=None):
@@ -236,6 +240,9 @@ def bottleneckCache(cache_path, images=None, image_paths=None):
 
     return bottleneck_values
 {% endhighlight %}
+
+Once the values are cached we can set up the data for training/validation/testing. You can use any method you're used to. I simply randomize the order of the data and split it up into training and validation samples.
+
 
 #### Training Modified Model
 - Optimization, batching, etc
