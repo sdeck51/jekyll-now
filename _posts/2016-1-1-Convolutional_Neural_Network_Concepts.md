@@ -53,6 +53,7 @@ Pooling, also known as subsampling, reduces the dimensionality of the previous l
 
 Show image of max pooling.
 <img src="https://ujwlkarn.files.wordpress.com/2016/08/screen-shot-2016-08-10-at-3-38-39-am.png" height="400" width="500">
+
 ### Fully Connected Layer
 
 ### Additional Stuff / Classification Layer /Full Pixel Layer?
