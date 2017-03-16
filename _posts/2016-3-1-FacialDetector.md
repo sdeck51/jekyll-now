@@ -6,8 +6,6 @@ title: Tensorflow - Facial Feature Detector
 
 In this post I go over how to make a facial feature detector. Full code [here](https://github.com/sdeck51/CNNTutorials/blob/master/7.%20FacialFeatureDetection_Tutorial/FaceDetector.ipynb).
 
-# Intro
-
 
 # Purpose/Goal
 The main goal for this tutorial is to demonstrate how one can build a facial feature detector from scratch using tensorflow. We'll go through several different models to demonstrate how one can make improvements that lead to an optimized model. We'll also talk about improvements that can be made.
@@ -17,6 +15,10 @@ The data for a feature detector is fairly important. Unlike classification where
 ![](http://i.imgur.com/rPjZh9h.png)
 <p align="center">
   <http://i.imgur.com/rPjZh9h.PNG/>
+</p>
+
+<p align="center">
+  <img src="http://i.imgur.com/rPjZh9h.png">
 </p>
 The data is formatted in a csv file, where each row represents an image and it's labels. 
 **Talk about how data is accessed. Also that its all in a csv that needs to be extracted
