@@ -241,10 +241,12 @@ def bottleneckCache(cache_path, images=None, image_paths=None):
     return bottleneck_values
 {% endhighlight %}
 
-Once the values are cached we can set up the data for training/validation/testing. You can use any method you're used to. I simply randomize the order of the data and split it up into training and validation samples.
+
 
 
 ### Separate the Data
+
+Once the values are cached we can set up the data for training/validation/testing. You can use any method you're used to. I simply randomize the order of the data and split it up into training and validation samples.
 
 ### Create new Classification Layer
 
