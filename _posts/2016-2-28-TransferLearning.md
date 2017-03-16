@@ -244,6 +244,78 @@ def bottleneckCache(cache_path, images=None, image_paths=None):
 Once the values are cached we can set up the data for training/validation/testing. You can use any method you're used to. I simply randomize the order of the data and split it up into training and validation samples.
 
 
+### Separate the Data
+
+### Create new Classification Layer
+
+Once our data is set up we'll define the new classiciation layer. This will take in the bottleneck values and output predictions. To do this we're going top create a fully connected layer that has a shape of the number in input bottleneck values by the number of output values which will be the number of new classes. We also give biases which equal to the number of classes. The input of the layer multiplies with the weights and the biases are added to that. This is then put through a softmax classification layer to output prediction percent per class.
+
+Along with the newly added network we also need to define the cost function. This is the function that will be optimized to build the best fit model. For multi class classification a popular method to use is cross entropy. When we get an output from our model we'll have percentages for each class indicating it's that percentage.
+
+For example
+
+    dog 50%
+    cat 22%
+    mouse 18%
+    lizard 10%
+
+In the above case lets say that the input was in fact a dog. While the output has the top class as a dog we would like that value to be closer to 100%. At the same time let's look at this scenario.
+
+    dog 95%
+    cat 4%
+    mouse 1%
+    lizard 0%
+    
+Dog is clearly the choice here, though it still isn't 100%. We don't want to penalize the model as much for being 5% off, while we would want to penalize it more for being "more" incorrect.
+
+![alt text](https://github.com/sdeck51/sdeck51.github.io/raw/master/images/crossentropy.PNG)
+
+Since we are working with values between 0 and 1, you can see why we need to have the negative value. The summation is used to simply get the single class that that image actually belongs to and take the log of the predicted percentage. If this percentage is closer to 1, the output of the function will be lower, while as it goes farther away is gets higher.
+
+With the cost function undertood we can apply an optimizer. The optimizer is what makes the model learn. Optimizing adjusts the weights and biases of the network to be closer to the actual labels. A popular optimizer is the simple stochastic gradient descent. Gradient Descent is an optimization method that involves following the gradient of a function to reach a minimum. Stochastic gradient descent follows the same algorithm, however in SGD we can "batch" the input and optimize multiple inputs at once. This improves the speed of the algorithm by taking single steps for multiple inputs. Along with this you can define the step size that the optimizer will take. If it's too large then it may pass over minimums in the model's cost function and never converge. On the other hand if it's too small it may simply take too long to reach a minimum. Once method of dealing with this is to introduce a exponentially decaying step length, so at the beginning of training we'll have x step size, and over time that length will exponentially decay.
+
+
+
+{% highlight python %}
+with graph.as_default():
+    
+    x_input = tf.placeholder(tf.float32, shape=[None, bottleneck_length])
+    y_output = tf.placeholder(tf.float32, shape=[None, num_classes])
+    y_output_class = tf.argmax(y_output, dimension=1)
+
+    num_epochs=2000
+    dropout = True
+    global_step = tf.Variable(0, trainable=False)
+    #learning rate
+    learning_rate = tf.train.exponential_decay(.01, global_step, num_epochs, 0.90, staircase = True)
+    
+    with tf.variable_scope('newfc'):
+        weights = tf.get_variable('weights', shape=[bottleneck_length, num_classes],
+                                 initializer = tf.contrib.layers.xavier_initializer())
+        biases = tf.get_variable('biases', shape=[num_classes], initializer=tf.constant_initializer(0))
+
+        matrix_multiply = tf.matmul(x_input, weights)
+
+        y_out = tf.nn.bias_add(matrix_multiply, biases)
+        
+    y_class = tf.nn.softmax(logits=y_out)
+    cross_entropy = tf.nn.softmax_cross_entropy_with_logits(labels=y_output, logits=y_out)
+    cross_entropy_mean = tf.reduce_mean(cross_entropy)
+
+    correct_prediction = tf.equal(tf.argmax(y_out,1), tf.argmax(y_output,1))
+    accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
+
+    optimizer = tf.train.GradientDescentOptimizer(learning_rate).minimize(cross_entropy_mean)
+    
+### Training
+
+{% endhighlight %}
+
+There are multiple things to note here.
+### Train the network
+
+### Results
+
 #### Training Modified Model
 - Optimization, batching, etc
 
