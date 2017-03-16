@@ -3,6 +3,7 @@ layout: post
 title: Tensorflow - Facial Feature Detector
 ---
 ![](http://i.imgur.com/90KjE6A.png?2)
+
 In this post I go over how to make a facial feature detector. Full code [here](https://github.com/sdeck51/CNNTutorials/blob/master/7.%20FacialFeatureDetection_Tutorial/FaceDetector.ipynb).
 
 # Intro
