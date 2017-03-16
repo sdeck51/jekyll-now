@@ -306,19 +306,26 @@ with graph.as_default():
     accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
 
     optimizer = tf.train.GradientDescentOptimizer(learning_rate).minimize(cross_entropy_mean)
-    
-### Training
-
+   
 {% endhighlight %}
 
-There are multiple things to note here.
-### Train the network
+### Training
+
+With everything set up we can finally begin training our model. To do this we need to do a few things. Firstly we'll want to implement a batching scheme that will take batches of our training data and feed it into the model. This will speed up the model by optimizing multiple inputs at a time. We also need to define how long to train our network. Lastly we'll want to see how the model is improving by calculating the training and validation accuracy.
+
+Code for that stuff
+
+
 
 ### Results
+After a model has been trained we can see how well it works! The main method of seeing how it runs is to determine its error, or inversely it's accuracy. For large models a lot of groups like to check the top-5 error, so we'll want to take in the top 5 predictions as we did when originally classifying the network, though this time by feeding the model the bottleneck values. If you separated your data with a test set this is where you should use it. Simply classify your test data and return both top1 and top5 results.
 
-#### Training Modified Model
-- Optimization, batching, etc
+Another method for seeing how well a model is working is by generating a confusion matrix. A confusion matrix lists the classes of a model and the predicted class of a model. Below is an example demonstrated using a small bird dataset.
 
+*image of thing*
+
+Along with this I like to display images from the set along with their actual labels and predicted labels.
+*image of thing*
 #### Results
 - validation accuracy
 - predictions
