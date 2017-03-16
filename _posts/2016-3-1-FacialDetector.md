@@ -11,15 +11,51 @@ In this post I go over how to make a facial feature detector. Full code [here](h
 The main goal for this tutorial is to demonstrate how one can build a facial feature detector from scratch using tensorflow. We'll go through several different models to demonstrate how one can make improvements that lead to an optimized model. We'll also talk about improvements that can be made.
 
 # Data
-The data for a feature detector is fairly important. Unlike classification where you can simply define a label to an image, feature detection needs to know where the features in the image are. The data I'm using can be found [here](https://www.kaggle.com/c/facial-keypoints-detection/data). Labeled data consists of 7049 images. There are 30 unique labels, represented as an x and y coordinate for 15 features of the face. 
+The data for a feature detector is fairly important. Unlike classification where you can simply define a label to an image, feature detection needs to know where the features in the image are. The data I'm using can be found [here](https://www.kaggle.com/c/facial-keypoints-detection/data). Labeled data consists of 7049 images. There are 30 unique labels, represented as an x and y coordinate for 15 features of the face. Below is an example of a image from the data set with the labels applied to the face.
 <p align="center">
   <img src="http://i.imgur.com/rPjZh9h.png">
 </p>
 
 
-The data is formatted in a csv file, where each row represents an image and it's labels. 
-**Talk about how data is accessed. Also that its all in a csv that needs to be extracted
+The data is formatted in a csv file, where each row represents an image and it's labels. It's fairly messy so we need to extract the image data along with the label data.
 
+{% highlight python %}
+def load():
+    
+    filename = testing_filename if isTesting else training_filename
+    df = pd.read_csv(filename)  # load pandas dataframe
+
+    # The Image column has pixel values separated by space; convert
+    # the values to numpy arrays:
+    df['Image'] = df['Image'].apply(lambda im: np.fromstring(im, sep = ' '))
+
+    df = df.dropna()  # drop all rows that have missing values in them.
+    
+    images = np.vstack(df['Image'].values) / 255.  # scale pixel values to [0, 1]
+    images = images.astype(np.float32)
+
+    labels = df[df.columns[:-1]].values
+    labels = (labels - 48) / 48  # scale target coordinates to [-1, 1]
+    labels = labels.astype(np.float32)
+    
+    # zip data
+    zipped_values = list(zip(images, labels))
+
+    #shuffle the data
+    random.shuffle(zipped_values)
+
+    #unzip new shuffled data
+    images, labels = zip(*zipped_values)
+    
+    return images, labels
+{% endhighlight %}
+
+# Wrapper for load() that reshapes the input to a image_size x image_size x channels
+def loadData():
+    x_image, y_label = load()
+    x_image = x_image.reshape(-1, image_size, image_size, channels)
+    return x_image, y_label
+    
 # Process
 To begin I want to start by building a simple neural network to see how it fares. Afterwards I'll implement a larger convolutional neural network and implement concepts that have shown to boost performance of networks, namely:
 
