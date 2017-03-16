@@ -43,12 +43,42 @@ cross entropy
 graphs of each here and their equations
 
 
-### Back Propagation
-The purpose of backpropagation is to optimize the weights of a neural network so it can learn the correct output or label, for a given input.
+### Backpropagation
+The purpose of backpropagation is to optimize the weights of a neural network so it can learn the correct output or label, for a given input. Let's go through a small example to demonstrate what it being done.
+
+example
+in1
+
+in2
+
+The weights are initialized as w1 = .15, w2 = .20, w3 = .25, w4 = .3, w5 = .40, w6 = .45. 
+
 #### Forward Pass
+Backpropogation can be broken down into two phases. The first is the forward pass. The forward pass simply calculates/predicts to output of a given input. For the initialized weights lets put in an input. Let our input be i1 = .05 and i2 be .10. 
 
+h1 = w1*i1 + w3*i2 = .15*.05 + .25*.10 = 0.0075 + 0.025 = 0.0325
+h2 = w3*i1 + w4*i2 = .25*.05 + .30*.10 = 0.0125 + 0.03 = 0.0425
 
-#### Backward Pass
+Assume we have sigmoid activation functions for the hidden and output layers
+
+outh1 = sig(h1) = 0.50812
+outh2 = sig(h2) = 0.51062
+
+o = w5*outh1 + w6*outh2 = .40*0.50812 + .45*0.51062 = 0.20325 + 0.22978 = 0.43303
+
+out = sig(o) = 0.60659
+
+Our output is 0.60659 for the given input. Now lets say that for that given input, the attached label is 1. We can use the cost function to determine the error. Lets use a squared error cost function.
+
+Error = 1/2(1-0.60659) = 0.196705
+
+We've calculated a forward pass and calculated the error with respect to a squared error cost function. Now we can look into the next step in backpropagation.
+
+#### Backwards Pass
+The backwards pass is where we update the weights in the network to make the predicted output closer to the label than it was. This process involves calculus. We want to look at each weight and determine how much it affects the error, or in other words we want to calculate the partial derivative with respect to some weight.
+
+dE/dw5 = dE/dout * dout/do * do/w5 (using chain rule)
+
 
 
 
