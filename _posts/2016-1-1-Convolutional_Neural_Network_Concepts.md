@@ -27,23 +27,36 @@ This network is called the perceptron. It can model linear regression or classif
 #### Activation Function
 The purpose of the activation function is to add nonlinearity to a model. The function sgn(s) simply turns on or off the input that is being assigned. Modern networks do this as well, though with nonlinear functions. Popular activation functions are sigmoid, tanh, and linear rectifiers.
 
-### Inference/Training
+## Inference/Training
 
-When training a model you have two pieces of data. The actual data, and the label for the data. When you put a piece of data into your model, you retrieve a predicted label. With the actual and predicted label you can quantify the error. This is done using a cost function, which can be specified .
+When training a model you have two pieces of data. The actual data, and the label for the data. When you put a piece of data into your model, you retrieve a predicted label. With the actual and predicted label you can quantify the error of the model. This is performed using a cost function.
 
-#### Cost Functions
-The cost function is used to determine the error between your model's predicted label and the actual label. There are many different cost functions used for different applications.
+### Cost Functions
+The cost function is used to determine the error between your model's predicted label and the actual label. Take for example multi-class classification, where each input has a single class out of more than 2 classes. Each label per input could be viewed as a one hot encoded vector, say (0, 0, 0, 1), where the 1 is the class it belongs to. If a model predicts that that inputs label is (.1, .05, .15 .7), then we can use a cost function to determine the error between them. Obviously if they were equal then the error would be zero. There are many different types of cost functions, used for various applications
+
+
+squared error
+sum(1/2(label-prediction)
+cross entropy
+
+
+graphs of each here and their equations
 
 
 ### Back Propagation
+The purpose of backpropagation is to optimize the weights of a neural network so it can learn the correct output or label, for a given input.
+#### Forward Pass
 
 
+#### Backward Pass
 
 
-### Convolution
-#### Kernel Sizes, Strides
 
 ## Convolutional Neural Networks
+
+### Convolution
+
+#### Kernel Sizes, Strides
 
 ### Convolution Layer
 Convolution layers consist of learnable kernels that are convolved against the input and output feature maps.  
