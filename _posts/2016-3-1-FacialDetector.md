@@ -16,7 +16,7 @@ The main goal for this tutorial is to demonstrate how one can build a facial fea
 The data for a feature detector is fairly important. Unlike classification where you can simply define a label to an image, feature detection needs to know where the features in the image are. The data I'm using can be found [here](https://www.kaggle.com/c/facial-keypoints-detection/data). Labeled data consists of 7049 images. There are 30 unique labels, represented as an x and y coordinate for 15 features of the face. 
 ![](http://i.imgur.com/rPjZh9h.png)
 <p align="center">
-  <http://i.imgur.com/rPjZh9h.png />
+  <http://i.imgur.com/rPjZh9h.png/>
 </p>
 The data is formatted in a csv file, where each row represents an image and it's labels. 
 **Talk about how data is accessed. Also that its all in a csv that needs to be extracted
