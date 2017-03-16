@@ -30,8 +30,7 @@ The purpose of the activation function is to add nonlinearity to a model. The fu
 ### Inference/Training
 
 
-<center>{% include image.html url="http://i.imgur.com/8QlqiS4.png"
-</center>description="Simple example showing what Learning. [CITEHERE3]" size="300" %}
+{% include image.html url="http://i.imgur.com/8QlqiS4.png" description="Simple example showing what Learning. [CITEHERE3]" size="300" %}
 When training a model you have two pieces of data. The actual data, and the label for the data. When you put a piece of data into your model, you retrieve a predicted label. With the actual and predicted label you can quantify the error. This is done using a cost function, which can be specified .
 
 #### Cost Functions
