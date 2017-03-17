@@ -106,13 +106,13 @@ This is used for every weight, going down each layer. The weights are adjusted s
 
 ## Convolutional Neural Networks
 <center>{% include image.html url="http://i.imgur.com/6Xe6Nz7.png"
-description="LeNET. [CITEHERE3]" size="600" %}</center>
+description="LeNET. [CITEHERE3]" size="900" %}</center>
 Moving on from perceptrons and simple neural networks we get into convolutional neural networks (ConvNet). These networks, as their name describes, use convolution through how the weights are tied between layers. Each pixel in each channel of a ConvNet represents a single input, so you can imagine these networks are fairly large. Their convolution layers allow for less interconnections between layers as weights are shared rather than are unique, and the structure retains spatial information since it's convolution. Let's quickly go over what convolution is, and look at the main components used to build a ConvNet.
 
 ### Convolution
 
 <center>{% include image.html url="http://deeplearning.stanford.edu/wiki/images/6/6c/Convolution_schematic.gif"
-description="Max Pooling. [Feature extraction using convolution, Stanford]" size="300" %}</center>
+description="Max Pooling. [Feature extraction using convolution, Stanford]" size="400" %}</center>
 A conv B =  sumx[n]h[n-k]
 
 #### Kernel Sizes, Strides
