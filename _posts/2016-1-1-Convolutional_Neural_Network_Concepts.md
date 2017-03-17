@@ -116,9 +116,11 @@ description="2 dimensional convolution. [Feature extraction using convolution, S
 A conv B =  sumx[n]h[n-k]
 
 #### Kernel Sizes, Strides
+In convolution you can define both the kernel size as well as stride. The kernel size is the height/width of the kernel and the stride is how farit slides while performing convolution. Along with this there are methods you can employ to the data you are convolving with. At the edge of an image you need to decide if you want your kernel to lap over the edge of the image or to remain in side. If the former then a padding technique needs to be employed, which will extend the input data such that the kernel has additional data to convolve with.
 
 ### Convolution Layer
-Convolution layers consist of learnable kernels that are convolved against the input and output feature maps.  What this means is a layer has multiple kernels, or groups of weights, that are applied to the image. These kernels 
+*feature map picture?*
+Convolution layers consist of learnable kernels that are convolved against the input and output feature maps.  What this means is a layer has multiple kernels, or groups of weights, that are applied to the image.
 
 #### Pooling Layer
 Pooling, also known as subsampling, reduces the dimensionality of the previous layers feature maps. These layers also help with overfitting by filtering out higher frequency information and retaining general low frequency information that is shared across a distribution of data, rather than specific training data. Like convolution, pooling uses a sliding window technique. The difference is in the operation of the window. There are several different types of downsampling used in pooling layers, some more popular such as max pooling.
