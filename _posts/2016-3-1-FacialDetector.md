@@ -179,16 +179,16 @@ with graph.as_default():
     dropout = True
     global_step = tf.Variable(0, trainable=False)
     #learning rate
-    learning_rate = tf.train.exponential_decay(.0005, global_step, num_epochs, 0.90, staircase = True) 
-    #learning_rate = 0.04
+    learning_rate = 0.04
     
-    #optimizer
+    #momentum
     momentum_rate = 0.9
     
     # get model
-    prediction_output = createNetwork2(x_input, is_training)
+    prediction_output = createSimpleNetwork(x_input)
     
     loss_function = tf.reduce_mean(tf.square(prediction_output - y_output))
+    #Momentumoptimizer implements SGD with momentum
     optimizer = tf.train.MomentumOptimizer(learning_rate, momentum_rate, use_nesterov=True).minimize(loss_function, global_step = global_step)
 
 {% endhighlight %}
@@ -305,7 +305,7 @@ The pooling layer only needs to know about how much downsampling it will be perf
 With these new layer generating functions we can build the convolutional neural network.
 
 {% highlight python %}
-def createNetwork2(x_input, isTraining):
+def createConvolutionalNetwork(x_input, isTraining):
     # Define convolution layers
     with tf.variable_scope('conv1'):
         convolution_layer1 = createConvolutionLayer(x_input, 3, 1, 32)
@@ -337,83 +337,40 @@ def createNetwork2(x_input, isTraining):
     return output
 {% endhighlight %}
 
+With this new model function simply swap out createSimpleNetwork with createConvolutionalNetwork. Train the network with the same code. 
 
+*Graph that has both NN and CNN*
+*Faces with CNN*
 
-#### Concepts being implemented
-- dropout
-- data augmentation
-- optimizer optimizations (momentum, learning rate)
+Conv improved learning rate
 
-#### 6 networks to compare
-- Basic NN
-- Conv
-- Conv improved learning rate
-- Conv data augmentation
-- Conv decaying learning rate
-- Conv dropout
+One of the first improvements to suggest if you feel your model is training slowly is to simply increase the learning rate. This will increase the distance the optimization takes, which can increase the speed. It can also raise the chance that you won't converge. The issue is if you're optimizing to a minimum and your step size moves over it then you could end up oscillating past minimums, and also blow up.
 
-#### CNN Model
-- 3 convolution layers
-- each followed by a max pooling layer
-- 3 fully connected layers
-*Make picture of model
-*Include dimensions
+*Graph that has both CNN02 and CNN04*
+*Faces with CNN04*
 
-#### Progress
-I have a bunch of different working models demonstrating concepts that improve the model. I would like to do additional models to improve results even more if I have enough time.
+As I just mentions, increasing the learning rate can be beneficial, but not when converging. Instead of having a constant learning rate, we can have a learning rate that is high at the beginning and that decays over time. This way we'll have small step sizes when we need to.
 
-###Code Syntax Test
-{% highlight python %}
-import tensorflow as tf
-import numpy as np
-import matplotlib.pyplot as plt
-import os
-from sklearn.metrics import confusion_matrix
+*Graph that has both CNN04 and CNNDecay*
+*Faces with CNNDecay*
 
-### Used for importing the model
-import urllib.request
-import tarfile
-import zipfile
-import sys
-import os
-import pickle
-import random
+Once we're comfortable with our optimization changes we need to start thinking about other ways to increase performance of the model. One problem that most people come across is not having enough data. We can generate an infinite supply of data by augmenting our images. Obviously this isn't as good as having unique data but let's see how it improves our models.
 
-from IPython.display import Image, display
+### Data Augmentation
 
-{% endhighlight %}
+#### Flipping Images
+#### Changing Brightness
+#### Adding Noise
 
-{% highlight ruby %}
-def createConvolutionLayer(x_input, kernel_size, features, depth):
-    # createConvolutionLayer generates a convolution layer in the session graph
-    # by assigning weights, biases, convolution and relu function
-    #
-    # x_input - output from the previous layer
-    # kernel_size - size of the feature kernels
-    # depth - number of feature kernels
-    #
-    # returns convolution layer in graph
-    #
-    print("conv: input size: " + str(x_input.get_shape()))
-    weights = tf.get_variable('weights', shape=[kernel_size, kernel_size, features, depth],
-                             initializer = tf.contrib.layers.xavier_initializer())
-    
-    biases = tf.get_variable('biases', shape=[depth], initializer=tf.constant_initializer(0))
-    
-    convolution = tf.nn.conv2d(x_input, weights, strides=[1,1,1,1], padding='SAME')
-    
-    added = tf.nn.bias_add(convolution, biases)
-    
-    return tf.nn.relu(added)
+*Graph that has both CNNDecay and CNNDA*
+*Faces with CNNDA*
 
-{% endhighlight %}
+Conv dropout
 
-```python
-import urllib2
-def function():
-    #This is a function
-```
+With data augmentation we should have a much better model. Even with this though we're having overfitting issues. The last change we're going to make to our model is implementing dropout. Dropout is a highly used technique that helps to generalize the model by disabling nodes while training. Instead of training all of the nodes in a layer, dropout disables randomly selected nodes(with a user defined ratio) and those nodes do not learn for that step. The idea is that this will discriminate features in images to certain nodes, so nodes in general will learn more unique features, rather than learning the same features from the same images. One disadvantage in using dropout is that training becomes a lot slower. This makes sense though as we're only training certain nodes on certain layers. What this gives us in return though is longer training with longer learning.
 
+*Graph that has both CNNDecay and CNNDA*
+*Faces with CNNDA*
 
 # Results
 ![](http://i.imgur.com/qMv2z9k.png)
