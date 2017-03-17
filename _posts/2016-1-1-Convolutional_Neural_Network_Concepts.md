@@ -6,7 +6,7 @@ title: Neural Network Theory
 In this post I go over the basics of neural networks and convolutional neural networks.
 
 # What are Convolutional Neural Networks?
-There are a lot of concepts in Convolutional Neural Networks(CNN) that need to be covered. Here we'll go through each of them. CNNs can be thought of as two concepts, one being a neural network and the other being organized via convolutions.
+There are a lot of concepts in Convolutional Neural Networks(ConvNet) that need to be covered. here we'll discuss concepts and theory needed for understanding the Tensorflow tutorials. To start off ConvNets can be thought of as two concepts, one being a neural network and the other being organized via convolutions. We'll discuss what neural networks are and how they are trained. Then we'll look at what makes convolutional neural networks different from standard neural networks.
 
 ## Neural Networks
 Neural Networks are systems of several simple elements interconnected among each other that are trained and adjusted to some requested output for some given input. 
