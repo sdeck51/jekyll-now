@@ -253,6 +253,94 @@ Along with this we can run some predictions. Since this isn't classification I'm
 <center>{% include image.html url="http://i.imgur.com/kko4cYY.png"
 description="Simple Neural Network Results" size="700" %}</center>
 
+We can infer from the above image that the model is not sufficient. Some of the eye features are close, but the mouth features are structured correctly, but are extrememly off. With this we can actually take a few different avenues. If you want you can let it train longer. You can also modify the optimization method. For now though I want to build a convolutional neural network. Techniques I use on it will also be applied to this network to demonstrate their effectiveness.
+
+# Convolutional Neural Network
+
+*picture of model I'm building*
+For this network we're going to be building a ConvNet roughly 10x larger than the simple neural network. I already introduced the fully connected layer and linear rectifier generating function. Now I need to introduce the convolution layer and pooling layer generating functions.
+
+{% highlight python %}
+def createConvolutionLayer(x_input, kernel_size, features, depth):
+    # createConvolutionLayer generates a convolution layer in the session graph
+    # by assigning weights, biases, convolution and relu function
+    #
+    # x_input - output from the previous layer
+    # kernel_size - size of the feature kernels
+    # depth - number of feature kernels
+    #
+    # returns convolution layer in graph
+    #
+    print("conv: input size: " + str(x_input.get_shape()))
+    weights = tf.get_variable('weights', shape=[kernel_size, kernel_size, features, depth],
+                             initializer = tf.contrib.layers.xavier_initializer())
+    
+    biases = tf.get_variable('biases', shape=[depth], initializer=tf.constant_initializer(0))
+    
+    convolution = tf.nn.conv2d(x_input, weights, strides=[1,1,1,1], padding='SAME')
+    
+    added = tf.nn.bias_add(convolution, biases)
+    
+    return tf.nn.relu(added)
+{% endhighlight %}
+
+Every convolution layer consists of weights and biases, organized in a way where weight connections are performing convolution on the input. Like the fully connected layer, the weights are applied with Xavier initialization.
+
+{% highlight python %}
+def createPoolingLayer(x_input, kernel_size):
+    # createPoolingLayer generates a pooling layer in the session graph
+    # 
+    # The reason this exists is due to the last fully connected layer not needing a relu while others do
+    # x_input - output from previous layer
+    # kernel_size - size of the kernel
+    #
+    # returns pooling layer in graph
+    # 
+    print("pool: input size: " + str(x_input.get_shape()))
+    return tf.nn.max_pool(x_input, ksize=[1, kernel_size, kernel_size, 1], strides=[1,kernel_size,kernel_size, 1], padding='SAME')
+{% endhighlight %}
+
+The pooling layer only needs to know about how much downsampling it will be performing, which is done through the kernel size.
+
+With these new layer generating functions we can build the convolutional neural network.
+
+{% highlight python %}
+def createNetwork2(x_input, isTraining):
+    # Define convolution layers
+    with tf.variable_scope('conv1'):
+        convolution_layer1 = createConvolutionLayer(x_input, 3, 1, 32)
+        pooling_layer1 = createPoolingLayer(convolution_layer1, 2)
+        # Determine if used for training or test/validate. Only use dropout for training
+        pooling_layer1 = tf.cond(isTraining, lambda: tf.nn.dropout(pooling_layer1, keep_prob=0.9), lambda: pooling_layer1)
+    with tf.variable_scope('conv2'):
+        convolution_layer2 = createConvolutionLayer(pooling_layer1, 2, 32, 64)
+        pooling_layer2 = createPoolingLayer(convolution_layer2, 2)
+        # Determine if used for training or test/validate. Only use dropout for training
+        pooling_layer2 = tf.cond(isTraining, lambda: tf.nn.dropout(pooling_layer2, keep_prob=0.8), lambda: pooling_layer2)
+    with tf.variable_scope('conv3'):
+        convolution_layer3 = createConvolutionLayer(pooling_layer2, 2, 64, 128)
+        pooling_layer3 = createPoolingLayer(convolution_layer3, 2)
+        # Determine if used for training or test/validate. Only use dropout for training
+        pooling_layer3 = tf.cond(isTraining, lambda: tf.nn.dropout(pooling_layer3, keep_prob=0.7), lambda: pooling_layer3)
+    
+    # Flatten output to connect to fully connected layers
+    print("fc: input size before flattening: " + str(pooling_layer3.get_shape()))
+    pooling_layer3_shape = pooling_layer3.get_shape().as_list()
+    pooling_layer3_flattened = tf.reshape(pooling_layer3, [-1, pooling_layer3_shape[1] * pooling_layer3_shape[2] * pooling_layer3_shape[3]])
+    
+    # Define fully connected layers
+    with tf.variable_scope('fc1'):
+        fully_connected_layer1 = createFullyConnectedLayer(pooling_layer3_flattened, 500)
+        fully_connected_relu1 = createLinearRectifier(fully_connected_layer1)
+        fully_connected_relu1 = tf.cond(isTraining, lambda: tf.nn.dropout(fully_connected_relu1, keep_prob=0.5), lambda: fully_connected_relu1)
+    with tf.variable_scope('fc2'):
+        fully_connected_layer2 = createFullyConnectedLayer(fully_connected_relu1, 500)
+        fully_connected_relu2 = createLinearRectifier(fully_connected_layer2)
+    with tf.variable_scope('out'):
+        output = createFullyConnectedLayer(fully_connected_relu2, num_labels)
+        print("out: " + str(output.get_shape()))
+    return output
+{% endhighlight %}
 #### Concepts being implemented
 - dropout
 - data augmentation
