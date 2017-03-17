@@ -252,11 +252,10 @@ description="Training and Validation over 1000 epochs." size="400" %}</center>
 
 Our model ends up with a training error of 0.018857 and validation error of 0.02027. One thing to notice is that the model could have been trained for a longer period of time. This is only 5 minutes of training. The reason I'm not though is because this model is simply learning too slowly. There are other methods we can use to improve the performance and reduce the training time. If you have the time feel free to try running this for more epochs. For now we want to see some actual images with their predicted feature locations. I like grabbing a large span of them, 25 in this case, and displaying them.
 
-*needs changed*
-<center>{% include image.html url="http://i.imgur.com/8W1LY9T.png"
+<center>{% include image.html url="http://i.imgur.com/hYDo9lR.png"
 description="Simple Neural Network Results" size="700" %}</center>
 
-We can see that for our very first model that the results... are not looking good. These are images that the model has not seen before, from the validation set. Clearly the model needs more work. There are many avenues that we can take, which means we'll be experimenting with different techniques to improve the detector. Obviously would could train it for a longer period of time. We can also play with the optimization parameters. Along with that there are techniques to virtually increase the dataset size. What I want to start with though is run the same set up but with a larger convolutional neural network.
+We can see that for our very first model that the results... are not looking good. These are images that the model has not seen before, from the validation set. Clearly the model needs more work. There are many avenues that we can take, which means we'll be experimenting with different techniques to improve the detector. One obvious change we could make is to train it for a longer period of time. We can also play with the optimization parameters. Along with that there are techniques to virtually increase the dataset size. What I want to start with though is run the same set up but with a larger convolutional neural network.
 
 # Convolutional Neural Network
 
@@ -343,8 +342,12 @@ def createConvolutionalNetwork(x_input, isTraining):
 With this new model function simply swap out createSimpleNetwork with createConvolutionalNetwork. Train the network with the same code. 
 
 *Graph that has both NN and CNN*
-*Faces with CNN*
+<center>{% include image.html url="http://i.imgur.com/MsTztZ3.png"
+description="ConvNet and SimpleNet using SGD" size="500" %}</center>
 
+*Faces with CNN*
+<center>{% include image.html url="http://i.imgur.com/xMwIJUV.png"
+description="ConvNet predictions" size="700" %}</center>
 Conv improved learning rate
 
 One of the first improvements to suggest if you feel your model is training slowly is to simply increase the learning rate. This will increase the distance the optimization takes, which can increase the speed. It can also raise the chance that you won't converge. The issue is if you're optimizing to a minimum and your step size moves over it then you could end up oscillating past minimums, and also blow up.
