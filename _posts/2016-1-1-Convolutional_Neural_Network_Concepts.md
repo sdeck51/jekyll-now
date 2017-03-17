@@ -112,7 +112,7 @@ Moving on from perceptrons and simple neural networks we get into convolutional 
 ### Convolution
 
 <center>{% include image.html url="http://deeplearning.stanford.edu/wiki/images/6/6c/Convolution_schematic.gif"
-description="2 dimensional convolution. [Feature extraction using convolution, Stanford]" size="250" %}</center>
+description="2 dimensional convolution. [Feature extraction using convolution, Stanford]" size="500" %}</center>
 A conv B =  sumx[n]h[n-k]
 
 #### Kernel Sizes, Strides
