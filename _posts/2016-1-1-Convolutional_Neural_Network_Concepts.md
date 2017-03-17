@@ -70,7 +70,7 @@ out = sig(o) = 0.60659
 
 Our output is 0.60659 for the given input. Now lets say that for that given input, the attached label is 1. We can use the cost function to determine the error. Lets use a squared error cost function.
 
-Error = 1/2(1-0.60659) = 0.196705
+Error = 1/2(1-0.60659)^2 = 0.07738
 
 We've calculated a forward pass and calculated the error with respect to a squared error cost function. Now we can look into the next step in backpropagation.
 
@@ -79,17 +79,43 @@ The backwards pass is where we update the weights in the network to make the pre
 
 dE/dw5 = dE/dout * dout/do * do/w5 (using chain rule)
 
+We need to calculate eachpartial derivative.
+
+E = 1/2(label - out)^2
+
+dE/dout = label - out = 1 - 0.60659 = 0.39341
+
+out = sig(o)
+
+dout/do = out(1-out) = 0.60659(1-0.60659) = .23864
+
+o = w5*outh1 + w6*outh2
+
+do/dw5 = outh1 = 0.50812
+
+dE/dw5 = 0.39341 * .23864 * 0.50812 = 0.04770
+
+new_w5 = w5 - n*dE/dw5 = 0.40 - 0.5*0.04770 = 0.37613 (where n is the user set learning rate)
+
+This is used for every weight, going down each layer. The weights are adjusted such that their prediction is closer to the actual label. Calculation of the partial derivative can be done using several different algorithms.
+
+#### Stochastic Gradient Descent (SGD)
+
 
 
 
 ## Convolutional Neural Networks
+<center>{% include image.html url="http://i.imgur.com/6Xe6Nz7.png"
+description="LeNET. [CITEHERE3]" size="300" %}</center>
+Moving on from perceptrons and simple neural networks we get into convolutional neural networks (ConvNet). These networks, as their name describes, use convolution through how the weights are tied between layers. Each pixel in each channel of a ConvNet represents a single input, so you can imagine these networks are fairly large. Their convolution layers allow for less interconnections between layers as weights are shared rather than are unique, and the structure retains spatial information since it's convolution. Let's quickly go over what convolution is, and look at the main components used to build a ConvNet.
 
 ### Convolution
+
 
 #### Kernel Sizes, Strides
 
 ### Convolution Layer
-Convolution layers consist of learnable kernels that are convolved against the input and output feature maps.  
+Convolution layers consist of learnable kernels that are convolved against the input and output feature maps.  What this means is a layer has multiple kernels, or groups of weights, that are applied to the image. These kernels 
 
 #### Pooling Layer
 Pooling, also known as subsampling, reduces the dimensionality of the previous layers feature maps. These layers also help with overfitting by filtering out higher frequency information and retaining general low frequency information that is shared across a distribution of data, rather than specific training data. Like convolution, pooling uses a sliding window technique. The difference is in the operation of the window. There are several different types of downsampling used in pooling layers, some more popular such as max pooling.
