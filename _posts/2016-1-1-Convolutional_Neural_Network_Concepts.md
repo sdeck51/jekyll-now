@@ -127,6 +127,7 @@ Show image of max pooling.
 <img src="https://ujwlkarn.files.wordpress.com/2016/08/screen-shot-2016-08-10-at-3-38-39-am.png" height="400" width="500">
 
 ### Fully Connected Layer
+Fully connected layers are simply layers where every input is connected to every node, hence fully connected. In convolutional neural networks these layers are placed towards the end to flatten out the model and eventually reach an output vector of 1 by X, where X is the number of classes.
 
 ### Additional Stuff / Classification Layer /Full Pixel Layer?
 
