@@ -245,12 +245,12 @@ This code will start training your model. There is additional code beyond this t
 
 Once the model is finished running you can run predictions, as well as see how it learned over time. Below is a plot showing the training error vs the validation error.
 
-<center>{% include image.html url="http://i.imgur.com/rPjZh9h.png"
+<center>{% include image.html url="http://i.imgur.com/LzDXs5B.png"
 description="Training and Validation over 1000 epochs." size="400" %}</center>
 
-Along with this we can run some predictions. Since this isn't classification I'm going to display multiple images overlaid with their labeled feature locations and the models predicted feature locations.
+Running beyond doesn't show much improvement for the model, suggesting that the model cannot learn more. Along with this we can run some predictions. Since this isn't classification I'm going to display multiple images overlaid with their labeled feature locations and the models predicted feature locations.
 
-<center>{% include image.html url="http://i.imgur.com/kko4cYY.png"
+<center>{% include image.html url="http://i.imgur.com/y0QDTlp.png"
 description="Simple Neural Network Results" size="700" %}</center>
 
 We can infer from the above image that the model is not sufficient. Some of the eye features are close, but the mouth features are structured correctly, but are extrememly off. With this we can actually take a few different avenues. If you want you can let it train longer. You can also modify the optimization method. For now though I want to build a convolutional neural network. Techniques I use on it will also be applied to this network to demonstrate their effectiveness.
@@ -310,13 +310,9 @@ def createNetwork2(x_input, isTraining):
     with tf.variable_scope('conv1'):
         convolution_layer1 = createConvolutionLayer(x_input, 3, 1, 32)
         pooling_layer1 = createPoolingLayer(convolution_layer1, 2)
-        # Determine if used for training or test/validate. Only use dropout for training
-        pooling_layer1 = tf.cond(isTraining, lambda: tf.nn.dropout(pooling_layer1, keep_prob=0.9), lambda: pooling_layer1)
     with tf.variable_scope('conv2'):
         convolution_layer2 = createConvolutionLayer(pooling_layer1, 2, 32, 64)
         pooling_layer2 = createPoolingLayer(convolution_layer2, 2)
-        # Determine if used for training or test/validate. Only use dropout for training
-        pooling_layer2 = tf.cond(isTraining, lambda: tf.nn.dropout(pooling_layer2, keep_prob=0.8), lambda: pooling_layer2)
     with tf.variable_scope('conv3'):
         convolution_layer3 = createConvolutionLayer(pooling_layer2, 2, 64, 128)
         pooling_layer3 = createPoolingLayer(convolution_layer3, 2)
@@ -332,7 +328,6 @@ def createNetwork2(x_input, isTraining):
     with tf.variable_scope('fc1'):
         fully_connected_layer1 = createFullyConnectedLayer(pooling_layer3_flattened, 500)
         fully_connected_relu1 = createLinearRectifier(fully_connected_layer1)
-        fully_connected_relu1 = tf.cond(isTraining, lambda: tf.nn.dropout(fully_connected_relu1, keep_prob=0.5), lambda: fully_connected_relu1)
     with tf.variable_scope('fc2'):
         fully_connected_layer2 = createFullyConnectedLayer(fully_connected_relu1, 500)
         fully_connected_relu2 = createLinearRectifier(fully_connected_layer2)
@@ -341,6 +336,9 @@ def createNetwork2(x_input, isTraining):
         print("out: " + str(output.get_shape()))
     return output
 {% endhighlight %}
+
+
+
 #### Concepts being implemented
 - dropout
 - data augmentation
