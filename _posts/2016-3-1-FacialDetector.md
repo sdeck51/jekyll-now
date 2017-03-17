@@ -103,6 +103,10 @@ def createLinearRectifier(x_input):
 {% endhighlight %}
 
 # Building the Network
+
+## To do
+I want to change the beginning to demonstrate using SGD first. This will result in much worse models and show that the final model is that much better.
+
 To begin I want to start by building a simple neural network to see how it fares. Afterwards I'll implement a larger convolutional neural network and implement concepts that have shown to boost performance of networks, namely:
 
 To start off we're going to look at a very simple neural network and see what kind of results we can obtain from that. To do this we need to be able to build fully connected layers.
@@ -162,7 +166,7 @@ What we're doing here is creating a simple 2 layermodel in the tensorflow graph.
 With a model defined there is still additional work to be done. We need to define how to optimize the model.
 
 ### Optimization
-Optimization is how a neural network learns. When you feed input to the model, it will also give an output. We're working with supervised learning, so when training we compare the output of a model with the actual label. If the prediction isn't a match with the label then we need to adjust the model. This is done by changing the weights and biases, which is done via optimization. I tried a few different optimizer and settled on stochastic gradient descent.
+Optimization is how a neural network learns. When you feed input to the model, it will also give an output. We're working with supervised learning, so when training we compare the output of a model with the actual label. If the prediction isn't a match with the label then we need to adjust the model. This is done by changing the weights and biases, which is done via optimization. For this first model we'll use Stochastic Gradient Descent.
 
 {% highlight python %}
 graph = tf.Graph()
@@ -179,7 +183,7 @@ with graph.as_default():
     dropout = True
     global_step = tf.Variable(0, trainable=False)
     #learning rate
-    learning_rate = 0.04
+    learning_rate = 0.0001
     
     #momentum
     momentum_rate = 0.9
@@ -188,12 +192,12 @@ with graph.as_default():
     prediction_output = createSimpleNetwork(x_input)
     
     loss_function = tf.reduce_mean(tf.square(prediction_output - y_output))
-    #Momentumoptimizer implements SGD with momentum
-    optimizer = tf.train.MomentumOptimizer(learning_rate, momentum_rate, use_nesterov=True).minimize(loss_function, global_step = global_step)
+    optimizer = tf.train.GradientDescentOptimizer(learning_rate).minimize(loss_function)
+    
 
 {% endhighlight %}
 
-To optimize we obviously need a cost function to optimize. For this problem we're dealing with error in distances of several points, so we're using mean squared error for the loss function. sum(1/2(x-x'))
+To optimize we obviously need a cost function to optimize. For this problem we're dealing with error in distances of several points, so we're using mean squared error for the loss function, which can be seen above. In tensorflow the optimization for SGD needs a learning rate assigned. You can play around with this value, but I've found too high of a step size to not converge. For this I'm starting at 0.0001, just to demonstrate the the model learns, though it is very slow.
 
 ### Training the network
 The last large step we need to implement is the code to actually train the network.
@@ -210,16 +214,16 @@ with tf.Session(graph = graph) as session:
     saver = tf.train.Saver()
     for current_epoch in range(num_epochs+1):
         for batch_data, labels in batch(x_train, y_train, batch_size):
-            feed_dict = {x_input: batch_data, y_output: labels, is_training: dropout}
+            feed_dict = {x_input: batch_data, y_output: labels, is_training: True}
             # training and optimizing
             session.run([optimizer], feed_dict = feed_dict)
-            
-        train_loss = lossFunction(get_predictions_in_batches(x_train, session), y_train)
-        train_loss_list.append(train_loss)
-        valid_loss = lossFunction(get_predictions_in_batches(x_validate, session), y_validate)
-        valid_loss_list.append(valid_loss)
         #if(current_epoch % 10 == 0):
-        # validate every so often
+        # validate every so often    
+            train_loss = lossFunction(get_predictions_in_batches(x_train, session), y_train)
+            train_loss_list.append(train_loss)
+            valid_loss = lossFunction(get_predictions_in_batches(x_validate, session), y_validate)
+            valid_loss_list.append(valid_loss)
+        
 
         current_time = time.time() - start
 
@@ -237,23 +241,22 @@ with tf.Session(graph = graph) as session:
     save_path = saver.save(session, model_path)
 {% endhighlight %}
 
-
-
 This code will start training your model. There is additional code beyond this that you will need to implement. Refer to the github page.
 
 # Simple Neural Network Results
 
-Once the model is finished running you can run predictions, as well as see how it learned over time. Below is a plot showing the training error vs the validation error.
+Once the model is finished running you can run predictions, as well as see how it learned over time. For the first experiment I'm running the model for 1000 epochs. Below is a plot showing the training error vs the validation error of the model over it's training period.
 
-<center>{% include image.html url="http://i.imgur.com/LzDXs5B.png"
+<center>{% include image.html url="http://i.imgur.com/T020WcU.png"
 description="Training and Validation over 1000 epochs." size="400" %}</center>
 
-Running beyond doesn't show much improvement for the model, suggesting that the model cannot learn more. Along with this we can run some predictions. Since this isn't classification I'm going to display multiple images overlaid with their labeled feature locations and the models predicted feature locations.
+Our model ends up with a training error of 0.018857 and validation error of 0.02027. One thing to notice is that the model could have been trained for a longer period of time. This is only 5 minutes of training. The reason I'm not though is because this model is simply learning too slowly. There are other methods we can use to improve the performance and reduce the training time. If you have the time feel free to try running this for more epochs. For now we want to see some actual images with their predicted feature locations. I like grabbing a large span of them, 25 in this case, and displaying them.
 
-<center>{% include image.html url="http://i.imgur.com/y0QDTlp.png"
+*needs changed*
+<center>{% include image.html url="http://i.imgur.com/8W1LY9T.png"
 description="Simple Neural Network Results" size="700" %}</center>
 
-We can infer from the above image that the model is not sufficient. Some of the eye features are close, but the mouth features are structured correctly, but are extrememly off. With this we can actually take a few different avenues. If you want you can let it train longer. You can also modify the optimization method. For now though I want to build a convolutional neural network. Techniques I use on it will also be applied to this network to demonstrate their effectiveness.
+We can see that for our very first model that the results... are not looking good. These are images that the model has not seen before, from the validation set. Clearly the model needs more work. There are many avenues that we can take, which means we'll be experimenting with different techniques to improve the detector. Obviously would could train it for a longer period of time. We can also play with the optimization parameters. Along with that there are techniques to virtually increase the dataset size. What I want to start with though is run the same set up but with a larger convolutional neural network.
 
 # Convolutional Neural Network
 
