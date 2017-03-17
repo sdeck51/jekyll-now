@@ -11,11 +11,11 @@ In this post I go over how to make a facial feature detector. Full code [here](h
 The main goal for this tutorial is to demonstrate how one can build a facial feature detector from scratch using tensorflow. We'll go through several different models to demonstrate how one can make improvements that lead to an optimized model. We'll also talk about improvements that can be made.
 
 # Data
-The data for a feature detector is fairly important in defining the model we'll be building. Unlike image classification where you can simply assign a label to an image, feature detection needs to know where the features in the image are, using through coordinates. The data I'm using can be found [here](https://www.kaggle.com/c/facial-keypoints-detection/data). Labeled data consists of 7049 images. There are 30 unique values in a label, represented as an x and y coordinate for 15 features of the face. Below is an example of a image from the data set with the labels applied to the face.
+The data for a feature detector is fairly important in defining the model we'll be building. Unlike image classification where you can simply assign a label to an image, feature detection needs to know where the features in the image are, using through coordinates. The data I'm using can be found [here](https://www.kaggle.com/c/facial-keypoints-detection/data). Labeled data consists of 7049 images, though many samples are missing certain labels. There are 30 unique values in a label, represented as an x and y coordinate for 15 features of the face. Below is an example of a image from the data set with the labels applied to the face.
 <center>{% include image.html url="http://i.imgur.com/rPjZh9h.png"
-description="2 dimensional convolution. [Feature extraction using convolution, Stanford]" size="500" %}</center>
+description="2 dimensional convolution. [Feature extraction using convolution, Stanford]" size="250" %}</center>
 
-The data is formatted in a csv file, where each row represents an image and it's labels. It's fairly messy so we need to extract the image data along with the label data.
+The data is formatted in a csv file, where each row represents an image and it's labels. It's a fairly messy file so we need to work on extracting the image data along with the label data.
 
 {% highlight python %}
 def load():
@@ -55,7 +55,9 @@ def loadData():
     
 {% endhighlight %}
 
-With the above code we can successfully load the data. With this we need to simply split up the data in some fashion. In deep learning cross validation isn't as often used due to time. Deep networks can train from hours to days, weeks to months, and using cross validation isn't as helpful, along with the fact that cross validation is used when data is limited. In deep networks we use large datasets that (hopefully) span the set we'll test with.
+With the above code we can successfully load the data. We pull 
+
+With this we need to simply split up the data in some fashion. In deep learning cross validation isn't as often used due to time. Deep networks can train from hours to days, weeks to months, and using cross validation isn't as helpful, along with the fact that cross validation is used when data is limited. In deep networks we use large datasets that (hopefully) span the set we'll test with.
 
 # Building Neural Networks
 For this tutorial we're going to build several different models. The reason for this is to demonstrate different technical techniques that can be used to optimize the model to create the best performing model. To make this easier to create and deplot we'll look at building some generating functions that we can call that will build the layers of the models that we will need. If you get lost refer to the [theory page](https://sdeck51.github.io/Convolutional_Neural_Network_Concepts/).
@@ -81,8 +83,10 @@ def createFullyConnectedLayer(x_input, width):
     
     return tf.nn.bias_add(matrix_multiply, biases)
 {% endhighlight %}
-A few things need to be discussed here. A fully connected layer has weights and biases. In real world practices these need to be initialized such that the weights and biases learn different features of the input.
-Generally the layers are connected to a saturating function. In our case we're looking at using linear rectifiers, as they are fast and prone to vanishing gradients.
+
+
+
+Generally the layers are connected to an activation function. In our case we're looking at using linear rectifiers, as they train fast fast and are less prone to vanishing gradients than typical sigmoid and tanH functions.
 
 {% highlight python %}
 def createLinearRectifier(x_input):
@@ -98,7 +102,7 @@ def createLinearRectifier(x_input):
     return tf.nn.relu(x_input)
 {% endhighlight %}
 
-# Process
+# Building the Network
 To begin I want to start by building a simple neural network to see how it fares. Afterwards I'll implement a larger convolutional neural network and implement concepts that have shown to boost performance of networks, namely:
 
 To start off we're going to look at a very simple neural network and see what kind of results we can obtain from that. To do this we need to be able to build fully connected layers.
@@ -122,7 +126,9 @@ def createFullyConnectedLayer(x_input, width):
     return tf.nn.bias_add(matrix_multiply, biases)
 {% endhighlight %}
 
-We'll need to be making multiple fully connected layers, as well as other types of layers, so I'll be making functions to generate these. The above will create a fully connected layer. Along with this we need to implement the node function. In neural networks each node has some sort of saturating function, such as the sigmoind, or hyperbolic tangent. For deep networks, due to speed concerns as well as vanishing gradient issues, linear rectifiers are used. Also called ReLu, this function is simply the function x with a floor of zero.
+We'll need to be making multiple fully connected layers, as well as other types of layers, so I'll be making functions to generate these. The above will create a fully connected layer. Along with this we need to implement the activation function. In neural networks each node has some sort of saturating function, such as the sigmoind, or hyperbolic tangent. For deep networks, due to speed concerns as well as vanishing gradient issues, linear rectifiers are used. Also called ReLu, this function is simply the function x with a floor of zero.
+
+Another concern we have is the weights need to be initialized in some fashion, because if they have the same initial values then they may end up learning similar features and create an underperforming model. People have found that simply applying gaussian a guassian distribution with zero variance works well for both improved training speed as well as preventing the networking from learning the same features, or even from it stop learning. We'll be using xavier initialization for this.
 
 {% highlight python %}
 def createLinearRectifier(x_input):
@@ -182,13 +188,70 @@ with graph.as_default():
     # get model
     prediction_output = createNetwork2(x_input, is_training)
     
-    #loss_function = tf.reduce_mean(-tf.reduce_sum(y_ * tf.log(y), reduction_indices=[1]))
     loss_function = tf.reduce_mean(tf.square(prediction_output - y_output))
     optimizer = tf.train.MomentumOptimizer(learning_rate, momentum_rate, use_nesterov=True).minimize(loss_function, global_step = global_step)
 
 {% endhighlight %}
 
-To optimize we obviously need a cost function to optimize. For this problem we're dealing with error in distances of several points, so we're using mean squared error for the loss function.
+To optimize we obviously need a cost function to optimize. For this problem we're dealing with error in distances of several points, so we're using mean squared error for the loss function. sum(1/2(x-x'))
+
+### Training the network
+The last large step we need to implement is the code to actually train the network.
+
+{% highlight python %}
+start = time.time()
+train_loss_list = []
+valid_loss_list = []
+time_list = []
+epoch_list = []
+print("TRAINING: " + model_name)
+with tf.Session(graph = graph) as session:
+    session.run(tf.global_variables_initializer())
+    saver = tf.train.Saver()
+    for current_epoch in range(num_epochs+1):
+        for batch_data, labels in batch(x_train, y_train, batch_size):
+            feed_dict = {x_input: batch_data, y_output: labels, is_training: dropout}
+            # training and optimizing
+            session.run([optimizer], feed_dict = feed_dict)
+            
+        train_loss = lossFunction(get_predictions_in_batches(x_train, session), y_train)
+        train_loss_list.append(train_loss)
+        valid_loss = lossFunction(get_predictions_in_batches(x_validate, session), y_validate)
+        valid_loss_list.append(valid_loss)
+        #if(current_epoch % 10 == 0):
+        # validate every so often
+
+        current_time = time.time() - start
+
+        hours, minutes, seconds = getTime(current_time)
+
+        print("Epoch[%4d]" % current_epoch + "%d" % hours + ":%2d" % minutes + ":%2d " % seconds + "%f " % train_loss + " %f" % valid_loss + " %f " % learning_rate.eval() + "%f" % momentum_rate)
+
+        time_list.append(current_time)
+        epoch_list.append(current_epoch)
+        # Evaluate on test dataset.
+    test_loss = lossFunction(get_predictions_in_batches(x_validate, session), y_validate)
+    print(" Test score: %.3f (loss = %.8f)" % (np.sqrt(test_loss) * 48.0, test_loss)) 
+    if not os.path.exists(model_directory):
+        os.mkdir(model_directory)
+    save_path = saver.save(session, model_path)
+{% endhighlight %}
+
+
+
+This code will start training your model. There is additional code beyond this that you will need to implement. Refer to the github page.
+
+# Simple Neural Network Results
+
+Once the model is finished running you can run predictions, as well as see how it learned over time. Below is a plot showing the training error vs the validation error.
+
+<center>{% include image.html url="http://i.imgur.com/rPjZh9h.png"
+description="Training and Validation over 1000 epochs." size="400" %}</center>
+
+Along with this we can run some predictions. Since this isn't classification I'm going to display multiple images overlaid with their labeled feature locations and the models predicted feature locations.
+
+<center>{% include image.html url="http://i.imgur.com/kko4cYY.png"
+description="Simple Neural Network Results" size="700" %}</center>
 
 #### Concepts being implemented
 - dropout
