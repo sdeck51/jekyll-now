@@ -11,11 +11,9 @@ In this post I go over how to make a facial feature detector. Full code [here](h
 The main goal for this tutorial is to demonstrate how one can build a facial feature detector from scratch using tensorflow. We'll go through several different models to demonstrate how one can make improvements that lead to an optimized model. We'll also talk about improvements that can be made.
 
 # Data
-The data for a feature detector is fairly important. Unlike classification where you can simply define a label to an image, feature detection needs to know where the features in the image are. The data I'm using can be found [here](https://www.kaggle.com/c/facial-keypoints-detection/data). Labeled data consists of 7049 images. There are 30 unique labels, represented as an x and y coordinate for 15 features of the face. Below is an example of a image from the data set with the labels applied to the face.
-<p align="center">
-  <img src="http://i.imgur.com/rPjZh9h.png">
-</p>
-
+The data for a feature detector is fairly important in defining the model we'll be building. Unlike image classification where you can simply assign a label to an image, feature detection needs to know where the features in the image are, using through coordinates. The data I'm using can be found [here](https://www.kaggle.com/c/facial-keypoints-detection/data). Labeled data consists of 7049 images. There are 30 unique values in a label, represented as an x and y coordinate for 15 features of the face. Below is an example of a image from the data set with the labels applied to the face.
+<center>{% include image.html url="http://i.imgur.com/rPjZh9h.png"
+description="2 dimensional convolution. [Feature extraction using convolution, Stanford]" size="500" %}</center>
 
 The data is formatted in a csv file, where each row represents an image and it's labels. It's fairly messy so we need to extract the image data along with the label data.
 
