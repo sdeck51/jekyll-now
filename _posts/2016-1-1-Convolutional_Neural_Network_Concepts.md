@@ -8,6 +8,9 @@ title: Understanding Convolutional Neural Networks
 # Introduction
 Convolutional neural networks have recently gained traction as the go to method for several computer vision fields. In 2012 Alex Krizhevsky and his AlexNet won the yearly ImageNet Large Scale Visual Recognition Competition (ILSVRC), with a huge classification error record of 15% [CITE]. This was a rather big deal as the seconds place team had 26% error, which brought a center stage towards using convolutional neural networks. Ever since the 2012 competition convolutional neural networks has won the competition, and large companies like Google and Facebook have been using these networks for a host of their services. Their main use however, is in image processing and computer vision topics (though other problems sith spatial locality are also used!).
 
+<center>{% include image.html url="http://imgur.com/9Npj4bi.jpg" description="Abraham Lincoln. [http://openframeworks.cc/ofBook/chapters/image_processing_computer_vision.html]" size="900" %}</center>
+
+
 # Image Classification/Recognition
 Image classification is a method of inputting an image, and outputting a class or probabilities of class that represents the image. Recognizing what things are is an inate and effortless ability of humans. When we look at a photograph we can easily discern what is in it, labeling each object automatically. Our ability to recognize easily patterns is not something that a computer can simply do. When a computer sees an image it has a 2 or 3 dimensional array of values representing pixel/color values. The goal in image classification is to take that data and have the computer determine the probability that it's some class. For example if I gave an image classifier a picture of a bird it could output .9 bird, .05 cat, .05 dog, which tells us that it's most probably a bird.
 
