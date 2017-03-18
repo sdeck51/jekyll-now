@@ -116,7 +116,19 @@ description="2 dimensional convolution. [Feature extraction using convolution, S
 A conv B =  sumx[n]h[n-k]
 
 #### Kernel Sizes, Strides
-In convolution you can define both the kernel size as well as stride. The kernel size is the height/width of the kernel and the stride is how farit slides while performing convolution. Along with this there are methods you can employ to the data you are convolving with. At the edge of an image you need to decide if you want your kernel to lap over the edge of the image or to remain in side. If the former then a padding technique needs to be employed, which will extend the input data such that the kernel has additional data to convolve with.
+In convolution you can define both the kernel size as well as stride. The kernel size is the height/width of the kernel and the stride is how far it slides while performing convolution. Along with this there are methods you can employ to the data you are convolving with. 
+
+<center>{% include image.html url="http://imgur.com/WdOj0NP.jpg"
+description="Convolution with stride 1." size="300" %}</center>
+
+
+
+<center>{% include image.html url="http://imgur.com/C7K9Y1O.jpg"
+description="Convolution with stride 2." size="300" %}</center>
+
+At the edge of an image you need to decide if you want your kernel to lap over the edge of the image or to remain in side. If the former then a padding technique needs to be employed, which will extend the input data such that the kernel has additional data to convolve with.
+
+
 
 ### Convolution Layer
 *feature map picture?*
