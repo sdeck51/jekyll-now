@@ -75,9 +75,22 @@ Before diving into the backpropagation process we need to understand a few thing
 In the forward pass we'll take an image from our dataset and push it through the entire network. Since the network hasn't learned anything yet, we can say that it outputs an even distribution of values, say [.105, .0995, .11, .09, .1, .1, .099, .101, .1, .1]. This output is called a prediction, meaning it thinks that the image is .105 class1, .0995 class2 etc. This is obviously a bad answer but that's because the network doesn't know about any of the features that makes up this data, so it cannot classify well currently. This is fine though, as we're going to take this prediction and pass it to a loss function.
 
 ## Loss Function
-The loss function is a function used to determine the error between labels.
+The loss function is a function used to determine the error between the predicted class and the actual class. Let's say our machine is classifying handwritten digits, and each class is 0 - 9. The expected output for 6 would be [0,0,0,0,0,0,1,0,0,0]. If we had a somewhat trained machine and had [.05,0,0,0,0,0,.8,0,.05,.1] as the prediction we would want to compare the error. The loss function does this and there are several different types that can be used. A popular method for classification is cross entropy.
+
+*cross entropy equation*
+
+You can see that this loss function increase the error exponentially the farther away it is from the label. Another popular function is MSE.
+
+*MSE equation*
+
+So for a machine to predict a data's label correctly, it obviously needs a prediction close to the label. How do we go about doing this though? What needs to change in the machine to allow it to predict closer to a datas label? We need to minimize loss of the loss function. We can turn this into an optimization problem and try to find a minimum for this error. This leads us to the backward pass.
 
 
+## Backward Pass
+
+
+
+## Update Weights
 
 
 # What are Convolutional Neural Networks?
