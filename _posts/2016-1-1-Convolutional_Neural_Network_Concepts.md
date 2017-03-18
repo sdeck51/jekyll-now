@@ -3,7 +3,7 @@ layout: post
 title: Understanding Convolutional Neural Networks
 ---
 
-In this post I go over the basics of neural networks and convolutional neural networks.
+<center>{% include image.html url="http://i.imgur.com/6Xe6Nz7.png" description="LeNET. [CITEHERE3]" size="900" %}</center>
 
 # Introduction
 Convolutional neural networks have recently gained traction as the go to method for several computer vision fields. In 2012 Alex Krizhevsky and his AlexNet won the yearly ImageNet Large Scale Visual Recognition Competition (ILSVRC), with a huge classification error record of 15% [CITE]. This was a rather big deal as the seconds place team had 26% error, which brought a center stage towards using convolutional neural networks. Ever since the 2012 competition convolutional neural networks has won the competition, and large companies like Google and Facebook have been using these networks for a host of their services. Their main use however, is in image processing and computer vision topics (though other problems sith spatial locality are also used!).
