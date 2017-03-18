@@ -52,6 +52,10 @@ Above shows such an example. On the left if we were to apply a 3x3 kernel with s
 <center>{% include image.html url="http://imgur.com/poCnN6D.jpg"
 description="zero padding to extend side." size="300" %}</center>
 
+# Feature Mapping
+So as stated earlier, the output of a convolution layer is a feature map. This feature map is created using a learned kernel. Each kernel in a layer identifies (hopefully) a unique feature
+
+
 
 # What are Convolutional Neural Networks?
 There are a lot of concepts in Convolutional Neural Networks(ConvNet) that need to be covered. here we'll discuss concepts and theory needed for understanding the Tensorflow tutorials. To start off ConvNets can be thought of as two concepts, one being a neural network and the other being organized via convolutions. We'll discuss what neural networks are and how they are trained. Then we'll look at what makes convolutional neural networks different from standard neural networks.
