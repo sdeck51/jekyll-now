@@ -1,9 +1,29 @@
 ---
 layout: post
-title: Neural Network Theory
+title: Understanding Convolutional Neural Networks
 ---
 
 In this post I go over the basics of neural networks and convolutional neural networks.
+
+# Introduction
+Convolutional neural networks have recently gained traction as the go to method for several computer vision fields. In 2012 Alex Krizhevsky and his AlexNet won the yearly ImageNet Large Scale Visual Recognition Competition (ILSVRC), with a huge classification error record of 15% [CITE]. This was a rather big deal as the seconds place team had 26% error, which brought a center stage towards using convolutional neural networks. Ever since the 2012 competition convolutional neural networks has won the competition, and large companies like Google and Facebook have been using these networks for a host of their services. Their main use however, is in image processing and computer vision topics (though other problems sith spatial locality are also used!).
+
+# Image Classification/Recognition
+Image classification is a method of inputting an image, and outputting a class or probabilities of class that represents the image. Recognizing what things are is an inate and effortless ability of humans. When we look at a photograph we can easily discern what is in it, labeling each object automatically. Our ability to recognize easily patterns is not something that a computer can simply do. When a computer sees an image it has a 2 or 3 dimensional array of values representing pixel/color values. The goal in image classification is to take that data and have the computer determine the probability that it's some class. For example if I gave an image classifier a picture of a bird it could output .9 bird, .05 cat, .05 dog, which tells us that it's most probably a bird.
+
+# What Convolutional Neural Networks do
+Knowing that we're dealing with arrays of numbers and want our computer to classify those numbers, we need to think how to differentiate all of the unique features that makes a class a class. If I gave you an image of a dog how do you know it's a dog? You can tell by the features that make up a dog. This isn't something we really have to think about, but we know when we see 4 legs with paws, a long snout, and floppy ears, that we're probably looking at a dog. A computer needs to be able to determine these features as well. Convolutional neural networks are able to classify images by looking for features, such as simple curves and edges, and build these features up into abstract features through series of convolution layers.
+
+# CNN Building Blocks
+Typical convolutional neural networks are built out of only a few different layers. Generally when you feed an image into a CNN it goes through some combination of convolution, an activation function, pooling or downsample, and then flattened out through fully connected layer. For classification the output can be a class or probability of classes. In other applications, like feature detection, you can have positions that represent the location on the image of features. Before moving on to the tutorials we should have a good understanding of what these components are doing. Not only is it beneficial to understand for the sake of understanding, but it also helps when having trouble working with a model and knowing what each component is doing for debugging purposes.
+
+# Convolution Layer
+CNNs always start with a convolution layer. Our input image is some (w,h,c) size, where w=width, h=height, and c = channel length. As is in the name, this layer performs convolution on the input image. What is convolution though? In terms of images, which are 2 dimensional(well 3 as there's also the 3 color channels, but let's ignore that for now), imagine we have an 5x5 array. Each position in the array represents a pixel value. Now image we have a 3x3 array. We are going to take this array and slide it across the image. At each position this 3x3 array is at, we want to take the product of overlapping values and add them up. This array is a called a filter, or sometimes a kernel. 
+
+<center>{% include image.html url="http://deeplearning.stanford.edu/wiki/images/6/6c/Convolution_schematic.gif"
+description="2 dimensional convolution. [Feature extraction using convolution, Stanford]" size="500" %}</center>
+
+If we follow the gif above
 
 # What are Convolutional Neural Networks?
 There are a lot of concepts in Convolutional Neural Networks(ConvNet) that need to be covered. here we'll discuss concepts and theory needed for understanding the Tensorflow tutorials. To start off ConvNets can be thought of as two concepts, one being a neural network and the other being organized via convolutions. We'll discuss what neural networks are and how they are trained. Then we'll look at what makes convolutional neural networks different from standard neural networks.
@@ -105,8 +125,7 @@ This is used for every weight, going down each layer. The weights are adjusted s
 
 
 ## Convolutional Neural Networks
-<center>{% include image.html url="http://i.imgur.com/6Xe6Nz7.png"
-description="LeNET. [CITEHERE3]" size="900" %}</center>
+<center>{% include image.html url="http://i.imgur.com/6Xe6Nz7.png" description="LeNET. [CITEHERE3]" size="900" %}</center>
 Moving on from perceptrons and simple neural networks we get into convolutional neural networks (ConvNet). These networks, as their name describes, use convolution through how the weights are tied between layers. Each pixel in each channel of a ConvNet represents a single input, so you can imagine these networks are fairly large. Their convolution layers allow for less interconnections between layers as weights are shared rather than are unique, and the structure retains spatial information since it's convolution. Let's quickly go over what convolution is, and look at the main components used to build a ConvNet.
 
 ### Convolution
