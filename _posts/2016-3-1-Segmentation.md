@@ -129,7 +129,7 @@ training_labels = np.reshape(training_labels, [-1, image_size, image_size, 1])
 validation_labels = np.reshape(validation_labels, [-1, image_size, image_size, 1])
 {% endhighlight %}
 
-
+You should now be able to access all of the data.
 # Building the Model
 
 If you've gone through my Facial Feature Detector tutorial then this will be fairly similar. The main difference is that instead of building a custom model we're going to mimic the VGG 19 model. The reason we're doing this is because the paper mentioned at the beginning listed a few different networks that were used, which includes VGG 19, so I wanted to use the larger one. We also have access online to pretrained weights so we won't have to train the network from scratch.
@@ -213,6 +213,21 @@ def createPoolingLayer(x_input, kernel_size, pool_type):
         return tf.nn.avg_pool(x_input, ksize=[1, kernel_size, kernel_size, 1], strides=[1,kernel_size, kernel_size, 1], padding='SAME')
 {% endhighlight %}
 
+These are the basic ConvNet layers needed to build VGG19.
+
+# VGG19
+VGG19 is a convolutional neural network built by Oxford Universty. VGG19 was entered in  ILSVRC-2014 and won first and second place for localization and classification. [CITE] The information 
+
+### Build Network Code
+
+# Deconvolution Layer
+Terrible name. We need an image demonstrating what to do here
+
+Put in code for how this is set up.
+
+Ready to train stuff.
+
+Have pictures of segmentation from model
 
 # Random Stuff
 Implemented Code seems to be working. I've built the VGG19 CNN with preloaded weights, and then added the additional "deconvolution"(Note this is wrong) network to structure the output back into an image. Issue right now is letting it train for a long enough time. This is the largest network I've built in tensorflow, and I'm actually running out of gpu memory with regular batch sizes, so as a result I'm having to reduce batch sizes which is increasing time to train. Currently I just need to let it train for a long time. 
