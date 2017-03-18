@@ -15,7 +15,7 @@ The purpose of this tutorial is to demonstrate how to do per pixel classificatio
 #Data
 The data I'm using is from the MIT Scene Parsing website [here](http://sceneparsing.csail.mit.edu/). It contains 20,000 training images, and 2000 validation images. The different shades in the labeled image represents different classes. (Put in a color version)
 
-![](http://i.imgur.com/mSJDVCS.jpg)![](http://i.imgur.com/qZh484g.png)
+
 
 # Process
 
@@ -26,6 +26,12 @@ The data I'm using is from the MIT Scene Parsing website [here](http://scenepars
 - Implementing new classifier via transfer learning
 - Transpose Convolution Layers - new layer type
 - Fuse Layers/skip connections - adding previous layers to future layers
+
+### What is Image Segmentation?
+![](http://i.imgur.com/mSJDVCS.jpg)![](http://i.imgur.com/qZh484g.png)
+In computer vision, image segmentation is the idea of partitioning an image into segments. These segments represent objects and boundaries that can be used to more easily label or classify what is in an image.
+
+### Fully Convolutional Networks
 
 #### Progress
 I have I believe working code. Once I get some results I'll be able to determine if I've made errors or not.
