@@ -54,10 +54,11 @@ description="zero padding to extend side." size="300" %}</center>
 
 # Feature Maps
 With the understanding of how convolution and convolution layers work we can start to understand what exactly a feature map is.
-This needs a good example
+This needs a good example to demonstrate feature activation
 
 # Pooling Layer
-
+Pooling, also known as subsampling, reduces the dimensionality of the previous layers feature maps. These layers also help with overfitting by filtering out higher frequency information and retaining general low frequency information that is shared across a distribution of data, rather than specific training data. Like convolution, pooling uses a sliding window technique. The difference is in the operation of the window. There are several different types of downsampling used in pooling layers, some more popular such as max pooling.
+<img src="https://ujwlkarn.files.wordpress.com/2016/08/screen-shot-2016-08-10-at-3-38-39-am.png" height="400" width="500">
 
 
 # Fully Connected Layer
@@ -87,12 +88,12 @@ So for a machine to predict a data's label correctly, it obviously needs a predi
 
 
 ## Backward Pass
+In the backward pass phase our goal is to take the loss function and minimize it with respect to the weights in our model. This means our model is dimensionality equal to the number of weights, which can be extremely large. This process calculates partial derivatives in each layer using the chain rule. it works its way backwards, from the end to the front calculating 
 
 
 
-## Update Weights
 
-
+# IGNORE EVERYTHING BELOW
 # What are Convolutional Neural Networks?
 There are a lot of concepts in Convolutional Neural Networks(ConvNet) that need to be covered. here we'll discuss concepts and theory needed for understanding the Tensorflow tutorials. To start off ConvNets can be thought of as two concepts, one being a neural network and the other being organized via convolutions. We'll discuss what neural networks are and how they are trained. Then we'll look at what makes convolutional neural networks different from standard neural networks.
 
