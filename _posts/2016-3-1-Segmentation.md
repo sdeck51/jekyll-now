@@ -12,7 +12,9 @@ For this tutorial I'm following the paper [here](https://people.eecs.berkeley.ed
 
 # Purpose/Goal
 The purpose of this tutorial is to demonstrate how to do per pixel classification using transpose convolution layers on a deep network. This process creates segmented images that can separate the classe object in a scene.
-#Data
+
+
+# Data
 The data I'm using is from the MIT Scene Parsing website [here](http://sceneparsing.csail.mit.edu/). It contains 20,000 training images, and 2000 validation images. The different shades in the labeled image represents different classes. (Put in a color version)
 
 
@@ -32,9 +34,11 @@ The data I'm using is from the MIT Scene Parsing website [here](http://scenepars
 In computer vision, image segmentation is the idea of partitioning an image into segments. These segments represent objects and boundaries that can be used to more easily label or classify what is in an image.
 
 ### Fully Convolutional Networks
+Fully Convolutional Networks(FCN) are fairly new architectures [CITE]. Like Convnets, FCNs impose convolution and pooling layers to extract feature maps from input images. What differs FCNs from traditional classification ConvNets is instead of classifying entire images FCNs classify every pixel. There are no fully connected layers, which is how ConvNets  and there are transposed convolution layers, used for upsampling. This upsampling layer/s is/are also learned. Additionally skips connections are used in various layers towards the upsampling layer to hopefully capture finer grain features in the image. In this tutorial we'll attempt to build a FCN using the popular VGG16 model.
 
-#### Progress
-I have I believe working code. Once I get some results I'll be able to determine if I've made errors or not.
+
+
+
 
 # Results
 Nothing yet
