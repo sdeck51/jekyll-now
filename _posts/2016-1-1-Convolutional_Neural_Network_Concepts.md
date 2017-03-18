@@ -32,12 +32,12 @@ When convolving an input there are two main parameters that can be adjusted. The
 The stride dictates the distance the kernel moves across the input. In the animation from the convolution layer section we saw that the kernel shifted 1 pixel when sliding. This amount is the stride, which is 1. We can choose to increase the stride which will grant us a smaller output. This will also reduce spatial information.
 
 <center>{% include image.html url="http://imgur.com/WdOj0NP.jpg"
-description="Convolution with stride 1." size="300" %}</center>
+description="Convolution with stride 1." size="450" %}</center>
 
 In the above image we have 7x7 input array. Imagine we have a kernel of size 3x3. We can see that with a stride of 1 that we'll end up with a 5x5 output array. We can also see the receptive fields overlap with 2/3rd shared information.
 
 <center>{% include image.html url="http://imgur.com/C7K9Y1O.jpg"
-description="Convolution with stride 2." size="300" %}</center>
+description="Convolution with stride 2." size="450" %}</center>
 
 Now let's say that we have the same input and kernel, but with a stride of 2. This results in less overlap between receptive fields, whcih means less shared spatial information. On top of this, this will reduce the output array to 3x3. 
 
@@ -45,7 +45,7 @@ Now let's say that we have the same input and kernel, but with a stride of 2. Th
 The convolution figures we've seen so far contain padding of zero. Padding simply extends the image so the receptive fields can overlap outside of the image. Why is this important? If we were to continuously convolve an input image it would get smaller and smaller. What if we want our output to remain the same size as our input? Say we have a 5x5 input array. We can pad the outside with 1 layer of pixels.
 
 <center>{% include image.html url="http://imgur.com/s5hJM62.jpg"
-description="zero padding and replicated padding." size="300" %}</center>
+description="zero padding and replicated padding." size="450" %}</center>
 
 Above shows such an example. On the left if we were to apply a 3x3 kernel with stride equal to 1, we end up with a 5x5 output, unlike a 3x3 output if we didn't padding. In the left case we pad the exterior of the array with zeros, so when convolving we simply have zero for those products. This isn't the only way of padding though. On the right side is an example of replicated padding. Instead of having zero on the edge you copy the neighboring edge pixel into the padding. These are the more popular options that are used in padding. Padding isn't also just used for increasing the size. If you have a filter with stride greater than one that doesn't evenly divide the array size then you'll need to pad the input.
 
