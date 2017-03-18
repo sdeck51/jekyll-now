@@ -23,7 +23,26 @@ CNNs always start with a convolution layer. Our input image is some (w,h,c) size
 <center>{% include image.html url="http://deeplearning.stanford.edu/wiki/images/6/6c/Convolution_schematic.gif"
 description="2 dimensional convolution. [Feature extraction using convolution, Stanford]" size="500" %}</center>
 
-If we follow the gif above
+The above animation demonstrates convolution. In green we have the input array. We can see a yellow array sliding across the input array. This area is known as the receptive field. For each shift it calculates a sum of products. In the animation the red text represent values of the kernel. These values are known as weights or parameters. We can see that after convolving the input with the filter we end up with a smaller array. This makes intuitive sense as there are only 9 unique locations the kernel can overlap the input array. This final output has different names. I like the term feature map. This is the basic theory and terminology used in the convolution layer. Next we'll go more in depth with convolution.
+
+## Convolution Stride and Padding
+When convolving an input there are two main parameters that can be adjusted. These are the stride and the padding. These are both useful parameters to adjust in reducing output size or retaining more information from the input.
+
+### Stride
+The stride dictates the distance the kernel moves across the input. In the animation from the convolution layer section we saw that the kernel shifted 1 pixel when sliding. This amount is the stride, which is 1. We can choose to increase the stride which will grant us a smaller output. This will also reduce spatial information.
+
+<center>{% include image.html url="http://imgur.com/WdOj0NP.jpg"
+description="Convolution with stride 1." size="300" %}</center>
+
+In the above image we have 7x7 input array. Imagine we have a kernel of size 3x3. We can see that with a stride of 1 that we'll end up with a 5x5 output array. We can also see the receptive fields overlap with 2/3rd shared information.
+
+<center>{% include image.html url="http://imgur.com/C7K9Y1O.jpg"
+description="Convolution with stride 2." size="300" %}</center>
+
+Now let's say that we have the same input and kernel, but with a stride of 2. This results in less overlap between receptive fields, whcih means less shared spatial information. On top of this, this will reduce the output array to 3x3. 
+
+### Padding
+The convolution figures we've seen so far contain padding of zero. Padding simply means
 
 # What are Convolutional Neural Networks?
 There are a lot of concepts in Convolutional Neural Networks(ConvNet) that need to be covered. here we'll discuss concepts and theory needed for understanding the Tensorflow tutorials. To start off ConvNets can be thought of as two concepts, one being a neural network and the other being organized via convolutions. We'll discuss what neural networks are and how they are trained. Then we'll look at what makes convolutional neural networks different from standard neural networks.
