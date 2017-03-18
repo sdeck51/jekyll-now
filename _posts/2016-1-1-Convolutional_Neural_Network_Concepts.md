@@ -52,8 +52,31 @@ Above shows such an example. On the left if we were to apply a 3x3 kernel with s
 <center>{% include image.html url="http://imgur.com/poCnN6D.jpg"
 description="zero padding to extend side." size="300" %}</center>
 
-# Feature Mapping
-So as stated earlier, the output of a convolution layer is a feature map. This feature map is created using a learned kernel. Each kernel in a layer identifies (hopefully) a unique feature
+# Feature Maps
+With the understanding of how convolution and convolution layers work we can start to understand what exactly a feature map is.
+This needs a good example
+
+# Pooling Layer
+
+
+
+# Fully Connected Layer
+After convolving to find features running through activation functions, and subsampling the feature maps repeatedly full connected layers are appended to the end of convolutional neural networks. Where convolutional layers connect input to output based on receptive fields in the input, fully connected layers connect every input in a given input volume to every output. You can think of them as matrix multiplying the input with the layers given weights to produce the output. Unlike convolution layers that have volume in their input and output, (remember, an image has width and height, but also is generally in color, adding a third dimension) fully connected layers flatten out input into a vector. These layers are used for finalizing a model before predicting. For example, if we had a dataset that had 10 classes, we would want to end with a fully connected layer that has 10 outputs, representing each class.
+
+# Training a Network
+So far we've discussed what makes up a typical convolutional neural network, as well as what the components are doing. This is barely scratching the surface, as for these networks to work we need to have features. How does a CNN obtain these features? It needs to learn them. This is done through training the network via a process called backpropagation.
+
+When a CNN is newly built it has no information about anything. If you were to put an image into it it would spit out garbage. We need to teach the machine about the data we want it to classify. You can think about it as teaching anyone about anything new. You show your friend some new tech item. He/she knows nothing about it, but you tell him/her what it is. Like this process we need to have a process of telling our machine what the data we are feeding it is. This means that we ourselves need to know what the data is. Datasets used for training these types of networks have labels that are used to identify the class something belongs to. The idea of introducing information, having someone/something known/not know what it is, and then correcting it by telling them what it is essentially what backpropagation does. 
+
+## Learning Data
+Before diving into the backpropagation process we need to understand a few things. When training or teaching a CNN(or any supervised learning system) we need to have separate batches of data. We can easily train a network with a single image and have it correctly classify it. What we want to do though is have a machine that can correctly classify data it has never seen before. This means instead of learning the images specifically it is fed, it learns generalized features that can be used for new data. Networks that don't have enough data to train with generally overfit, which is when it does not learn generalized features, and only works well with the data it was fed with. Generally data is split up into training and validation, or training, validation, and testing. A lot of machine learning algorithms benefit from cross validation, which is where data is split up, and several models are made, each with different training/validation/testing data. This helps with overfitting as you get to sample different portions of data to train your machine. For convolutional neural networks this isn't as advisable to do. Data isn't as scarce, so overfitting isn't as large of an issue. Also with large datasets and large machine training time becomes an issue. It doesn't make sense to create multiple different machines trained on different portions of data that each take months to run. The key point here though, is never contaminate data you're training with data you're using to validate or test.
+
+## Forward Pass
+In the forward pass we'll take an image from our dataset and push it through the entire network. Since the network hasn't learned anything yet, we can say that it outputs an even distribution of values, say [.105, .0995, .11, .09, .1, .1, .099, .101, .1, .1]. This output is called a prediction, meaning it thinks that the image is .105 class1, .0995 class2 etc. This is obviously a bad answer but that's because the network doesn't know about any of the features that makes up this data, so it cannot classify well currently. This is fine though, as we're going to take this prediction and pass it to a loss function.
+
+## Loss Function
+The loss function is a function used to determine the error between labels.
+
 
 
 
