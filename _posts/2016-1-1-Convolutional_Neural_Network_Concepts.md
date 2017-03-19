@@ -122,6 +122,13 @@ description="Momentum" size="250" %}</center>
 
 Another improvement that can be made is implementing momentum. Like rolling a ball down a hill, the previous direction that you move towards affects your next step. Gamma is the momentum value and is generally .9, and at most less than 1. This is implemented in Tensorflow as tf.train.MomentumOptimizer.
 
+From here on out there's only one last step, and that's vailidating and testing the machine!
+
+# Validating/Testing
+
+Once you're able to feed data into a machine, you want to know how well it's performing. As I mentioned earlier you want to split up your data such that you have training data, validation data and/or testing data. We want to see how good our machine is, against both the training and the validation/test data. The ratio between the two will tell you if your model is training well or if you're overfitting the data. If you're overfitting then you'll see a low training error with a high validation/test error.
+
+
 
 # IGNORE EVERYTHING BELOW
 # What are Convolutional Neural Networks?
