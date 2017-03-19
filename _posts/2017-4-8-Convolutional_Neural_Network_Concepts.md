@@ -65,10 +65,11 @@ With the understanding of how convolution and convolution layers work we can sta
 This needs a good example to demonstrate feature activation
 
 # Activation Functions
+After convolutions layers it is normal to implement a nonlinear function called an activation function. The reason is to introduce nonlinearity into the system, as the system is linear otherwise. Popular functions in the past where tanh and sigmoid, due to being differentiable and having strong gradients. The reason this is needed is because these functions are connected to each other repeatedly via other layers, and if the activation function has a small gradient, then stacks of small gradients will create smaller and smaller gradients. This is an issue, as the gradient is applied in how much a machine learns, and when it's near zero then the machine stops learning. This is called the vanishing gradient problem. These functions still have this issue though when they saturate. 
 
-## Sigmoid, Hyperbolic Tangent
+Recently these activation functions have been replace with ReLU, or linear rectifier units. These activate functions are linear functions with a floor at zero. This brings the advantage of not having a vanishing gradient problem. It also brings sparsity. This means when it falls into a region < 0 the output is exactly zero, instead of a near zero value. On top of this they are faster as sigmoid and tanh use exponential computations, which is said to be around 6x slower. [http://www.cs.toronto.edu/~fritz/absps/imagenet.pdf]
 
-## Linear Rectifiers
+
 
 # Pooling Layer
 Pooling, also known as subsampling, reduces the dimensionality of the previous layers feature maps. These layers also help with overfitting by filtering out higher frequency information and retaining general low frequency information that is shared across a distribution of data, rather than specific training data. Like convolution, pooling uses a sliding window technique. The difference is in the operation of the window. There are several different types of downsampling used in pooling layers, some more popular such as max pooling.
