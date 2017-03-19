@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Installing Tensorflow
+title: Tensorflow - Installing Tensorflow
 ---
 ![Image of Yaktocat](https://www.tensorflow.org/images/logo-alt@2x.png)
 
