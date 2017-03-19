@@ -104,7 +104,8 @@ In the backward pass phase our goal is to take the loss function and minimize it
 
 <center>{% include image.html url="http://i.imgur.com/GM1LByj.jpg"
 description="Batch Gradient Descent" size="200" %}</center>
-There are several different gradient descent optimization methods. The most basic one is Batch Gradient Descent. In BGD optimization is performed using the entire training set. The advantage of using this is you will follow the exact gradient. This may not be wanted though as CNNs are not simply convex models, and so you may easly get stuck in a local minimum. Another disadvantage is this can be very slow when you have large datasets.
+
+There are several different gradient descent optimization methods. The most basic one is Batch Gradient Descent. In BGD optimization is performed using the entire training set. The advantage of using this is you will follow the exact gradient. This may not be wanted though as CNNs are not simply convex models, and so you may easly get stuck in a local minimum. Another disadvantage is this can be very slow when you have large datasets. In BGD theta represents the parameters, or weights we're wanting to change. J is the loss function. Eta is the learning rate parameter. A high learning rate results in a larger step size. This means you could converge to a minimum quicker by covering more ground per step. This can also do the opposite, where steps sizes step over statationary points, or oscillate. One method to minimize this effect is to have a decaying learning rate, where it's sceduled to reduce in size over several step. 
 
 <center>{% include image.html url="http://i.imgur.com/OmrgPQi.jpg"
 description="Stochastic Gradient Descent" size="290" %}</center>
