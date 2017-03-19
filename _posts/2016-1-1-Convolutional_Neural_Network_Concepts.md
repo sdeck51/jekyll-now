@@ -120,7 +120,6 @@ Mini-Batch Gradient Descent is the most popular of the three methods to use. Unl
 <center>{% include image.html url="http://i.imgur.com/KNIUuGJ.jpg"
 description="Momentum" size="250" %}</center>
 
-
 Another improvement that can be made is implementing momentum. Like rolling a ball down a hill, the previous direction that you move towards affects your next step. Gamma is the momentum value and is generally .9, and at most less than 1. This is implemented in Tensorflow as tf.train.MomentumOptimizer.
 
 
