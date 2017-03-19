@@ -24,7 +24,7 @@ Typical convolutional neural networks are built out of only a few different laye
 CNNs always start with a convolution layer. Our input image is some (w,h,c) size, where w=width, h=height, and c = channel length. As is in the name, this layer performs convolution on the input image. What is convolution though? In terms of images, which are 2 dimensional(well 3 as there's also the 3 color channels, but let's ignore that for now), imagine we have an 5x5 array. Each position in the array represents a pixel value. Now image we have a 3x3 array. We are going to take this array and slide it across the image. At each position this 3x3 array is at, we want to take the product of overlapping values and add them up. This array is a called a filter, or sometimes a kernel. 
 
 <center>{% include image.html url="http://i.imgur.com/Dibvwaa.png"
-description="" size="450" %}</center>
+description="" size="550" %}</center>
 
 The formal definition for 2d discrete convolution is above. If you want a more intuitive demonstration see the animation below.
 
@@ -118,6 +118,9 @@ Mini-Batch Gradient Descent is the most popular of the three methods to use. Unl
 
 <center>{% include image.html url="http://i.imgur.com/KNIUuGJ.jpg"
 description="Momentum" %}</center>
+
+<center>{% include image.html url="http://i.imgur.com/Dibvwaa.png"
+description="" size="550" %}</center>
 
 Another improvement that can be made is implementing momentum. Like rolling a ball down a hill, the previous direction that you move towards affects your next step. Gamma is the momentum value and is generally .9, and at most less than 1. This is implemented in Tensorflow as tf.train.MomentumOptimizer.
 
