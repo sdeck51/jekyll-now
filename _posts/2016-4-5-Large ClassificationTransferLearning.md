@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Tensorflow - Transfer Learning
+title: Tensorflow - Classification with Transfer Learning
 ---
 
 In this post I'll go over how you can harness a deep neural network and classify your own images quickly!
