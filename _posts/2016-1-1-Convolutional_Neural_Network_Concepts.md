@@ -23,6 +23,11 @@ Typical convolutional neural networks are built out of only a few different laye
 # Convolution Layer
 CNNs always start with a convolution layer. Our input image is some (w,h,c) size, where w=width, h=height, and c = channel length. As is in the name, this layer performs convolution on the input image. What is convolution though? In terms of images, which are 2 dimensional(well 3 as there's also the 3 color channels, but let's ignore that for now), imagine we have an 5x5 array. Each position in the array represents a pixel value. Now image we have a 3x3 array. We are going to take this array and slide it across the image. At each position this 3x3 array is at, we want to take the product of overlapping values and add them up. This array is a called a filter, or sometimes a kernel. 
 
+<center>{% include image.html url="http://i.imgur.com/Dibvwaa.png"
+description="" size="450" %}</center>
+
+The formal definition for 2d discrete convolution is above. If you want a more intuitive demonstration see the animation below.
+
 <center>{% include image.html url="http://deeplearning.stanford.edu/wiki/images/6/6c/Convolution_schematic.gif"
 description="2 dimensional convolution. [Feature extraction using convolution, Stanford]" size="500" %}</center>
 
