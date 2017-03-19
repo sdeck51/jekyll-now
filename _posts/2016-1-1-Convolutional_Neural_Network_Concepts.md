@@ -94,12 +94,12 @@ In the forward pass we'll take an image from our dataset and push it through the
 The loss function is a function used to determine the error between the predicted class and the actual class. Let's say our machine is classifying handwritten digits, and each class is 0 - 9. The expected output for 6 would be [0,0,0,0,0,0,1,0,0,0]. If we had a somewhat trained machine and had [.05,0,0,0,0,0,.8,0,.05,.1] as the prediction we would want to compare the error. The loss function does this and there are several different types that can be used. A popular method for classification is cross entropy.
 
 <center>{% include image.html url="http://i.imgur.com/QGnhYAi.png"
-description="" size="450" %}</center>
+description="" size="200" %}</center>
 
 You can see that this loss function increase the error exponentially the farther away it is from the label. Another popular function is MSE.
 
 <center>{% include image.html url="http://i.imgur.com/DAa1S2c.png"
-description="" size="450" %}</center>
+description="" size="200" %}</center>
 
 So for a machine to predict a data's label correctly, it obviously needs a prediction close to the label. How do we go about doing this though? What needs to change in the machine to allow it to predict closer to a datas label? We need to minimize loss of the loss function. We can turn this into an optimization problem and try to find a minimum for this error. This leads us to the backward pass.
 
