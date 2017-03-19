@@ -103,21 +103,21 @@ In the backward pass phase our goal is to take the loss function and minimize it
 ### Gradient Descent Methods
 
 <center>{% include image.html url="http://i.imgur.com/GM1LByj.jpg"
-description="Batch Gradient Descent" size="550" %}</center>
+description="Batch Gradient Descent" size="250" %}</center>
 There are several different gradient descent optimization methods. The most basic one is Batch Gradient Descent. In BGD optimization is performed using the entire training set. The advantage of using this is you will follow the exact gradient. This may not be wanted though as CNNs are not simply convex models, and so you may easly get stuck in a local minimum. Another disadvantage is this can be very slow when you have large datasets.
 
 <center>{% include image.html url="http://i.imgur.com/OmrgPQi.jpg"
-description="Stochastic Gradient Descent" size="550" %}</center>
+description="Stochastic Gradient Descent" size="250" %}</center>
 
 Another method is Stochastic Gradient Descent. The main difference between SGD and BGD is instead of requiring the entire dataset, you only use 1 sample from the set. Single sampling however has high variance with respect to the gradient direction so optimization can be very slow. Thus using an inbetween method is more optimal.
 
 <center>{% include image.html url="http://i.imgur.com/Yr2d6Pq.jpg"
-description="Mini-Batch Gradient Descent" size="550" %}</center>
+description="Mini-Batch Gradient Descent" size="250" %}</center>
 
 Mini-Batch Gradient Descent is the most popular of the three methods to use. Unlike either, you can determine the sample size of training data to use instead of limiting it to either all or none. This provides a large performance boost over standard BGD, and having multiple samples averages out the gradient direction better than a single sample. This method is implemented in Tensorflow as tf.train.GradientDescentOptimizer.
 
 <center>{% include image.html url="http://i.imgur.com/KNIUuGJ.jpg"
-description="Momentum" size="550" %}</center>
+description="Momentum" size="250" %}</center>
 
 
 Another improvement that can be made is implementing momentum. Like rolling a ball down a hill, the previous direction that you move towards affects your next step. Gamma is the momentum value and is generally .9, and at most less than 1. This is implemented in Tensorflow as tf.train.MomentumOptimizer.
