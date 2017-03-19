@@ -104,7 +104,7 @@ description="" size="200" %}</center>
 So for a machine to predict a data's label correctly, it obviously needs a prediction close to the label. How do we go about doing this though? What needs to change in the machine to allow it to predict closer to a datas label? We need to minimize loss of the loss function. We can turn this into an optimization problem and try to find a minimum for this error. This leads us to the backward pass.
 
 ## Backward Pass
-In the backward pass phase our goal is to take the loss function and minimize it with respect to the weights in our model. This means our model is dimensionality equal to the number of weights, which can be extremely large. This process calculates partial derivatives in each layer using the chain rule. It works its way backwards, layer through layer, calculating and updating new weight values using some optimization method, generally a gradient descent method.
+In the backward pass phase our goal is to take the loss function and minimize it with respect to the weights in our model. This means our model is dimensionality equal to the number of weights, which can be extremely large. This process calculates partial derivatives in each layer using the chain rule. It works its way backwards, layer through layer, calculating and updating new weight values using some optimization method with a first order method.
 
 ### Optimization Methods
 
