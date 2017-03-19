@@ -106,12 +106,12 @@ So for a machine to predict a data's label correctly, it obviously needs a predi
 ## Backward Pass
 In the backward pass phase our goal is to take the loss function and minimize it with respect to the weights in our model. This means our model is dimensionality equal to the number of weights, which can be extremely large. This process calculates partial derivatives in each layer using the chain rule. It works its way backwards, layer through layer, calculating and updating new weight values using some optimization method, generally a gradient descent method.
 
-### Gradient Descent Methods
+### Optimization Methods
 
 <center>{% include image.html url="http://i.imgur.com/GM1LByj.jpg"
 description="Batch Gradient Descent" size="200" %}</center>
 
-There are several different gradient descent optimization methods. The most basic one is Batch Gradient Descent. In BGD optimization is performed using the entire training set. The advantage of using this is you will follow the exact gradient. This may not be wanted though as CNNs are not simply convex models, and so you may easly get stuck in a local minimum. Another disadvantage is this can be very slow when you have large datasets. In BGD theta represents the parameters, or weights we're wanting to change. J is the loss function. Eta is the learning rate parameter. A high learning rate results in a larger step size. This means you could converge to a minimum quicker by covering more ground per step. This can also do the opposite, where steps sizes step over statationary points, or oscillate. One method to minimize this effect is to have a decaying learning rate, where it's sceduled to reduce in size over several step. 
+There are several different gradient descent optimization methods. The most basic one is Batch Gradient Descent. In BGD optimization is performed using the entire training set. The advantage of using this is you will follow the exact gradient. This may not be wanted though as CNNs are not simply convex models, and so you may easly get stuck in a local minimum. Another disadvantage is this can be very slow when you have large datasets. In BGD theta represents the parameters, or weights we're wanting to change. J is the loss function. Eta is the learning rate parameter.  
 
 <center>{% include image.html url="http://i.imgur.com/OmrgPQi.jpg"
 description="Stochastic Gradient Descent" size="290" %}</center>
@@ -123,11 +123,19 @@ description="Mini-Batch Gradient Descent" size="360" %}</center>
 
 Mini-Batch Gradient Descent is the most popular of the three methods to use. Unlike either, you can determine the sample size of training data to use instead of limiting it to either all or none. This provides a large performance boost over standard BGD, and having multiple samples averages out the gradient direction better than a single sample. This method is implemented in Tensorflow as tf.train.GradientDescentOptimizer.
 
+For basic gradient descent optimization there are a few challenges that you will come across. One is the learning rate. A high learning rate results in a larger step size. This means you could converge to a minimum quicker by covering more ground per step. This can also do the opposite, where steps sizes step over statationary points, oscillate around them, or even diverge. On the other hand a small learning rate may causing training to take too long. One method to minimize these effects is to have a decaying learning rate, where it's scheduled to reduce in size. This can allow you to have a larger step size early on and then later a small step size is used which should help with convergence. Another problem is that these networks that are being built are high nonconvex. This means that there is more than one local minimum. For BGD and SGD it makes it very hard to escape when its approaching a zero gradient.
+
 <center>{% include image.html url="http://i.imgur.com/KNIUuGJ.jpg"
 description="Momentum" size="250" %}</center>
 
 Another improvement that can be made is implementing momentum. Like rolling a ball down a hill, the previous direction that you move towards affects your next step. Gamma is the momentum value and is generally .9, and at most less than 1. This is implemented in Tensorflow as tf.train.MomentumOptimizer.
 
+ADAM is a popular optimization technique that was published in 2014. [CITE] It stands for Adaptive moment Estimation and computes adaptive learning rates for each weight parameter. It works by keeping track of an exponetially decaying average of past first and second moments. 
+
+<center>{% include image.html url="http://imgur.com/kmRCXnj.jpg"
+description="Momentum" size="250" %}</center>
+
+M and v represent the estimates of the first and second moments of the gradient. Bias correct is done to them, resulted in the "hat" version. Then the weights are optimized 
 From here on out there's only one last step, and that's vailidating and testing the machine!
 
 # Validating/Testing
@@ -286,3 +294,6 @@ Fully connected layers are simply layers where every input is connected to every
 <img src="https://ujwlkarn.files.wordpress.com/2016/08/screen-shot-2016-08-10-at-3-38-39-am.png" width="22">
 <center>{% include image.html url="https://ujwlkarn.files.wordpress.com/2016/08/screen-shot-2016-08-10-at-3-38-39-am.png"
 description="Max Pooling. [CITEHERE3]" size="300" %}</center>
+
+ADAM
+Kingma, D. P., & Ba, J. L. (2015). Adam: a Method for Stochastic Optimization. International Conference on Learning Representations, 1–13
