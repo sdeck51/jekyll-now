@@ -150,10 +150,6 @@ This covers the basics in understanding convolutional neural networks, how they 
 
 
 ## References
-
-<img src="https://ujwlkarn.files.wordpress.com/2016/08/screen-shot-2016-08-10-at-3-38-39-am.png" width="22">
-<center>{% include image.html url="https://ujwlkarn.files.wordpress.com/2016/08/screen-shot-2016-08-10-at-3-38-39-am.png"
-description="Max Pooling. [CITEHERE3]" size="300" %}</center>
-
+I need to cite more things here.
 ADAM
 Kingma, D. P., & Ba, J. L. (2015). Adam: a Method for Stochastic Optimization. International Conference on Learning Representations, 1–13
