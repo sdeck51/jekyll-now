@@ -95,17 +95,30 @@ You can see that this loss function increase the error exponentially the farther
 
 So for a machine to predict a data's label correctly, it obviously needs a prediction close to the label. How do we go about doing this though? What needs to change in the machine to allow it to predict closer to a datas label? We need to minimize loss of the loss function. We can turn this into an optimization problem and try to find a minimum for this error. This leads us to the backward pass.
 
-
 ## Backward Pass
-In the backward pass phase our goal is to take the loss function and minimize it with respect to the weights in our model. This means our model is dimensionality equal to the number of weights, which can be extremely large. This process calculates partial derivatives in each layer using the chain rule. It works its way backwards, layer through layer, calculating and updating new weight values using various  
+In the backward pass phase our goal is to take the loss function and minimize it with respect to the weights in our model. This means our model is dimensionality equal to the number of weights, which can be extremely large. This process calculates partial derivatives in each layer using the chain rule. It works its way backwards, layer through layer, calculating and updating new weight values using some optimization method, generally a gradient descent method.
+
+### Gradient Descent Methods
 
 
-## Optimization Algorithms
+<center>{% include image.html url="http://i.imgur.com/GM1LByj.png"
+description="Batch Gradient Descent" %}</center>
+There are several different gradient descent optimization methods. The most basic one is Batch Gradient Descent. In BGD optimization is performed using the entire training set. The advantage of using this is you will follow the exact gradient. This may not be wanted though as CNNs are not simply convex models, and so you may easly get stuck in a local minimum. Another disadvantage is this can be very slow when you have large datasets.
 
-### Stochastic Gradient Descent
+<center>{% include image.html url="http://i.imgur.com/OmrgPQi.png"
+description="Stochastic Gradient Descent" %}</center>
 
+Another method is Stochastic Gradient Descent. The main difference between SGD and BGD is instead of requiring the entire dataset, you only use 1 sample from the set. Single sampling however has high variance with respect to the gradient direction so optimization can be very slow. Thus using an inbetween method is more optimal.
 
+<center>{% include image.html url="http://i.imgur.com/Yr2d6Pq.png"
+description="Mini-Batch Gradient Descent" %}</center>
 
+Mini-Batch Gradient Descent is the most popular of the three methods to use. Unlike either, you can determine the sample size of training data to use instead of limiting it to either all or none. This provides a large performance boost over standard BGD, and having multiple samples averages out the gradient direction better than a single sample.
+
+<center>{% include image.html url="http://i.imgur.com/KNIUuGJ.png"
+description="Mini-Batch Gradient Descent" %}</center>
+
+Another improvement that can be made is implementing momentum. Like rolling a ball down a hill, the previous direction that you move towards affects your next step.
 
 # IGNORE EVERYTHING BELOW
 # What are Convolutional Neural Networks?
