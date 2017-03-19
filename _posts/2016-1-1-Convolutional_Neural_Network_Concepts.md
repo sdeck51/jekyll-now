@@ -64,6 +64,12 @@ description="zero padding to extend side." size="300" %}</center>
 With the understanding of how convolution and convolution layers work we can start to understand what exactly a feature map is.
 This needs a good example to demonstrate feature activation
 
+# Activation Functions
+
+## Sigmoid, Hyperbolic Tangent
+
+## Linear Rectifiers
+
 # Pooling Layer
 Pooling, also known as subsampling, reduces the dimensionality of the previous layers feature maps. These layers also help with overfitting by filtering out higher frequency information and retaining general low frequency information that is shared across a distribution of data, rather than specific training data. Like convolution, pooling uses a sliding window technique. The difference is in the operation of the window. There are several different types of downsampling used in pooling layers, some more popular such as max pooling.
 
@@ -126,7 +132,11 @@ From here on out there's only one last step, and that's vailidating and testing 
 
 # Validating/Testing
 
-Once you're able to feed data into a machine, you want to know how well it's performing. As I mentioned earlier you want to split up your data such that you have training data, validation data and/or testing data. We want to see how good our machine is, against both the training and the validation/test data. The ratio between the two will tell you if your model is training well or if you're overfitting the data. If you're overfitting then you'll see a low training error with a high validation/test error.
+Once you're able to feed data into a machine, you want to know how well it's performing. As I mentioned earlier you want to split up your data such that you have training data, validation data and/or testing data. We want to see how good our machine is, against both the training and the validation/test data. The ratio between the two will tell you if your model is training well or if you're overfitting the data. If you're overfitting then you'll see a low training error with a high validation/test error. There are different splits you can use. If you have enough data splits tend to side more towards high training percentage. The Imagenet competition for example splits data into 1,200,000 training, 50,000 validation, and 100,000 testing. In the segmentation tutorial the dataset that is used is split 20,000 training and 2,000 validation. There isn't a concrete ratio to use. Just make sure not to cross contaminate the sets.
+
+# Conclusion
+
+This covers the basics in understanding convolutional neural networks, how they work, and how to use them. In the tutorials we'll cover how to program a models, how to load model, as well as how to load weights into a build model. The tutorials will cover 3 applications of CNNS, namely classification, segmentation and feature detection. Each tutorial has step by step instructions explaining what we are implementing and how to implement it using Tensorflow. My hope is that people will be able to read through this, gain a sliver of understanding of CNNs, be able to follow along in the tutorials, and then improve on them or make your own netoworks!
 
 
 
