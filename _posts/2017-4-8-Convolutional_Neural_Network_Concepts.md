@@ -132,11 +132,12 @@ Another improvement that can be made is implementing momentum. Like rolling a ba
 
 ADAM is a popular optimization technique that was published in 2014. [CITE] It stands for Adaptive moment Estimation and computes adaptive learning rates for each weight parameter. It works by keeping track of an exponetially decaying average of past first and second moments. 
 
-<center>{% include image.html url="http://imgur.com/kmRCXnj.jpg"
+<center>{% include image.html url="http://imgur.com/Du5zqCH.jpg"
 description="Momentum" size="250" %}</center>
 
-M and v represent the estimates of the first and second moments of the gradient. Bias correct is done to them, resulted in the "hat" version. Then the weights are optimized 
-From here on out there's only one last step, and that's vailidating and testing the machine!
+M and v represent the estimates of the first and second moments of the gradient while g is the gradient itself. Bias correct is done to them, resulted in the "hat" version. Then the weights are optimized using the last equation. This method is implemented in Tensorflow as tf.train.AdamOptimizer.
+
+There are many more optimization algorithms that can be used for training your machine. The ones above are ones that are used in the other tutorials. From here you should have enough conceptual knowledge in how a CNN(or regular neural network) is trained.
 
 # Validating/Testing
 
