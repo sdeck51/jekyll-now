@@ -3,7 +3,7 @@ layout: post
 title: Tensorflow - Segmentation
 ---
 
-In this post I'll show how you can perform segmentation using CNNs! Full code [here](https://github.com/sdeck51/CNNTutorials/blob/master/6.%20Segmentation_Tutorial/Segmentation2.ipynb)
+In this post I'll show how you can perform segmentation using CNNs! Full code [here](https://github.com/sdeck51/CNNTutorials/blob/master/6.%20Segmentation_Tutorial/Segmentation2.ipynb) Under construction!
 
 # Intro
 For this tutorial I'm following the paper [here](https://people.eecs.berkeley.edu/~jonlong/long_shelhamer_fcn.pdf). Fair warning, if you want to run this you'll need a gpu with at least 8GB, otherwise you'll have to use the cpu version which will take eons to finish(I'm running a 12 hour training test atm and will probably have a terrible model).
@@ -29,10 +29,10 @@ The purpose of this tutorial is to demonstrate how to perform pixelwise classifi
 
 ### What is Image Segmentation?
 ![](http://i.imgur.com/mSJDVCS.jpg)![](http://i.imgur.com/qZh484g.png)
-In computer vision, image segmentation is the idea of partitioning an image into segments. These segments represent objects and boundaries that can be used to more easily label or classify what is in an image.
+In computer vision, image segmentation is the idea of partitioning an image into segments. These segments represent objects and boundaries that can be used to more easily label or classify what is in an image. Semantic segmentation is a variation on segmentation, where not only are we partitioning an image into coherent parts, but also labeling the parts.
 
 ### Fully Convolutional Networks
-Fully Convolutional Networks(FCN) are fairly new architectures [CITE]. Like Convnets, FCNs impose convolution and pooling layers to extract feature maps from input images. What differs FCNs from traditional classification ConvNets is instead of classifying entire images FCNs classify every pixel. There are no fully connected layers, which is how ConvNets  and there are transposed convolution layers, used for upsampling. This upsampling layer/s is/are also learned. Additionally skips connections are used in various layers towards the upsampling layer to hopefully capture finer grain features in the image. In this tutorial we'll attempt to build a FCN using the popular VGG16 model.
+Fully Convolutional Networks(FCN) are fairly new architectures [CITE]. Like Convnets, FCNs impose convolution and pooling layers to extract feature maps from input images. What differs FCNs from traditional classification ConvNets is instead of classifying entire images FCNs classify every pixel. There are no fully connected layers, which are instead replaced with convolution layers. For this tutorial we're also implementing transposed convolution layers, used for upsampling. Lik convolution layers weights, upsampling layers weights are also learned. Additionally, skips connections are used in various layers towards the upsampling layer to hopefully capture finer grain features in the image. In this tutorial we'll attempt to build a FCN for semantic segmentation using the popular VGG19 model.
 
 # Data
 The data we'll be using is from the MIT Scene Parsing website [here](http://sceneparsing.csail.mit.edu/). It contains 20,000 training images, and 2000 validation images across 151 different classes. The data we need is simply formatted in 4 folders that contain training images, training labels, validation images, validation labels. Due to having so many images it's a good idea to cache them on disc for quicker access.
@@ -224,21 +224,20 @@ VGG19 is a convolutional neural network built by Oxford Universty. VGG16-19 was 
 For this network we're going to be modifying VGG19 into a fully convolutional network, and then implementing a "deconvolution network" at the end, similar to the transfer learning tutorial.
 
 # Deconvolution Layer
-Terrible name. We need an image demonstrating what happening
+The deconvolution layer, or more aptly named transpose convolution layer, takes input and performance transpose convolution. This can also be seen as convolution with a 1/k stride, where k is <=1. This essentially upsamples the input into a larger output. The goal of this layer is to construct the input as a semantically segmented image. In the paper by Long et all they use 3 transpose convolution layers, where two layers share similar shapes with earlier pooling layers in the VGG architecture, and the last layer outputs the final semantically segmented image. The first two layers get two pooling layers added to it. The reason for this is the input for the first deconvolution layer is very small, and upsampling that input will create a very coarse, blocky image. Earlier layers are fed to these two layers to help inject detail that was lost.
 
 Put in code for how this is set up.
 
 Ready to train stuff.
 
-Have pictures of segmentation from model
 
-# Random Stuff
-Implemented Code seems to be working. I've built the VGG19 CNN with preloaded weights, and then added the additional "deconvolution"(Note this is wrong) network to structure the output back into an image. Issue right now is letting it train for a long enough time. This is the largest network I've built in tensorflow, and I'm actually running out of gpu memory with regular batch sizes, so as a result I'm having to reduce batch sizes which is increasing time to train. Currently I just need to let it train for a long time. 
 
-I'm using the MIT Parsing Dataset. In the paper they state they received best results with at least 175 epochs. The MIT dataset has ~20,000 labeled images, while PASCAL VOC only has 3,000 with segmentation labels. So my plan is to run roughly the same amount at 175 epochs as the paper suggests, and then see what the results are.
+# Training
+For this network training has to be done somewhat carefully. One problem is that this network as over 200M parameters, and is nearly filling up all of the VRAM in my GPU. Because of this you can only run a few batches at a time. In the paper they run 20 batches, but for most of us we'll only be able to run between 1-3 at a time. This poses another issue. When obtaining training and validation loss we can once again only have 1-3 batches at a time. This increases the variance in the loss, which will result in a much more jagged curve. This can be combatted by simply obtaining the loss for multiple batches, however this will decrease the speed of training, and so you need to balance out the accuracy in your loss with the time it will take to finish. With a GTX 1070 I had to run the machine for over 48 hours before getting coherent segmentation predictions.
 
-I tried a quick run through to see if I would get at least blobs or something, though I think I need to run it longer than the 10,000 steps I did. Below are results of that. It looks like its forming the mountain, though with the wrong class. I'm currently running a "short" training run which is going to take 12 or so hours. I'm hoping to get blobs that match up, and not necessarily accurate silhouette. 
 
+# Results
+Results for this tutorial are the training and validation loss graphs as well as predictions. Below are some predictions from the machine I trained with their actual image and actual label. Each image comes from the validation set.
 Actual Image
 
 ![](http://i.imgur.com/4SNhXib.png)
