@@ -10,20 +10,13 @@ Full code [here](https://github.com/sdeck51/CNNTutorials/blob/master/5.%20Transf
 Here we learn how we can transfer learned features from one dataset to another.
 
 # Purpose/Goal
-The purpose of this tutorial is to introduce the concept of transfer learning. Transfer learning is a powerful tool in taking advantage of very deep networks trained on millions of images and using it for ones own classification. The problem with using a deep network on your own is that fully training the system can takes weeks. Using a network that is pretrained is one solution, however that network is made to classify the data it trained on. What if you have a set of classes you want to classify, and you need a large network to do it? You could train from scratch, but you could also use transfer learning and take advantage of a pretrained network. Using transfer learning will allow you to quickly train your data.
 
-# Data
-For the data in this tutorial we'll be looking at datasets using JPEG files. One problem I have training models is sometimes half of the work is just getting the data into your program. For this we'll implement a simple interface where data will be accessed in folder that will define the class of the image. So for example if you have a lot of images of planes you'll place them in a folder marked planes. Then the code will use the folder name as the class name. 
+The purpose of this tutorial is to implement two ideas. One is classification using a very deep neural network. The other is taking this neural network and classifying new classes of data with it. Many large companies, from Google to Microsoft, have deep convolutional neural networks that they use for image classification. These networks are trained on the ILSVRC dataset from Imagenet [cite]. This dataset consists of over 14 million images of which networks are trained on 1000 classes. These are great networks to learn how to use, but for the average user training one of these networks from scratch on their own isn't feasible. These networks take weeks and months to train using the dataset, sometimes on hardware made specifically for these tasks. [google tpu] We're going to work through obtaining the GoogleNet v3 architecture and learn how to classify images. Afterwards we'll use that network and use the concept of transfer learning to make it useable for any images we want to classify with.
 
-I'm going to demonstrate transfer learning using a few different datasets. In one we have 600 images of 6 different types of birds. Another we'll see what kind of accuracy we can get classifying male and female faces using a cropped celebrity database. The last one has 257 classes of random objects. 
-
-# Process
-### Things to discuss
-#### Loading a Model
-- download/loading
-- loading weights
+# Downloading Inception v3
 
 The first thing we need to do is get access a large, pretrained CNN model. There are various models available online, and for this tutorial I'll demonstrate how to access the Inception V3 model from Google. Google makes it fairly easy to download and use their model. If you wish to manually access it you can simply go [here](http://download.tensorflow.org/models/image/imagenet/inception-2015-12-05.tgz). Otherwise there is various code for downloading(as well as extracting) tar zipped files.
+
 {% highlight python %}
 def download(url, directory):
     
@@ -48,17 +41,17 @@ def download(url, directory):
 
 {% endhighlight %}
 
-Now what is included in this zipped file is a little complicated. Let's go through each file
+Either insert and run the code above with some folder location, or manually download the model. This zipped file contains several files that we need to use. It's somewhat obtuse so let's go through what each of the files are and their reasons for inclusion.
 
-##### classification_image_graph_def.pd
+##### classification_image_graph_def.pb
 
-![alt text](https://github.com/sdeck51/sdeck51.github.io/raw/master/images/inceptionArchitecture.png)
-This is the actual model, which includes every layer that makes up inception v3, the connects to and from each layer, as well as the pretrained weights and biases. What we're going to do is load this using python and then have the ability to classify with the model.
+<center>{% include image.html url="https://github.com/sdeck51/sdeck51.github.io/raw/master/images/inceptionArchitecture.png" description="GoogleNet Inception v3 . [cite]" size="900" %}</center>
+
+This is the actual model file, which includes every layer that makes up inception v3, the connects to and from each layer, as well as the pretrained weights and biases. What we're going to do is load this into our program and classify with it fairly quickly.
 
 ##### cropped_panda.jpg
-
-![alt text](https://github.com/sdeck51/sdeck51.github.io/raw/master/images/cropped_panda.jpg)
-This is a pretty cute panda that's included to use for testing classification. Possibly the most important file.
+<center>{% include image.html url="https://github.com/sdeck51/sdeck51.github.io/raw/master/images/cropped_panda.jpg" description="GoogleNet Inception v3 . [cite]" size="900" %}</center>
+This is a pretty cute panda that's included to use for classify. One of the included classes in the model is giant pandas so we can use this to see how much it thinks this image is a panda.
 
 ##### imagenet_2012_challenge_label_map_proto.pbtxt
 
@@ -78,9 +71,9 @@ This is a pretty cute panda that's included to use for testing classification. P
     n02871525	bookshop, bookstore, bookstall
     ...
 
-Each class that was used for training in inception v3 has a class value as well as class id. This file maps the class id to the class value.
+This includes all of the classes in the imagenet 2012 challenge. This file maps between the class id and the human readable name. We're not going to understand what the model is saying when it thinks the panda image is 89% class n01573342, so it needs to translate.
 
-##### imagenet_synset_to_human_label_map
+##### imagenet_synset_to_human_label_map.txt
 
     ...
     entry {
@@ -97,11 +90,61 @@ Each class that was used for training in inception v3 has a class value as well 
     }
     ...
 
-Each class also should have a name for us humans to easily understand what the classes are. This file maps the class id to a class name.
+Since inception v3 was trained on 1000 classes it has a 1000 vector output, representing the probability that the input is each class. There are more than 1000 classes in the Imagenet dataset so we need to know what each output represents, in terms of physical output on the model and the class id it belongs to. This paired with the mapping file above will allow us to correctly state predictions in the network in a human readable way.
     
-Each of these files are needed to be able to load up the Inception v3 model, and then classify and understand the output of classification. From this we can parse the files to get class values and class ids from the dataset that was used to train Inception v3. Look at the code for more detail on how this is done.
+Each of these files are needed to be able to load up the Inception v3 model, and then classify and understand the output of classification. From this we can parse the files to get class values and class ids from the dataset that was used to train Inception v3. 
+
+{% highlight python %}
+id_to_name = {}  
+    
+path = os.path.join(model_directory, map_id_to_name)
+with open(file=path, mode='r') as file:
+    #read entire file
+    lines = file.readlines()
+    for line in lines:
+        #strip out new line
+        line = line.replace("\n", "")
+        #get token strings between tab character
+        tokens = line.split("\t")
+        #get token ids and names
+        uid = tokens[0]
+        name = tokens[1]
+        #each name is accessed via its id
+        id_to_name[uid] = name
+{% endhighlight %}
+
+{% highlight python %}
+id_to_class = {}  
+class_to_id = {}  
+
+path = os.path.join(model_directory, map_id_to_class)
+with open(file=path, mode='r') as file:
+    # read entire file
+    lines = file.readlines()
+
+    for line in lines:
+        if line.startswith("  target_class: "):
+            #split and grad second token as value
+            tokens = line.split(": ")
+            uclass = int(tokens[1])
+
+        elif line.startswith("  target_class_string: "):
+            # get tokens
+            tokens = line.split(": ")
+            # second token is the string
+            uid = tokens[1]
+            # strip quotations from token
+            uid = uid[1:-2]
+            # add to dictionary
+            id_to_class[uid] = uclass
+            class_to_id[uclass] = uid
+{% endhighlight %}
+
+The above code takes the mapping files and creates dictionaries that can be used to determine the class names.
 
 ### Building the Model
+
+After we have downloaded the model, and loaded the mapping scheme into our dictionaries we can load our model into the Tensorflow graph. because the model is already defined we don't have to build the parts from scratch. What we'll need
 
 After we have an understanding of the files we can now build the model as a graph in tensorflow. This is fairly simple as a user to do as the tensorflow api is native with the model file's .pd format.
 
@@ -109,7 +152,6 @@ After we have an understanding of the files we can now build the model as a grap
 graph = tf.Graph()
 
 with graph.as_default():
-
     path = os.path.join(model_directory, map_graph_def)
     with tf.gfile.FastGFile(path, 'rb') as file:
         graph_def = tf.GraphDef()
@@ -172,7 +214,8 @@ Let's use the given panda image and see what the model classifies it as
 classify('cropped_panda.jpg', 5)
 {% endhighlight %}
 
-![alt text](https://github.com/sdeck51/sdeck51.github.io/raw/master/images/cropped_panda.jpg)
+
+<center>{% include image.html url="https://github.com/sdeck51/sdeck51.github.io/raw/master/images/cropped_panda.jpg" description="GoogleNet Inception v3 . [cite]" size="900" %}</center>
 
     0.8923 giant panda
     0.0086 indri
@@ -182,7 +225,8 @@ classify('cropped_panda.jpg', 5)
 
 So it can classify a panda, but what else? From here find any image you want and just set the path in the function. Here's it's take on a forklift.
 
-![alt text](https://github.com/sdeck51/sdeck51.github.io/raw/master/images/Forklift-Truck.jpg)
+<center>{% include image.html url="https://github.com/sdeck51/sdeck51.github.io/raw/master/images/Forklift-Truck.jpg" description="GoogleNet Inception v3 . [cite]" size="900" %}</center>
+
 
     0.9826 forklift
     0.0002 barbell
@@ -190,7 +234,10 @@ So it can classify a panda, but what else? From here find any image you want and
     0.0002 crane
     0.0001 golfcart
 
-If you were able to get things working up to this point then congratulations! You have control of an extremely powerful image classifier. If you have problems that involve the classes this model was trained for then you're ready to go! This however isn't likely. You probably don't need to classify that x image was a forklift or y image was a panda. You probably have images in mind that you want to classify. What can we do about this? We have this large, powerful model that we would like to use but it doesn't classify what we want. Thankfully there's a method we can use to take advantage of this model and it's learned features, called Transfer Learning.
+If you were able to get things working up to this point then congratulations! You have control of an extremely powerful image classifier. If you have problems that involve the classes this model was trained for then you're ready to go! This however isn't likely. Let's try some other images, preferably from a dataset. The ones below come from the [caltech101 dataset](http://www.vision.caltech.edu/Image_Datasets/Caltech101/) 
+
+
+You probably don't need to classify that x image was a forklift or y image was a panda. You probably have images in mind that you want to classify. What can we do about this? We have this large, powerful model that we would like to use but it doesn't classify what we want. Thankfully there's a method we can use to take advantage of this model and it's learned features, called Transfer Learning.
 
 ## Transfer Learning
 
@@ -211,8 +258,6 @@ def getBottleneckValues(image_path):
 
     return np.squeeze(bottleneck_values)
 {% endhighlight %}
-
-
 
 Because this process can take a while to run, it's a good idea to cache the values onto disk so if you want to use it later you can just pull the values from a file rather than recalculating the values. For caching I use the pickle module and 
 
