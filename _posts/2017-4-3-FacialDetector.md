@@ -247,13 +247,13 @@ This code will start training your model. There is additional code beyond this t
 
 Once the model is finished running you can run predictions, as well as see how it learned over time. For the first experiment I'm running the model for 1000 epochs. Below is a plot showing the training error vs the validation error of the model over it's training period.
 
-<center>{% include image.html url="http://i.imgur.com/T020WcU.png"
-description="Training and Validation over 1000 epochs." size="400" %}</center>
+<center>{% include image.html url="http://i.imgur.com/hYDo9lR.png"
+description="Simple Neural Network Results" size="600" %}</center>
 
 Our model ends up with a training error of 0.018857 and validation error of 0.02027. One thing to notice is that the model could have been trained for a longer period of time. This is only 5 minutes of training. The reason I'm not though is because this model is simply learning too slowly. There are other methods we can use to improve the performance and reduce the training time. If you have the time feel free to try running this for more epochs. For now we want to see some actual images with their predicted feature locations. I like grabbing a large span of them, 25 in this case, and displaying them.
 
-<center>{% include image.html url="http://i.imgur.com/hYDo9lR.png"
-description="Simple Neural Network Results" size="700" %}</center>
+<center>{% include image.html url="http://i.imgur.com/nOEjBHa.png"
+description="Simple Neural Network Results" size="600" %}</center>
 
 We can see that for our very first model that the results... are not looking good. These are images that the model has not seen before, from the validation set. Clearly the model needs more work. There are many avenues that we can take, which means we'll be experimenting with different techniques to improve the detector. One obvious change we could make is to train it for a longer period of time. We can also play with the optimization parameters. Along with that there are techniques to virtually increase the dataset size. What I want to start with though is run the same set up but with a larger convolutional neural network.
 
