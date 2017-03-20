@@ -11,7 +11,7 @@ For this tutorial I'm following the paper [here](https://people.eecs.berkeley.ed
 ![](http://i.imgur.com/ysw2ZZx.png?1)
 
 # Purpose/Goal
-The purpose of this tutorial is to demonstrate how to do per pixel classification using transpose convolution layers on a deep network. This process creates segmented images that can separate the classe object in a scene.
+The purpose of this tutorial is to demonstrate how to perform pixelwise classification using transpose convolution layers on a deep network. This process creates segmented images that can separate the class object in a scene.
 
 
 
@@ -82,7 +82,7 @@ training_data, training_labels = loadDataSet(training_list, training_label_list)
 validation_data, validation_labels = loadDataSet(validation_list, validation_label_list)
 {% endhighlight %}
 
-After 5-10 minutes or so the data should be fully loaded. Before moving on I found it to be a good idea to cache the files in a pickle file. I've had Jupyter Notebook crash which caused me to have to repull the data and waiting each time was aggravating.
+After 5-10 minutes or so the data should be fully loaded. Before moving on I found it to be a good idea to cache the files in a pickle file. I've had Jupyter Notebook crash which caused me to have to repull the data and waiting each time is aggravating.
 
 {% highlight python %}
 import pickle
@@ -132,7 +132,7 @@ validation_labels = np.reshape(validation_labels, [-1, image_size, image_size, 1
 You should now be able to access all of the data.
 # Building the Model
 
-If you've gone through my Facial Feature Detector tutorial then this will be fairly similar. The main difference is that instead of building a custom model we're going to mimic the VGG 19 model. The reason we're doing this is because the paper mentioned at the beginning listed a few different networks that were used, which includes VGG 19, so I wanted to use the larger one. We also have access online to pretrained weights so we won't have to train the network from scratch.
+If you've gone through my Facial Feature Detector tutorial then this will be fairly similar. The main difference is that instead of building a custom model we're going to mimic the VGG 19 model. The reason we're doing this is because the paper mentioned at the beginning lists a few different networks that were used, including VGG 19. We also have access online to pretrained weights so we won't have to train the network from scratch.
 
 For building the model I use a few generator functions to generate each layer. This helps reduce code and makes things overall cleaner and easier to read.
 
@@ -216,12 +216,15 @@ def createPoolingLayer(x_input, kernel_size, pool_type):
 These are the basic ConvNet layers needed to build VGG19.
 
 # VGG19
-VGG19 is a convolutional neural network built by Oxford Universty. VGG19 was entered in  ILSVRC-2014 and won first and second place for localization and classification. [CITE] The information 
+
+*image of vgg19*
+VGG19 is a convolutional neural network built by Oxford Universty. VGG16-19 was entered in  ILSVRC-2014 and won first and second place for localization and classification. [CITE] The network is the largest in all of the tutorials, with over 134 million parameters.
 
 ### Build Network Code
+For this network we're going to be modifying VGG19 into a fully convolutional network, and then implementing a "deconvolution network" at the end, similar to the transfer learning tutorial.
 
 # Deconvolution Layer
-Terrible name. We need an image demonstrating what to do here
+Terrible name. We need an image demonstrating what happening
 
 Put in code for how this is set up.
 
