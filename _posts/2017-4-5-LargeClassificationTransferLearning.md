@@ -11,7 +11,8 @@ The purpose of this tutorial is to implement two ideas. One is classification us
 
 # Downloading Inception v3
 
-The first thing we need to do is get access a large, pretrained CNN model. There are various models available online, and for this tutorial I'll demonstrate how to access the Inception V3 model from Google. Google makes it fairly easy to download and use their model. If you wish to manually access it you can simply go [here](http://download.tensorflow.org/models/image/imagenet/inception-2015-12-05.tgz). Otherwise there is various code for downloading(as well as extracting) tar zipped files.
+The first thing we need to do is gain access to a large, pretrained CNN model. There are various models available online and, for this tutorial, I’ll demonstrate how to access the Inception V3 model from Google. Google makes it fairly easy to download and use their model. If you wish to manually access it, you can simply download it [here](http://download.tensorflow.org/models/image/imagenet/inception-2015-12-05.tgz). Otherwise, there is code for downloading and extracting tar zipped files.
+ 
 
 {% highlight python %}
 def download(url, directory):
@@ -37,7 +38,8 @@ def download(url, directory):
 
 {% endhighlight %}
 
-Either insert and run the code above with some folder location, or manually download the model. This zipped file contains several files that we need to use. It's somewhat obtuse so let's go through what each of the files are and their reasons for inclusion.
+Either insert and run the code above with some folder location, or manually download the model. This zipped file contains several files that we will need to use. It is somewhat obtuse so we will go through what each of these files are and the reasons for their inclusion.
+
 
 ##### classification_image_graph_def.pb
 
