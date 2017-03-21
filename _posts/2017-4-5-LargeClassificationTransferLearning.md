@@ -3,7 +3,7 @@ layout: post
 title: Tensorflow - Classification with Transfer Learning
 ---
 
-*Need a picture here*
+*Need a picture here for the main page*
 
 # Purpose/Goal
 
@@ -429,13 +429,3 @@ Along with this I like to display multiple images from the set along with their 
 Congratulations! You've gotten through this tutorial. Hopefully you understand how you can take advantage of large classification networks now. With this knowledge you should be able to find other networks and try transfer learning with them. See what kind of results you can get between different networks.
 # Full code
 https://github.com/sdeck51/CNNTutorials/blob/master/5.%20TransferLearning_Tutorial/TransferLearningWithInception.ipynb
-
-![](http://i.imgur.com/57cNk4l.jpg)
-![](http://i.imgur.com/4WFTmcx.jpg)
-![](http://i.imgur.com/NAy6MWl.png)
-
-
-
-
-
-
