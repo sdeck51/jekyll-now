@@ -237,25 +237,22 @@ So it can classify a panda, but what else? From here find any image you want and
 If you were able to get things working up to this point then congratulations! You have control of an extremely powerful image classifier. If you have problems that involve the classes this model was trained for then you're ready to go! This however may not be the case. Let's try some other images, preferably from a new dataset. The ones below come from the [caltech101 dataset](http://www.vision.caltech.edu/Image_Datasets/Caltech101/).
 
 
-{% include image.html url="http://imgur.com/EctmWg8.jpg" description="stegosaurus" size="300" %}{% include image.html url="http://imgur.com/IPqyll1.jpg" description="dolphin" size="300" %}{% include image.html url="http://imgur.com/qDnDiIt.jpg" description="pyramids" size="300" %}
+<center>{% include image.html url="http://imgur.com/EctmWg8.jpg" description="stegosaurus" size="300" %}</center>
 
-
-
-
-
-You probably don't need to classify that x image was a forklift or y image was a panda. You probably have images in mind that you want to classify. What can we do about this? We have this large, powerful model that we would like to use but it doesn't classify what we want. Thankfully there's a method we can use to take advantage of this model and it's learned features, called Transfer Learning.
+    0.9998 triceratops
+    0.0000 sunscreen
+    
+What is we wanted a dinosaur classifier and wanted to classify a stegosaurus, or another nontriceratops dinosaur? You probably don't want or need to classify a forklift or giant panda and you probably have images in mind that you would like to classify. What can we do about this? We have this large, powerful model that we would like to use but it doesn't classify what we want. Thankfully there's a method we can use to take advantage of this model and it's learned features, called Transfer Learning.
 
 ## Transfer Learning
 
 ![alt text](https://github.com/sdeck51/sdeck51.github.io/raw/master/images/inception2.png)
 
-Transfer Learning is a method where we transfer what a model has learned into a new classifier, one which we define on our own. If we want to classify different types of birds then we know that this model will benefit that as it has trained on birds and has learned features from that. What we're going to do is remove the last fully connected layer and classification layer and create a new one. This process takes a few steps to optimally perform. We're dealing with a very large model and training it can take a lot of time if we're not clever about how to handle it.
+Transfer Learning is a method where we transfer what a model has learned into a new classifier, one which we define on our own. We are interested in Inception v3's learned kernels. Since they can classify the 1000 classes it was given these kernels can most likely classify other classes. If we want to classify different types of birds then we know that this model will benefit that as it has trained on birds and has learned features from that. What we're going to do is create a new classification layer with the number of classes defined by us and attach it to inception v3. This process takes a few steps to optimally perform. Remember, we're dealing with a very large model and training it can take a lot of time if we're not clever about how to handle it.
 
-What we'll be doing is in essence training a very small classification network. The input of this network however will be an output from the inception model. The inception model has so many generalized features that they can be used beyond the classes it was trained for, so we are going to have new data to classify, and classify quickly!
+What we'll be doing is in essence training a small classification network. The input of this network will not be images, but an intermediate staged output from the inception model. This intermediate stage is called the "bottleneck" layer. This layer comes right before the classification layer, so you can understand we're simply replacing the classification layer with one we defined. Putting images through the model up to this layer can take quite a bit of time for larger datasets(One set was roughly 30 minutes for one pass of every image). If we want to train our new network for several epochs(an epoch meaning every image has passed through the network) then this will take hours to run. One technique we can use though is caching. Since we are passing each image through Inception v3 several times it'll yield the same output. We're not touching the weights of the original network, so what we're going to do is pass each image through inception v3 once, extract the bottleneck output for each image, and then cache that data. Then when we start training out model, we'll use these new bottleneck values instead of the original images. This will save use magnitudes of time.
 
-The input our network will be taking in will come from what is called the "bottleneck" layer. This layer comes right before the classification layer, so you can imagine we are just replacing classification layers. Putting images through the model up to this layer can take quite a bit of time for larger datasets. One of the datasets I classify took over 20 minutes to pass each image into the network. If we want to train our new network for several epochs(an epoch meaning every image has passed through the network) then this will take time. What we can do though is since passing each image through inception will yield the same output, we can run them through once, and then just use these "bottleneck values".
-
-To obtain bottleneck values we need to have access to the bottleneck tensor in the model. With this tensor we can run a session where we return the output of the bottleneck tensor.
+To obtain bottleneck values we need to have access to the bottleneck tensor in the model. With this tensor we can run a session where we return the output of the bottleneck "tensor". This tensor is called 'pool_3:0', so we can run a session with this tensor and get the output from the jpeg tensor input.
 
 {% highlight python %}
 def getBottleneckValues(image_path):
@@ -265,7 +262,7 @@ def getBottleneckValues(image_path):
     return np.squeeze(bottleneck_values)
 {% endhighlight %}
 
-Because this process can take a while to run, it's a good idea to cache the values onto disk so if you want to use it later you can just pull the values from a file rather than recalculating the values. For caching I use the pickle module and 
+With the code above we can extract these bottleneck values. What we want to do with this though is cache them. This way we can run the code several times for any datasets and not have to wait minutes, to fractions of hours waiting to extract these values.
 
 {% highlight python %}
 def bottleneckCache(cache_path, images=None, image_paths=None):
@@ -292,44 +289,34 @@ def bottleneckCache(cache_path, images=None, image_paths=None):
     return bottleneck_values
 {% endhighlight %}
 
-
+For caching the values I use the pickle library. This code will return the cached bottleneck values, so if they are already made they will just return them instead of extracting, caching, and returning them.
 
 
 ### Separate the Data
 
-Once the values are cached we can set up the data for training/validation/testing. You can use any method you're used to. I simply randomize the order of the data and split it up into training and validation samples.
+Once the values are cached we can set up the data for training/validation/testing. You can use any method you're used to. I simply randomize the order of the data and split it up into training validation.
+
+{% highlight python %}
+def splitData(data, percentage):
+    data1 = data[:int(len(data)*percentage)]
+    data2 = data[int(len(data)*percentage)+1:]
+    
+    return data1, data2
+    
+x_train, x_validate = splitData(bottleneck_values, 0.6)
+y_train, y_validate = splitData(label_values, 0.6)
+
+z_train_images, z_validate_images = splitData(images, 0.6)
+
+x_validate, x_test = splitData(x_validate, 0.6)
+y_validate, y_test = splitData(y_validate, 0.6)
+
+z_test_images, z_validate_images = splitData(z_validate_images, 0.6)
+{% endhighlight %}
 
 ### Create new Classification Layer
 
-Once our data is set up we'll define the new classiciation layer. This will take in the bottleneck values and output predictions. To do this we're going top create a fully connected layer that has a shape of the number in input bottleneck values by the number of output values which will be the number of new classes. We also give biases which equal to the number of classes. The input of the layer multiplies with the weights and the biases are added to that. This is then put through a softmax classification layer to output prediction percent per class.
-
-Along with the newly added network we also need to define the cost function. This is the function that will be optimized to build the best fit model. For multi class classification a popular method to use is cross entropy. When we get an output from our model we'll have percentages for each class indicating it's that percentage.
-
-For example
-
-    dog 50%
-    cat 22%
-    mouse 18%
-    lizard 10%
-
-In the above case lets say that the input was in fact a dog. While the output has the top class as a dog we would like that value to be closer to 100%. At the same time let's look at this scenario.
-
-    dog 95%
-    cat 4%
-    mouse 1%
-    lizard 0%
-    
-Dog is clearly the choice here, though it still isn't 100%. We don't want to penalize the model as much for being 5% off, while we would want to penalize it more for being "more" incorrect.
-
-![alt text](https://github.com/sdeck51/sdeck51.github.io/raw/master/images/crossentropy.PNG)
-
-Since we are working with values between 0 and 1, you can see why we need to have the negative value. The summation is used to simply get the single class that that image actually belongs to and take the log of the predicted percentage. If this percentage is closer to 1, the output of the function will be lower, while as it goes farther away is gets higher.
-
-### Optimization
-
-With the cost function undertood we can apply an optimizer. The optimizer is what makes the model learn. Optimizing adjusts the weights and biases of the network to be closer to the actual labels. When you feed an image to the model, it'll output it's prediction. The learning process is simply changing those weights/biases so if we were to feed the image to the model again that the output prediction would be closer to what we want. A popular optimizer is the simple stochastic gradient descent. Gradient Descent is an optimization method that involves following the gradient of a function to reach a minimum. Stochastic gradient descent follows the same algorithm, however in SGD we can "batch" the input and optimize multiple inputs at once. This improves the speed of the algorithm by taking single steps for multiple inputs. Along with this you can define the step size that the optimizer will take. If it's too large then it may pass over minimums in the model's cost function and never converge. On the other hand if it's too small it may simply take too long to reach a minimum. Once method of dealing with this is to introduce a exponentially decaying step length, so at the beginning of training we'll have x step size, and over time that length will exponentially decay.
-
-
+Once our data is set up we'll define the new classiciation layer. This will take in the bottleneck values and output predictions. To do this we're going top create a fully connected layer that has a shape of the number in input bottleneck values by the number of output values which will be the number of new classes. We also give biases which equal to the number of classes, one to each node. The input of the layer multiplies with the weights and the biases are added to that. This is then put through a softmax classification layer to output normalized predictions per class.
 
 {% highlight python %}
 with graph.as_default():
@@ -364,16 +351,62 @@ with graph.as_default():
    
 {% endhighlight %}
 
+Along with the new classification network we need to define the loss function and optimization technique. For this network I'm using cross-entropy for the loss function and standard Mini-Batch Gradient Descent.
+
 ### Training
 
 With everything set up we can finally begin training our model. To do this we need to do a few things. Firstly we'll want to implement a batching scheme that will take batches of our training data and feed it into the model. This will speed up the model by optimizing multiple inputs at a time. We also need to define how long to train our network. Lastly we'll want to see how the model is improving by calculating the training and validation accuracy.
 
-Code for that stuff
+{% highlight python %}
+start = time.time()
+train_accuracy_list = []
+valid_accuracy_list = []
+train_loss_list = []
+valid_loss_list = []
+time_list = []
+epoch_list = []
 
+print("TRAINING ")
 
+with tf.Session(graph = graph) as session:
+    session.run(tf.global_variables_initializer())
+    saver = tf.train.Saver()
+    if os.path.exists(model_directory2):
+        print("Loading model...")
+        load_path = saver.restore(session, model_path)
+    for current_epoch in range(500):
+        for x, y in batch(x_train, y_train, batch_size):
+            feed_dict = {x_input: x, y_output: y}
+            # training and optimizing
+            session.run([optimizer], feed_dict = feed_dict)
+
+        train_accuracy = accuracy.eval(feed_dict={x_input:x_train, y_output: y_train})
+        train_accuracy_list.append(train_accuracy)
+        valid_accuracy = accuracy.eval(feed_dict={x_input:x_validate, y_output: y_validate})
+        valid_accuracy_list.append(valid_accuracy)
+        train_loss = cross_entropy_mean.eval(feed_dict={x_input:x_train, y_output: y_train})
+        train_loss_list.append(train_loss)
+        valid_loss = cross_entropy_mean.eval(feed_dict={x_input:x_validate, y_output: y_validate})
+        valid_loss_list.append(valid_loss)
+        
+        current_time = time.time() - start
+        hours, minutes, seconds = getTime(current_time)
+        print("Epoch[%d]" % current_epoch + "%d" % hours + ":%2d" % minutes + ":%2d " % seconds + "%f " % train_accuracy + " %f" % valid_accuracy + " %f " % train_loss + " %f" % valid_loss)
+        time_list.append(current_time)
+        epoch_list.append(current_epoch)
+    if not os.path.exists(model_directory2):
+        os.mkdir(model_directory2)
+    save_path = saver.save(session, model_path)
+    # Evaluate on test dataset.
+    print("Test Accuracy: " + str(accuracy.eval(feed_dict={x_input:x_test, y_output: y_test})))
+    print("Test Loss: " + str(cross_entropy_mean.eval(feed_dict={x_input:x_validate, y_output: y_validate})))
+{% endhighlight %}
 
 ### Results
-After a model has been trained we can see how well it works! The main method of seeing how it runs is to determine its error, or inversely it's accuracy. For large models a lot of groups like to check the top-5 error, so we'll want to take in the top 5 predictions as we did when originally classifying the network, though this time by feeding the model the bottleneck values. If you separated your data with a test set this is where you should use it. Simply classify your test data and return both top1 and top5 results.
+
+After a model has been trained we can find out how well it works. The main method of seeing how it runs is to determine its loss, or accuracy. For large models a lot of groups like to check the top-5 error, so we'll want to take in the top 5 predictions as we did when originally classifying the network, though this time by feeding the model the bottleneck values. If you separated your data with a test set this is where you should use it. Simply classify your test data and return top5 results.
+
+
 
 Another method for seeing how well a model is working is by generating a confusion matrix. A confusion matrix lists the classes of a model and the predicted class of a model. Below is an example demonstrated using a small bird dataset.
 
@@ -381,23 +414,7 @@ Another method for seeing how well a model is working is by generating a confusi
 
 Along with this I like to display images from the set along with their actual labels and predicted labels.
 *image of thing*
-#### Results
-- validation accuracy
-- predictions
-- confusion matrix
 
-# Showing examples using 3 datasets
-One thing I want to demonstrate is showing the 6 class bird dataset, where some of the classes have already been trained on while the others haven't.
-
-Case with 257 class data
-
-Case with faces.
-
-Have confusion matrices for all. Overall accuracy.
-
-
-### Progress
-Code works! Just need to format results.
 
 # Results
 I have three different data sets. I need to upload % accuracy. Would be good to pick out a random batch and show their classification.
