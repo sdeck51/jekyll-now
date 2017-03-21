@@ -417,7 +417,7 @@ For large models a lot of groups like to check the top-5 error, so we'll want to
     0.0014 pyramid
     0.0013 anchor
 
-Another method for seeing how well a model is working is by generating a confusion matrix. A confusion matrix lists the classes of a model against the predicted classes.  Below is an example demonstrated using the 101Caltech data. The text is small due to having 101 classes but hopefully you get the idea. You can also go to it directly [here] (http://i.imgur.com/1c7ngdw.jpg).
+Another method for seeing how well a model is working is by generating a confusion matrix. A confusion matrix lists the classes of a model against the predicted classes.  Below is an example demonstrated using the 101Caltech data. The text is small due to having 101 classes but hopefully you get the idea. You can also go to it directly [here](http://i.imgur.com/1c7ngdw.jpg).
 
 <center>{% include image.html url="http://i.imgur.com/1c7ngdw.jpg" description="Confusion Matrix for Caltech 101 Objects Dataset" size="900" %}</center>
 
