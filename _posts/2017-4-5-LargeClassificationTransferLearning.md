@@ -402,14 +402,14 @@ with tf.Session(graph = graph) as session:
 
 After a model has been trained we can find out how well it works. The main method of seeing how it runs is to determine its loss, or accuracy. For this model I trained the CalTech 101Objects dataset split 60% training, 30% testing and 10% validation. 
 
-<center>{% include image.html url="http://i.imgur.com/59R4tai.png" description="Model loss" size="400" %}</center>
-<center>{% include image.html url="http://i.imgur.com/uSmo8td.png" description="Model accuracy" size="400" %}</center>
+<center>{% include image.html url="http://i.imgur.com/59R4tai.png" description="Model loss" size="700" %}</center>
+<center>{% include image.html url="http://i.imgur.com/uSmo8td.png" description="Model accuracy" size="700" %}</center>
 
 Above are the loss and accuracy over training time. The model tested out with an accuracy of 0.924761 and loss of 0.369531.
 
 For large models a lot of groups like to check the top-5 error, so we'll want to take in the top 5 predictions as we did when originally classifying the network, though this time by feeding the model the bottleneck values. If you separated your data with a test set this is where you should use it. Simply classify your test data and return top5 results.
 
-<center>{% include image.html url="http://imgur.com/Dn22CKb.jpg" description="Model accuracy" size="400" %}</center>
+<center>{% include image.html url="http://imgur.com/Dn22CKb.jpg" description="Top 5 accuracy for dolphin" size="400" %}</center>
 
     0.9754 dolphin
     0.0028 brontosaurus
@@ -419,7 +419,7 @@ For large models a lot of groups like to check the top-5 error, so we'll want to
 
 Another method for seeing how well a model is working is by generating a confusion matrix. A confusion matrix lists the classes of a model against the predicted classes.  Below is an example demonstrated using the 101Caltech data. The text is small due to having 101 classes but hopefully you get the idea. You can also go to it directly [here] (http://i.imgur.com/1c7ngdw.jpg).
 
-<center>{% include image.html url="http://i.imgur.com/1c7ngdw.jpg" description="Model accuracy" size="400" %}</center>
+<center>{% include image.html url="http://i.imgur.com/1c7ngdw.jpg" description="Confusion Matrix for Caltech 101 Objects Dataset" size="400" %}</center>
 
 Along with this I like to display multiple images from the set along with their actual labels and predicted labels.
 
