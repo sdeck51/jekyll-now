@@ -46,7 +46,7 @@ Either insert and run the code above with some folder location, or manually down
 This is the actual model file, which includes every layer that makes up inception v3, the connects to and from each layer, as well as the pretrained weights and biases. What we're going to do is load this into our program and classify with it fairly quickly.
 
 ##### cropped_panda.jpg
-<center>{% include image.html url="https://github.com/sdeck51/sdeck51.github.io/raw/master/images/cropped_panda.jpg" description="GoogleNet Inception v3 . [cite]" size="900" %}</center>
+<center>{% include image.html url="https://github.com/sdeck51/sdeck51.github.io/raw/master/images/cropped_panda.jpg" description="GoogleNet Inception v3 . [cite]" size="300" %}</center>
 This is a pretty cute panda that's included to use for classify. One of the included classes in the model is giant pandas so we can use this to see how much it thinks this image is a panda.
 
 ##### imagenet_2012_challenge_label_map_proto.pbtxt
@@ -211,7 +211,7 @@ classify('cropped_panda.jpg', 5)
 {% endhighlight %}
 
 
-<center>{% include image.html url="https://github.com/sdeck51/sdeck51.github.io/raw/master/images/cropped_panda.jpg" description="GoogleNet Inception v3 . [cite]" size="900" %}</center>
+<center>{% include image.html url="https://github.com/sdeck51/sdeck51.github.io/raw/master/images/cropped_panda.jpg" description="GoogleNet Inception v3 . [cite]" size="300" %}</center>
 
     0.8923 giant panda
     0.0086 indri
@@ -419,11 +419,11 @@ For large models a lot of groups like to check the top-5 error, so we'll want to
 
 Another method for seeing how well a model is working is by generating a confusion matrix. A confusion matrix lists the classes of a model against the predicted classes.  Below is an example demonstrated using the 101Caltech data. The text is small due to having 101 classes but hopefully you get the idea. You can also go to it directly [here] (http://i.imgur.com/1c7ngdw.jpg).
 
-<center>{% include image.html url="http://i.imgur.com/1c7ngdw.jpg" description="Confusion Matrix for Caltech 101 Objects Dataset" size="400" %}</center>
+<center>{% include image.html url="http://i.imgur.com/1c7ngdw.jpg" description="Confusion Matrix for Caltech 101 Objects Dataset" size="700" %}</center>
 
 Along with this I like to display multiple images from the set along with their actual labels and predicted labels.
 
-<center>{% include image.html url="http://i.imgur.com/3TB7hB2.jpg" description="Model accuracy" size="400" %}</center>
+<center>{% include image.html url="http://i.imgur.com/3TB7hB2.jpg" description="Model accuracy" size="700" %}</center>
 
 Congratulations! You've gotten through this tutorial. Hopefully you understand how you can take advantage of large classification networks now. With this knowledge you should be able to find other networks and try transfer learning with them. See what kind of results you can get between different networks.
 # Full code
