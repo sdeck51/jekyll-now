@@ -3,11 +3,7 @@ layout: post
 title: Tensorflow - Classification with Transfer Learning
 ---
 
-In this post I'll go over how you can harness a deep neural network and classify your own images quickly!
-Full code [here](https://github.com/sdeck51/CNNTutorials/blob/master/5.%20TransferLearning_Tutorial/TransferLearningWithInception.ipynb)
-
-# Intro
-Here we learn how we can transfer learned features from one dataset to another.
+*Need a picture here*
 
 # Purpose/Goal
 
@@ -399,35 +395,46 @@ with tf.Session(graph = graph) as session:
     save_path = saver.save(session, model_path)
     # Evaluate on test dataset.
     print("Test Accuracy: " + str(accuracy.eval(feed_dict={x_input:x_test, y_output: y_test})))
-    print("Test Loss: " + str(cross_entropy_mean.eval(feed_dict={x_input:x_validate, y_output: y_validate})))
+    print("Test Loss: " + str(cross_entropy_mean.eval(feed_dict={x_input:x_test, y_output: y_test})))
 {% endhighlight %}
 
 ### Results
 
-After a model has been trained we can find out how well it works. The main method of seeing how it runs is to determine its loss, or accuracy. For large models a lot of groups like to check the top-5 error, so we'll want to take in the top 5 predictions as we did when originally classifying the network, though this time by feeding the model the bottleneck values. If you separated your data with a test set this is where you should use it. Simply classify your test data and return top5 results.
+After a model has been trained we can find out how well it works. The main method of seeing how it runs is to determine its loss, or accuracy. For this model I trained the CalTech 101Objects dataset split 60% training, 30% testing and 10% validation. 
+
+<center>{% include image.html url="http://i.imgur.com/59R4tai.png" description="Model loss" size="400" %}</center>
+<center>{% include image.html url="http://i.imgur.com/uSmo8td.png" description="Model accuracy" size="400" %}</center>
+
+Above are the loss and accuracy over training time. The model tested out with an accuracy of 0.924761 and loss of 0.369531.
 
 
+For large models a lot of groups like to check the top-5 error, so we'll want to take in the top 5 predictions as we did when originally classifying the network, though this time by feeding the model the bottleneck values. If you separated your data with a test set this is where you should use it. Simply classify your test data and return top5 results.
 
-Another method for seeing how well a model is working is by generating a confusion matrix. A confusion matrix lists the classes of a model and the predicted class of a model. Below is an example demonstrated using a small bird dataset.
+<center>{% include image.html url="http://imgur.com/Dn22CKb.jpg" description="Model accuracy" size="400" %}</center>
 
-*image of thing*
+    0.9754 dolphin
+    0.0028 brontosaurus
+    0.0025 bass
+    0.0014 pyramid
+    0.0013 anchor
 
-Along with this I like to display images from the set along with their actual labels and predicted labels.
-*image of thing*
+Another method for seeing how well a model is working is by generating a confusion matrix. A confusion matrix lists the classes of a model against the predicted classes.  Below is an example demonstrated using the 101Caltech data. The text is small due to having 101 classes but hopefully you get the idea. You can also go to it directly [here] (http://i.imgur.com/1c7ngdw.jpg).
 
+<center>{% include image.html url="http://i.imgur.com/1c7ngdw.jpg" description="Model accuracy" size="400" %}</center>
 
-# Results
-I have three different data sets. I need to upload % accuracy. Would be good to pick out a random batch and show their classification.
+Along with this I like to display multiple images from the set along with their actual labels and predicted labels.
+
+<center>{% include image.html url="http://i.imgur.com/3TB7hB2.jpg" description="Model accuracy" size="400" %}</center>
+
+Congratulations! You've gotten through this tutorial. Hopefully you understand how you can take advantage of large classification networks now. With this knowledge you should be able to find other networks and try transfer learning with them. See what kind of results you can get between different networks.
+# Full code
+https://github.com/sdeck51/CNNTutorials/blob/master/5.%20TransferLearning_Tutorial/TransferLearningWithInception.ipynb
 
 ![](http://i.imgur.com/57cNk4l.jpg)
 ![](http://i.imgur.com/4WFTmcx.jpg)
 ![](http://i.imgur.com/NAy6MWl.png)
 
-0.9754 dolphin
-0.0028 brontosaurus
-0.0025 bass
-0.0014 pyramid
-0.0013 anchor
+
 
 
 
