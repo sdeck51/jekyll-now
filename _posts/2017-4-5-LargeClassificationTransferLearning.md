@@ -419,11 +419,11 @@ For large models a lot of groups like to check the top-5 error, so we'll want to
 
 Another method for seeing how well a model is working is by generating a confusion matrix. A confusion matrix lists the classes of a model against the predicted classes.  Below is an example demonstrated using the 101Caltech data. The text is small due to having 101 classes but hopefully you get the idea. You can also go to it directly [here] (http://i.imgur.com/1c7ngdw.jpg).
 
-<center>{% include image.html url="http://i.imgur.com/1c7ngdw.jpg" description="Confusion Matrix for Caltech 101 Objects Dataset" size="700" %}</center>
+<center>{% include image.html url="http://i.imgur.com/1c7ngdw.jpg" description="Confusion Matrix for Caltech 101 Objects Dataset" size="900" %}</center>
 
 Along with this I like to display multiple images from the set along with their actual labels and predicted labels.
 
-<center>{% include image.html url="http://i.imgur.com/3TB7hB2.jpg" description="Model accuracy" size="700" %}</center>
+<center>{% include image.html url="http://i.imgur.com/3TB7hB2.jpg" description="Model accuracy" size="800" %}</center>
 
 Congratulations! You've gotten through this tutorial. Hopefully you understand how you can take advantage of large classification networks now. With this knowledge you should be able to find other networks and try transfer learning with them. See what kind of results you can get between different networks.
 # Full code
