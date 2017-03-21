@@ -234,7 +234,13 @@ So it can classify a panda, but what else? From here find any image you want and
     0.0002 crane
     0.0001 golfcart
 
-If you were able to get things working up to this point then congratulations! You have control of an extremely powerful image classifier. If you have problems that involve the classes this model was trained for then you're ready to go! This however isn't likely. Let's try some other images, preferably from a dataset. The ones below come from the [caltech101 dataset](http://www.vision.caltech.edu/Image_Datasets/Caltech101/) 
+If you were able to get things working up to this point then congratulations! You have control of an extremely powerful image classifier. If you have problems that involve the classes this model was trained for then you're ready to go! This however may not be the case. Let's try some other images, preferably from a new dataset. The ones below come from the [caltech101 dataset](http://www.vision.caltech.edu/Image_Datasets/Caltech101/).
+
+
+<center>{% include image.html url="http://imgur.com/EctmWg8.jpg" description="stegosaurus" size="300" %}</center><center>{% include image.html url="http://imgur.com/IPqyll1.jpg" description="dolphin" size="300" %}</center><center>{% include image.html url="http://imgur.com/qDnDiIt.jpg" description="pyramids" size="300" %}</center>
+
+
+
 
 
 You probably don't need to classify that x image was a forklift or y image was a panda. You probably have images in mind that you want to classify. What can we do about this? We have this large, powerful model that we would like to use but it doesn't classify what we want. Thankfully there's a method we can use to take advantage of this model and it's learned features, called Transfer Learning.
@@ -399,5 +405,13 @@ I have three different data sets. I need to upload % accuracy. Would be good to 
 ![](http://i.imgur.com/57cNk4l.jpg)
 ![](http://i.imgur.com/4WFTmcx.jpg)
 ![](http://i.imgur.com/NAy6MWl.png)
+
+0.9754 dolphin
+0.0028 brontosaurus
+0.0025 bass
+0.0014 pyramid
+0.0013 anchor
+
+
 
 
