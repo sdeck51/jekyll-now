@@ -407,7 +407,6 @@ After a model has been trained we can find out how well it works. The main metho
 
 Above are the loss and accuracy over training time. The model tested out with an accuracy of 0.924761 and loss of 0.369531.
 
-
 For large models a lot of groups like to check the top-5 error, so we'll want to take in the top 5 predictions as we did when originally classifying the network, though this time by feeding the model the bottleneck values. If you separated your data with a test set this is where you should use it. Simply classify your test data and return top5 results.
 
 <center>{% include image.html url="http://imgur.com/Dn22CKb.jpg" description="Model accuracy" size="400" %}</center>
