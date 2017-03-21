@@ -237,7 +237,7 @@ So it can classify a panda, but what else? From here find any image you want and
 If you were able to get things working up to this point then congratulations! You have control of an extremely powerful image classifier. If you have problems that involve the classes this model was trained for then you're ready to go! This however may not be the case. Let's try some other images, preferably from a new dataset. The ones below come from the [caltech101 dataset](http://www.vision.caltech.edu/Image_Datasets/Caltech101/).
 
 
-<center>{% include image.html url="http://imgur.com/EctmWg8.jpg" description="stegosaurus" size="300" %}</center><center>{% include image.html url="http://imgur.com/IPqyll1.jpg" description="dolphin" size="300" %}</center><center>{% include image.html url="http://imgur.com/qDnDiIt.jpg" description="pyramids" size="300" %}</center>
+{% include image.html url="http://imgur.com/EctmWg8.jpg" description="stegosaurus" size="300" %}{% include image.html url="http://imgur.com/IPqyll1.jpg" description="dolphin" size="300" %}{% include image.html url="http://imgur.com/qDnDiIt.jpg" description="pyramids" size="300" %}
 
 
 
