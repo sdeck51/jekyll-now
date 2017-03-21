@@ -45,11 +45,11 @@ Either insert and run the code above with some folder location, or manually down
 
 <center>{% include image.html url="https://github.com/sdeck51/sdeck51.github.io/raw/master/images/inceptionArchitecture.png" description="GoogleNet Inception v3 . [cite]" size="900" %}</center>
 
-This is the actual model file, which includes every layer that makes up inception v3, the connects to and from each layer, as well as the pretrained weights and biases. What we're going to do is load this into our program and classify with it fairly quickly.
+This is the model file that includes each layer, the connections to and from the layers, the weights of those connections, and the biases of each of the nodes. What we are going to do is load this into our program and classify with it.
 
 ##### cropped_panda.jpg
 <center>{% include image.html url="https://github.com/sdeck51/sdeck51.github.io/raw/master/images/cropped_panda.jpg" description="GoogleNet Inception v3 . [cite]" size="300" %}</center>
-This is a pretty cute panda that's included to use for classify. One of the included classes in the model is giant pandas so we can use this to see how much it thinks this image is a panda.
+This is a pretty cute panda that is included to use for classification. One of the classes in the model is giant pandas, so we can use this image to see if our classifier works.
 
 ##### imagenet_2012_challenge_label_map_proto.pbtxt
 
@@ -69,7 +69,7 @@ This is a pretty cute panda that's included to use for classify. One of the incl
     n02871525	bookshop, bookstore, bookstall
     ...
 
-This includes all of the classes in the imagenet 2012 challenge. This file maps between the class id and the human readable name. We're not going to understand what the model is saying when it thinks the panda image is 89% class n01573342, so it needs to translate.
+This includes all of the classes in the imagenet 2012 challenge. This file maps the class id and the human readable name. We are not going to understand when the model thinks the panda image is 89% class n01573342, so this will help us translate.
 
 ##### imagenet_synset_to_human_label_map.txt
 
@@ -88,9 +88,9 @@ This includes all of the classes in the imagenet 2012 challenge. This file maps 
     }
     ...
 
-Since inception v3 was trained on 1000 classes it has a 1000 vector output, representing the probability that the input is each class. There are more than 1000 classes in the Imagenet dataset so we need to know what each output represents, in terms of physical output on the model and the class id it belongs to. This paired with the mapping file above will allow us to correctly state predictions in the network in a human readable way.
+Since inception v3 was trained on 1000 classes it has a 1000 vector output. This represents the probability of the input being each class. There are more than 1000 classes in the Imagenet dataset, so we need to know what each output represents in terms of output vector of the model and the class id it belongs to. This, paired with the mapping file above, will allow us to correctly state predictions in a human readable way.
     
-Each of these files are needed to be able to load up the Inception v3 model, and then classify and understand the output of classification. From this we can parse the files to get class values and class ids from the dataset that was used to train Inception v3. 
+Each of these files are needed to load the Inception v3 model and then classify and understand the output of classification. From this we can parse the files to get class values and class ids from the dataset that was used to train Inception v3. 
 
 {% highlight python %}
 id_to_name = {}  
