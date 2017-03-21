@@ -7,11 +7,11 @@ title: Tensorflow - Classification with Transfer Learning
 
 # Purpose/Goal
 
-The purpose of this tutorial is to train a classifier and then transfer that learning to a new classifier. The classification will be done using a very deep neural network. From Google to Microsoft, many large companies have deep convolutional neural networks that they use for image classification. These networks are trained on the ILSVRC dataset from Imagenet [cite]. This dataset consists of over 14 million images which networks are trained to recognize 1000 classes. These are great networks to learn how to use, but training one of these networks from scratch isn’t feasible for the average user. These networks take months to train on hardware made specifically for these tasks. [google tpu] We’re going to work through obtaining the GoogleNet v3 architecture and learn how to classify images with it. Afterwards we’ll use the concept of transfer learning to make a new classifier for any images we want.
+The purpose of this tutorial is to implement two ideas. One is classification using a very deep neural network. The other is taking this neural network and classifying new classes of data with it. Many large companies, from Google to Microsoft, have deep convolutional neural networks that they use for image classification. These networks are trained on the ILSVRC dataset from Imagenet [cite]. This dataset consists of over 14 million images of which networks are trained on 1000 classes. These are great networks to learn how to use, but for the average user training one of these networks from scratch on their own isn't feasible. These networks take weeks and months to train using the dataset, sometimes on hardware made specifically for these tasks. [google tpu] We're going to work through obtaining the GoogleNet v3 architecture and learn how to classify images. Afterwards we'll use that network and use the concept of transfer learning to make it useable for any images we want to classify with.
 
 # Downloading Inception v3
 
-The first thing we need to do is get access a large, pretrained CNN model. There are various models available online, and for this tutorial I'll demonstrate how to access the Inception V3 model from Google. Google makes it fairly easy to download and use their model. If you wish to manually access it you can simply download it [here](http://download.tensorflow.org/models/image/imagenet/inception-2015-12-05.tgz). Otherwise there is various code for downloading(as well as extracting) tar zipped files.
+The first thing we need to do is get access a large, pretrained CNN model. There are various models available online, and for this tutorial I'll demonstrate how to access the Inception V3 model from Google. Google makes it fairly easy to download and use their model. If you wish to manually access it you can simply go [here](http://download.tensorflow.org/models/image/imagenet/inception-2015-12-05.tgz). Otherwise there is various code for downloading(as well as extracting) tar zipped files.
 
 {% highlight python %}
 def download(url, directory):
@@ -425,6 +425,7 @@ Along with this I like to display multiple images from the set along with their 
 
 <center>{% include image.html url="http://i.imgur.com/3TB7hB2.jpg" description="Model accuracy" size="800" %}</center>
 
-Congratulations! You've gotten through this tutorial. Hopefully you understand how you can take advantage of large classification networks now. With this knowledge you should be able to classify large datasets quickly. You should also be able to find other deep networks and try transfer learning with them. See what kind of results you can get between different networks.
+Congratulations! You've gotten through this tutorial. Hopefully you understand how you can take advantage of large classification networks now. You can use any dataset thats structured with label based folders. With this knowledge you should also be able to find other networks and try transfer learning with them. See what kind of results you can get between different networks.
+
 # Full code
 https://github.com/sdeck51/CNNTutorials/blob/master/5.%20TransferLearning_Tutorial/TransferLearningWithInception.ipynb
