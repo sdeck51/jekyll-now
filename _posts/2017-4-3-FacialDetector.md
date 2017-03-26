@@ -219,9 +219,9 @@ with tf.Session(graph = graph) as session:
             session.run([optimizer], feed_dict = feed_dict)
         #if(current_epoch % 10 == 0):
         # validate every so often    
-            train_loss = lossFunction(get_predictions_in_batches(x_train, session), y_train)
+            train_loss = getLoss(x_train, y_train, session)
             train_loss_list.append(train_loss)
-            valid_loss = lossFunction(get_predictions_in_batches(x_validate, session), y_validate)
+            train_loss = getLoss(x_valid, y_valid, session)
             valid_loss_list.append(valid_loss)
         
 
@@ -234,7 +234,7 @@ with tf.Session(graph = graph) as session:
         time_list.append(current_time)
         epoch_list.append(current_epoch)
         # Evaluate on test dataset.
-    test_loss = lossFunction(get_predictions_in_batches(x_validate, session), y_validate)
+    test_loss = getLoss(x_test, y_test, session)
     print(" Test score: %.3f (loss = %.8f)" % (np.sqrt(test_loss) * 48.0, test_loss)) 
     if not os.path.exists(model_directory):
         os.mkdir(model_directory)
