@@ -199,7 +199,7 @@ with graph.as_default():
 
 {% endhighlight %}
 
-To optimize we need a function in which needs optimization. For this problem we're dealing with error in distances of several points, so we're using mean squared error for the loss function. In tensorflow the optimization for SGD needs a learning rate assigned. You can play around with this value, but I've found too high of a step size to not converge. For this I'm starting at 0.0001, just to demonstrate the the model learns, though it is very slow.
+To optimize we need a function in which needs optimization. For this problem we're dealing with error in distances of several points, so we're using mean squared error for the loss function. In terms of actual optimizer functions we're going to look at 3 of them, namely SGD, SGD with momentum, and ADAM. I want to see how well they work in this problem as well as come up with the best optimizer to use for the final model.
 
 ### Training the network
 The last large step we need to implement is the code to actually train the network.
@@ -247,15 +247,23 @@ This code will start training your model. There is additional code beyond this t
 
 # Simple Neural Network Results
 
-Once the model is finished running you can run predictions, as well as see how it learned over time. For the first experiment I'm running the model for 1000 epochs. Below is a plot showing the training error vs the validation error of the model over it's training period.
+Once the model is finished running you can run predictions, as well as see how it learned over time. For the first experiment I'm running a grid search, involving the 3 optimizers, and 4-5 learning rates. This will help give us a hint as to what optimizer will benefit us later.
 
-<center>{% include image.html url="http://i.imgur.com/hYDo9lR.png"
+
+
+<center>{% include image.html url="http://i.imgur.com/h6OcIiQ.png"
 description="Simple Neural Network Results" size="600" %}</center>
+
+0.031078 0.03013
+0.0163271240890026 0.0172875355929136
+
 
 Our model ends up with a training error of 0.018857 and validation error of 0.02027. One thing to notice is that the model could have been trained for a longer period of time. This is only 5 minutes of training. The reason I'm not though is because this model is simply learning too slowly. There are other methods we can use to improve the performance and reduce the training time. If you have the time feel free to try running this for more epochs. For now we want to see some actual images with their predicted feature locations. I like grabbing a large span of them, 25 in this case, and displaying them.
 
 <center>{% include image.html url="http://i.imgur.com/nOEjBHa.png"
 description="Simple Neural Network Results" size="600" %}</center>
+
+
 
 We can see that for our very first model that the results... are not looking good. These are images that the model has not seen before, from the validation set. Clearly the model needs more work. There are many avenues that we can take, which means we'll be experimenting with different techniques to improve the detector. One obvious change we could make is to train it for a longer period of time. We can also play with the optimization parameters. Along with that there are techniques to virtually increase the dataset size. What I want to start with though is run the same set up but with a larger convolutional neural network.
 
