@@ -380,6 +380,15 @@ def createConvolutionalNetwork(x_input, isTraining):
 
 With this new model function simply swap out createSimpleNetwork with createConvolutionalNetwork. They are trained with the same training code. 
 
+<center>{% include image.html url="http://i.imgur.com/GIMvGa3.png"
+description="ConvNet using SGD" size="500" %}</center>
+
+<center>{% include image.html url="http://i.imgur.com/4srxdvj.png"
+description="ConvNet and SimpleNet using SGD with Momentum" size="500" %}</center>
+
+<center>{% include image.html url="http://i.imgur.com/CljLLDm.png"
+description="ConvNet and SimpleNet using ADAM" size="500" %}</center>
+
 *Graph that has both NN and CNN*
 <center>{% include image.html url="http://i.imgur.com/MsTztZ3.png"
 description="ConvNet and SimpleNet using SGD" size="500" %}</center>
