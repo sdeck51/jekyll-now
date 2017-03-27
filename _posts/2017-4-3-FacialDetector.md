@@ -407,7 +407,7 @@ One of the first improvements to suggest if you feel your model is training slow
 *Graph that has both CNN02 and CNN04*
 *Faces with CNN04*
 
-As I just mentions, increasing the learning rate can be beneficial, but not when converging. Instead of having a constant learning rate, we can have a learning rate that is high at the beginning and that decays over time. This way we'll have small step sizes when we need to.
+As I just mentioned, increasing the learning rate can be beneficial, but not when converging. Instead of having a constant learning rate, we can have a learning rate that is high at the beginning and that decays over time. This way we'll have small step sizes when we need to.
 
 *Graph that has both CNN04 and CNNDecay*
 *Faces with CNNDecay*
