@@ -240,7 +240,7 @@ If you were able to get things working up to this point then congratulations! Yo
     0.9998 triceratops
     0.0000 sunscreen
     
-What is we wanted a dinosaur classifier and wanted to classify a stegosaurus, or another nontriceratops dinosaur? You probably don't want or need to classify a forklift or giant panda and you probably have images in mind that you would like to classify. What can we do about this? We have this large, powerful model that we would like to use but it doesn't classify what we want. Thankfully there's a method we can use to take advantage of this model and it's learned features, called Transfer Learning.
+What if we wanted a dinosaur classifier and wanted to classify a stegosaurus, or another nontriceratops dinosaur? You probably don't want or need to classify a forklift or giant panda and you probably have images in mind that you would like to classify. What can we do about this? We have this large, powerful model that we would like to use but it doesn't classify what we want. Thankfully there's a method we can use to take advantage of this model and it's learned features, called Transfer Learning.
 
 ## Transfer Learning
 
