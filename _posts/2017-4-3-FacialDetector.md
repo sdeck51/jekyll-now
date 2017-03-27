@@ -415,7 +415,8 @@ description="ConvNet using SGD" size="500" %}</center>
 Both lower training and validation loss suggests this will be a better model. Let's look at some images.
 
 <center>{% include image.html url="http://i.imgur.com/xMwIJUV.png"
-description="ConvNet predictions" size="700" %}</center>
+description="ConvNet predictions" size="800" %}</center>
+
 We can see that there is a drastic change between the convolution model and the simple neural net. The features are starting to take shape in the eyes, brows and mouth. There are still issues with the location of them though. Some mouth labels are much higher than they should be for example. Lets look into additional techniques for improving this.
 
 
