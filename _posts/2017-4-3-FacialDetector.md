@@ -8,10 +8,10 @@ In this post I go over how to make a facial feature detector. Full code [here](h
 
 
 # Purpose/Goal
-The main goal for this tutorial is to demonstrate how one can build a facial feature detector from scratch using tensorflow. We'll go through several different models to demonstrate how improvements can be made, via grid search that lead to more optimized models. We'll also talk about improvements that can be made that were not performed in this experiment.
+The main goal for this tutorial is to demonstrate how one can build a facial feature detector from scratch using tensorflow. We'll go through several different models to demonstrate how one can make improvements that lead to an optimized model. We'll also talk about improvements that can be made.
 
 # Data
-The data for a feature detector is fairly important in defining the model we'll be building. Unlike image classification where you can simply assign a label to an image, our feature detector needs to know where the features in the image are, via labeled coordinates. The data we're using can be found [here](https://www.kaggle.com/c/facial-keypoints-detection/data). Labeled data consists of 7049 images, though 70% of the samples are missing certain labels, so we'll only be using a subset of the data. There are 30 unique values in the labesl, which represent as an x and y coordinate for 15 features of the face. Below is an example of a image from the data set with the labels applied to the face.
+The data for a feature detector is fairly important in defining the model we'll be building. Unlike image classification where you can simply assign a label to an image, feature detection needs to know where the features in the image are, using through coordinates. The data I'm using can be found [here](https://www.kaggle.com/c/facial-keypoints-detection/data). Labeled data consists of 7049 images, though many samples are missing certain labels. There are 30 unique values in a label, represented as an x and y coordinate for 15 features of the face. Below is an example of a image from the data set with the labels applied to the face.
 <center>{% include image.html url="http://i.imgur.com/rPjZh9h.png"
 description="data sample with labels overlaid" size="250" %}</center>
 
@@ -55,10 +55,9 @@ def loadData():
     
 {% endhighlight %}
 
-With the above code we can successfully load the data.
+With the above code we can successfully load the data. We pull 
 
-With this we need to simply split up the data in some fashion. Cross validation isn't 
-In deep learning cross validation isn't as often used due to time. Deep networks can train from hours to days, weeks to months, and using cross validation isn't as helpful, along with the fact that cross validation is used when data is limited. In deep networks we use large datasets that (hopefully) span the set we'll test with.
+With this we need to simply split up the data in some fashion. In deep learning cross validation isn't as often used due to time. Deep networks can train from hours to days, weeks to months, and using cross validation isn't as helpful, along with the fact that cross validation is used when data is limited. In deep networks we use large datasets that (hopefully) span the set we'll test with.
 
 # Building Neural Networks
 For this tutorial we're going to build several different models. The reason for this is to demonstrate different technical techniques that can be used to optimize the model to create the best performing model. To make this easier to create and deplot we'll look at building some generating functions that we can call that will build the layers of the models that we will need. If you get lost refer to the [theory page](https://sdeck51.github.io/Convolutional_Neural_Network_Concepts/).
@@ -105,12 +104,9 @@ def createLinearRectifier(x_input):
 
 # Building the Network
 
-## To do
-I want to change the beginning to demonstrate using SGD first. This will result in much worse models and show that the final model is that much better.
+To begin we'll start by building a simple neural network to see how it fares. Afterwards we'll implement a larger convolutional neural network and include concepts that have shown to boost the performance of networks.
 
-To begin I want to start by building a simple neural network to see how it fares. Afterwards I'll implement a larger convolutional neural network and implement concepts that have shown to boost performance of networks, namely:
-
-To start off we're going to look at a very simple neural network and see what kind of results we can obtain from that. To do this we need to be able to build fully connected layers.
+Neural networks are made of multiple fully connected layers. All this means is the input of a previous layer is connected to every node. If you have N inputs and M nodes then that layer will have N*M weight parameters + M biases.
 
 {% highlight python %}
 def createFullyConnectedLayer(x_input, width):
@@ -133,7 +129,12 @@ def createFullyConnectedLayer(x_input, width):
 
 We'll need to be making multiple fully connected layers, as well as other types of layers, so I'll be making functions to generate these. The above will create a fully connected layer. Along with this we need to implement the activation function. In neural networks each node has some sort of saturating function, such as the sigmoind, or hyperbolic tangent. For deep networks, due to speed concerns as well as vanishing gradient issues, linear rectifiers are used. Also called ReLu, this function is simply the function x with a floor of zero.
 
-Another concern we have is the weights need to be initialized in some fashion, because if they have the same initial values then they may end up learning similar features and create an underperforming model. People have found that simply applying gaussian a guassian distribution with zero variance works well for both improved training speed as well as preventing the networking from learning the same features, or even from it stop learning. We'll be using xavier initialization for this.
+Another concern we have is the weights need to be initialized in some fashion, because if they have the same initial values then they may end up learning similar features, create an underperforming model, and also take more time to train. Below is a graph demonstrating a network that is being trained for 300 epochs from a zero initialized weight setting using SGD.
+
+http://i.imgur.com/TOaKRXB.png
+
+
+You'll see that while I could continue to let it train, those first epochs suggest that there are better initializations one could do as the change in loss is too little. Researchers have found that simply applying guassian distributions with zero variance works well for both improved training speed as well as preventing the networking from learning the same features, or even from it stop learning. We'll be using xavier initialization for this.
 
 {% highlight python %}
 def createLinearRectifier(x_input):
@@ -198,7 +199,7 @@ with graph.as_default():
 
 {% endhighlight %}
 
-To optimize we obviously need a cost function to optimize. For this problem we're dealing with error in distances of several points, so we're using mean squared error for the loss function, which can be seen above. In tensorflow the optimization for SGD needs a learning rate assigned. You can play around with this value, but I've found too high of a step size to not converge. For this I'm starting at 0.0001, just to demonstrate the the model learns, though it is very slow.
+To optimize we need a function in which needs optimization. For this problem we're dealing with error in distances of several points, so we're using mean squared error for the loss function. In tensorflow the optimization for SGD needs a learning rate assigned. You can play around with this value, but I've found too high of a step size to not converge. For this I'm starting at 0.0001, just to demonstrate the the model learns, though it is very slow.
 
 ### Training the network
 The last large step we need to implement is the code to actually train the network.
