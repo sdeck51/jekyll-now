@@ -409,15 +409,17 @@ description="ConvNet using ADAM" size="800" %}</center>
     0.1     0.004451  0.004161
     1       0.004803  0.005160
     
-*Graph that has both NN and CNN*
 <center>{% include image.html url="http://i.imgur.com/MsTztZ3.png"
-description="ConvNet and SimpleNet using SGD" size="500" %}</center>
+description="ConvNet using SGD" size="500" %}</center>
 
 Both lower training and validation loss suggests this will be a better model. Let's look at some images.
-*Faces with CNN*
+
 <center>{% include image.html url="http://i.imgur.com/xMwIJUV.png"
 description="ConvNet predictions" size="700" %}</center>
 We can see that there is a drastic change between the convolution model and the simple neural net. The features are starting to take shape in the eyes, brows and mouth. There are still issues with the location of them though. Some mouth labels are much higher than they should be for example. Lets look into additional techniques for improving this.
+
+
+
 
 Conv improved learning rate
 
@@ -435,12 +437,8 @@ Once we're comfortable with our optimization changes we need to start thinking a
 
 ### Data Augmentation
 
-#### Flipping Images
-#### Changing Brightness
-#### Adding Noise
+One of the largest problems with our model is that there isn't enough data. One thing we can do is manipulate the data we already have to generate more data. Flipping an image horizontally(along with their labels) should provide more images that are useful for the model to learn. This will essentially double the size of the data.
 
-*Graph that has both CNNDecay and CNNDA*
-*Faces with CNNDA*
 
 ### Dropout
 
@@ -449,8 +447,6 @@ description="Dropout" size="350" %}</center>
 
 With data augmentation we should have a much better model. Even with this though we're having overfitting issues. The last change we're going to make to our model is implementing dropout. Dropout is a highly used technique that helps to generalize the model by disabling nodes while training. Instead of training all of the nodes in a layer, dropout disables randomly selected nodes(with a user defined ratio) and those nodes do not learn for that step. The idea is that this will discriminate features in images to certain nodes, so nodes in general will learn more unique features, rather than learning the same features from the same images. One disadvantage in using dropout is that training becomes a lot slower. This makes sense though as we're only training certain nodes on certain layers. What this gives us in return though is longer training with longer learning.
 
-*Graph that has both CNNDecay and CNNDA*
-*Faces with CNNDA*
 
 
 <center>{% include image.html url="http://i.imgur.com/AiOmWWP.png"
@@ -458,6 +454,8 @@ description="Best Model." size="800" %}</center>
 
 <center>{% include image.html url="http://i.imgur.com/jwC0ZGS.png"
 description="Best Model Results" size="800" %}</center>
+
+This is the best model I currently have made.
 
 ####  Additional Improvements to try: 
 - Additional data augmentation: Current augmentation includes horizontal flipping. Rotation was attempted but had trouble with converging models. Other augmentations such as cropping could produce a more robust model. This additional will need labels to be transformed in the same fashion.
