@@ -449,14 +449,13 @@ description="Dropout" size="350" %}</center>
 With data augmentation we should have a much better model. Even with this though we're having overfitting issues. The last change we're going to make to our model is implementing dropout. Dropout is a highly used technique that helps to generalize the model by disabling nodes while training. Instead of training all of the nodes in a layer, dropout disables randomly selected nodes(with a user defined ratio) and those nodes do not learn for that step. The idea is that this will discriminate features in images to certain nodes, so nodes in general will learn more unique features, rather than learning the same features from the same images. One disadvantage in using dropout is that training becomes a lot slower. This makes sense though as we're only training certain nodes on certain layers. What this gives us in return though is longer training with longer learning.
 
 
-
 <center>{% include image.html url="http://i.imgur.com/AiOmWWP.png"
 description="Best Model." size="800" %}</center>
 
 <center>{% include image.html url="http://i.imgur.com/jwC0ZGS.png"
 description="Best Model Results" size="800" %}</center>
 
-This is the best model I currently have made.
+This is the best model I currently have made. Using grid search I found Momentum Optimization between 0.01 to 0.1 to last the longest. Running with decaying learning rate may slightly improve results. I am currently running cross validation to confirm the robustness of the model.
 
 ####  Additional Improvements to try: 
 - Additional data augmentation: Current augmentation includes horizontal flipping. Rotation was attempted but had trouble with converging models. Other augmentations such as cropping could produce a more robust model. This additional will need labels to be transformed in the same fashion.
