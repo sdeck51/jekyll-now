@@ -253,11 +253,14 @@ Once the model is finished running you can run predictions, as well as see how i
 
 <center>{% include image.html url="http://i.imgur.com/h6OcIiQ.png"
 description="Simple Neural Network Results" size="600" %}</center>
-
-0.031078 0.03013
-0.0163271240890026 0.0172875355929136
-
-
+    
+    learn   train   validation
+    0.0001  0.031078 0.03013
+    0.001   0.016115 0.01687
+    0.01    0.008030 0.00906
+    0.1     0.004377 0.004404
+    1       nan     nan
+   
 Our model ends up with a training error of 0.018857 and validation error of 0.02027. One thing to notice is that the model could have been trained for a longer period of time. This is only 5 minutes of training. The reason I'm not though is because this model is simply learning too slowly. There are other methods we can use to improve the performance and reduce the training time. If you have the time feel free to try running this for more epochs. For now we want to see some actual images with their predicted feature locations. I like grabbing a large span of them, 25 in this case, and displaying them.
 
 <center>{% include image.html url="http://i.imgur.com/nOEjBHa.png"
