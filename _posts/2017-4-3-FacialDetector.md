@@ -455,7 +455,7 @@ description="Best Model." size="800" %}</center>
 <center>{% include image.html url="http://i.imgur.com/jwC0ZGS.png"
 description="Best Model Results" size="800" %}</center>
 
-This is the best model I currently have made. Using grid search I found Momentum Optimization between 0.01 to 0.1 to last the longest. Running with decaying learning rate may slightly improve results. I am currently running cross validation to confirm the robustness of the model.
+This is the best model I currently have made. Using grid search I found SGD with Momentum between a learning rate of 0.01 to 0.1 to obtain the minimum validation loss. This is 0.3LR with data augmentation and dropout enabled. Running with decaying learning rate may slightly improve results, though I haven't seen it yet. I am currently running cross validation to confirm the robustness of the model.
 
 ####  Additional Improvements to try: 
 - Additional data augmentation: Current augmentation includes horizontal flipping. Rotation was attempted but had trouble with converging models. Other augmentations such as cropping could produce a more robust model. This additional will need labels to be transformed in the same fashion.
