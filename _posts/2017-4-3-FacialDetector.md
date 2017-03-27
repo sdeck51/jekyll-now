@@ -294,12 +294,12 @@ description="Simple Neural Network Results" size="600" %}</center>
 
 
 
-We can see that for our very first model that the results... are not looking good. These are images that the model has not seen before, from the validation set. Clearly the model needs more work. There are many avenues that we can take, which means we'll be experimenting with different techniques to improve the detector. One obvious change we could make is to train it for a longer period of time. We can also play with the optimization parameters. Along with that there are techniques to virtually increase the dataset size. What I want to start with though is run the same set up but with a larger convolutional neural network.
+We can see that for our very first models that the results... are not very good. These are images from the test set that the model has not seen before. Clearly the model needs more work. There are many avenues that we can take, which means we'll be experimenting with different techniques to improve the detector. One obvious change we could make is to train it for a longer period of time. We can also play with more optimization parameters. Along with that there are techniques to virtually increase the dataset size. What we'll start with isto  run the same set up but with a larger convolutional neural network.
 
 # Convolutional Neural Network
 
-*picture of model I'm building*
-For this network we're going to be building a ConvNet roughly 10x larger than the simple neural network. I already introduced the fully connected layer and linear rectifier generating function. Now I need to introduce the convolution layer and pooling layer generating functions.
+*3 convolutional layer network with 3 fully connected layers*
+For this network we're going to be building a 6 layer ConvNet. I already introduced the fully connected layer and linear rectifier generating function. Now we need to introduce the convolution layer and pooling layer generating functions.
 
 {% highlight python %}
 def createConvolutionLayer(x_input, kernel_size, features, depth):
@@ -378,7 +378,7 @@ def createConvolutionalNetwork(x_input, isTraining):
     return output
 {% endhighlight %}
 
-With this new model function simply swap out createSimpleNetwork with createConvolutionalNetwork. Train the network with the same code. 
+With this new model function simply swap out createSimpleNetwork with createConvolutionalNetwork. They are trained with the same training code. 
 
 *Graph that has both NN and CNN*
 <center>{% include image.html url="http://i.imgur.com/MsTztZ3.png"
