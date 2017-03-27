@@ -131,8 +131,9 @@ We'll need to be making multiple fully connected layers, as well as other types 
 
 Another concern we have is the weights need to be initialized in some fashion, because if they have the same initial values then they may end up learning similar features, create an underperforming model, and also take more time to train. Below is a graph demonstrating a network that is being trained for 300 epochs from a zero initialized weight setting using SGD.
 
-http://i.imgur.com/TOaKRXB.png
 
+<center>{% include image.html url="http://i.imgur.com/TOaKRXB.png"
+description="Zero weight initialization" size="800" %}</center>
 
 You'll see that while I could continue to let it train, those first epochs suggest that there are better initializations one could do as the change in loss is too little. Researchers have found that simply applying guassian distributions with zero variance works well for both improved training speed as well as preventing the networking from learning the same features, or even from it stop learning. We'll be using xavier initialization for this.
 
@@ -252,7 +253,7 @@ Once the model is finished running you can run predictions, as well as see how i
 
 
 <center>{% include image.html url="http://i.imgur.com/h6OcIiQ.png"
-description="Simple Neural Network using SGD" size="600" %}</center>
+description="Simple Neural Network using SGD" size="800" %}</center>
     
     learn   train   validation
     0.0001  0.031078 0.03013
@@ -264,25 +265,29 @@ description="Simple Neural Network using SGD" size="600" %}</center>
 We can see that the learning rate plays a large role in SGD optimization. We can see that the fastest learning rate is 0.1, so it's likely we'll find a good fit between 0.1 and 1. Let's also take a look at Momentum based SGD and ADAM.
 
 <center>{% include image.html url="http://i.imgur.com/Qim9DX2.png"
-description="Simple Neural Network using SGD Momentum" size="600" %}</center>
+description="Simple Neural Network using SGD Momentum" size="800" %}</center>
 
     learn   train     validation
-    0.0001  0.026732  0.027404
+    0.0001  0.026732  0.02740
     0.001   0.016327  0.017287
     0.01    0.007881  0.008768
     0.1     0.004062  0.003983
+    
+Each example above uses .9 for momentum. We can see that it's fairly similar to standard SGD, being better in 3 of the 4 learning rates. 
 
 <center>{% include image.html url="http://i.imgur.com/RFXXV2G.png"
-description="Simple Neural Network using ADAM" size="600" %}</center>
+description="Simple Neural Network using ADAM" size="800" %}</center>
 
     learn   train     validation
-    0.0001  0.0030036 0.005175
-    0.001   0.0044115 0.004428
+    0.0001  0.003003  0.005175
+    0.001   0.004411  0.004428
     0.01    0.004339  0.004675
     0.1     0.004451  0.004161
+    1       0.004803  0.005160
     
+Adam fairs differently from the previous methods. Each learning rate rapidly approaches the 0.003 - 0.005 range, which is due to it's calculation of moving averages. The lowest step size yeilds the best training loss, however the validation error is the worst. We'll see how this plays out when running a model using ADAM for a longer period.
 
-Our model ends up with a training error of 0.018857 and validation error of 0.02027. One thing to notice is that the model could have been trained for a longer period of time. This is only 5 minutes of training. The reason I'm not though is because this model is simply learning too slowly. There are other methods we can use to improve the performance and reduce the training time. If you have the time feel free to try running this for more epochs. For now we want to see some actual images with their predicted feature locations. I like grabbing a large span of them, 25 in this case, and displaying them.
+
 
 <center>{% include image.html url="http://i.imgur.com/nOEjBHa.png"
 description="Simple Neural Network Results" size="600" %}</center>
