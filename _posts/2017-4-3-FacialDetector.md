@@ -290,7 +290,7 @@ Adam fairs differently from the previous methods. Each learning rate rapidly app
 
 
 <center>{% include image.html url="http://i.imgur.com/nOEjBHa.png"
-description="Simple Neural Network Results" size="600" %}</center>
+description="Simple Neural Network Results" size="800" %}</center>
 
 
 
