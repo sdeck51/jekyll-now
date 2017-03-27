@@ -4,7 +4,7 @@ title: Tensorflow - Facial Feature Detector
 ---
 ![](http://i.imgur.com/90KjE6A.png?2)
 
-In this post I go over how to make a facial feature detector. Full code [here](https://github.com/sdeck51/CNNTutorials/blob/master/7.%20FacialFeatureDetection_Tutorial/FaceDetector.ipynb).
+In this post I go over how to make a facial feature detector. Full code [here](https://github.com/sdeck51/CNNTutorials/blob/master/7.%20FacialFeatureDetection_Tutorial/FaceDetector3.ipynb).
 
 
 # Purpose/Goal
@@ -383,13 +383,32 @@ With this new model function simply swap out createSimpleNetwork with createConv
 <center>{% include image.html url="http://i.imgur.com/GIMvGa3.png"
 description="ConvNet using SGD" size="800" %}</center>
 
+    learn   train     validation
+    0.0001  0.1254    0.1259
+    0.001   0.00795   0.008059
+    0.01    0.005230  0.004675
+    0.1     0.003992  0.004075
+
 <center>{% include image.html url="http://i.imgur.com/4srxdvj.png"
 description="ConvNet using SGD with Momentum" size="800" %}</center>
 
+    learn   train     validation
+    0.0001    0.005175
+    0.001   0.004411  0.004428
+    0.01    0.004339  0.004675
+    0.1     0.004451  0.004161
+    1       0.004803  0.005160
+    
 <center>{% include image.html url="http://i.imgur.com/CljLLDm.png"
 description="ConvNet using ADAM" size="800" %}</center>
 
-
+    learn   train     validation
+    0.0001  0.003003  0.005175
+    0.001   0.004411  0.004428
+    0.01    0.004339  0.004675
+    0.1     0.004451  0.004161
+    1       0.004803  0.005160
+    
 *Graph that has both NN and CNN*
 <center>{% include image.html url="http://i.imgur.com/MsTztZ3.png"
 description="ConvNet and SimpleNet using SGD" size="500" %}</center>
@@ -433,28 +452,15 @@ With data augmentation we should have a much better model. Even with this though
 *Graph that has both CNNDecay and CNNDA*
 *Faces with CNNDA*
 
-# Results
-![](http://i.imgur.com/qMv2z9k.png)
 
-Acronyms in Model Name: 
-- NN - Neural Network
-- CNN - Convolutional Neural Network
-- LRNx - Learning Rate of x
-- EX - exponential decay of learning rate
-- EP - Number of Epochs trained
-- DA - Data Augmentation
-- DRP - Dropout enabled
+<center>{% include image.html url="http://i.imgur.com/AiOmWWP.png"
+description="Best Model." size="800" %}</center>
 
-Current Best Model
-![](http://i.imgur.com/y1EbHby.png)
-
-Red points represent labels, while green points represent label predictions. You can see that the third row fourth column does not match up very well. We can see that the image is both off angle and the face is somewhat tilted.
+<center>{% include image.html url="http://i.imgur.com/jwC0ZGS.png"
+description="Best Model Results" size="800" %}</center>
 
 ####  Additional Improvements to try: 
-- Additional data augmentation: Current augmentation includes horizontal flipping, brightness, and noise. Other augmentations such as rotating the face or cropping could produce a more robust model. This additional will need labels to be transformed in the same fashion.
+- Additional data augmentation: Current augmentation includes horizontal flipping. Rotation was attempted but had trouble with converging models. Other augmentations such as cropping could produce a more robust model. This additional will need labels to be transformed in the same fashion.
 - separate models for specific features: Instead of having one model for all of the labels, separate models can be used to calculate specific labels, such as each eye, eyebrow, nose. and mouth. 
-- continued adjustments to optimizer: using different values for learning rate and momentum have shown changes to both the speed of training as well as overall error. 
 
-## Things I want to add
-- gif showing validation image predicted labels migrate while model is being trained
-- Already have code working to do this. Will demonstrate the beginning training process using 1 batch steps.
+
