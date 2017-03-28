@@ -16,9 +16,6 @@ The purpose of this tutorial is to demonstrate how to perform pixelwise classifi
 
 
 
-
-# Process
-
 ### Things to discuss
 - Loading the data
 - Building the Model (VGG 16/19)
@@ -32,7 +29,7 @@ The purpose of this tutorial is to demonstrate how to perform pixelwise classifi
 In computer vision, image segmentation is the idea of partitioning an image into segments. These segments represent objects and boundaries that can be used to more easily label or classify what is in an image. Semantic segmentation is a variation on segmentation, where not only are we partitioning an image into coherent parts, but also labeling the parts.
 
 ### Fully Convolutional Networks
-Fully Convolutional Networks(FCN) are fairly new architectures [CITE]. Like Convnets, FCNs impose convolution and pooling layers to extract feature maps from input images. What differs FCNs from traditional classification ConvNets is instead of classifying entire images FCNs classify every pixel. There are no fully connected layers, which are instead replaced with convolution layers. For this tutorial we're also implementing transposed convolution layers, used for upsampling. Lik convolution layers weights, upsampling layers weights are also learned. Additionally, skips connections are used in various layers towards the upsampling layer to hopefully capture finer grain features in the image. In this tutorial we'll attempt to build a FCN for semantic segmentation using the popular VGG19 model.
+Fully Convolutional Networks(FCN) are fairly new architectures. Like Convnets, FCNs impose convolution and pooling layers to extract feature maps from input images. What differs FCNs from traditional classification ConvNets is instead of classifying entire images FCNs classify every pixel. There are no fully connected layers, which are instead replaced with convolution layers. For this tutorial we're also implementing transposed convolution layers, used for upsampling. Lik convolution layers weights, upsampling layers weights are also learned. Additionally, skips connections are used in various layers towards the upsampling layer to hopefully capture finer grain features in the image. In this tutorial we'll attempt to build a FCN for semantic segmentation using the popular VGG19 model.
 
 # Data
 The data we'll be using is from the MIT Scene Parsing website [here](http://sceneparsing.csail.mit.edu/). It contains 20,000 training images, and 2000 validation images across 151 different classes. The data we need is simply formatted in 4 folders that contain training images, training labels, validation images, validation labels. Due to having so many images it's a good idea to cache them on disc for quicker access.
@@ -217,23 +214,59 @@ These are the basic ConvNet layers needed to build VGG19.
 
 # VGG19
 
-*image of vgg19*
-VGG19 is a convolutional neural network built by Oxford Universty. VGG16-19 was entered in  ILSVRC-2014 and won first and second place for localization and classification. [CITE] The network is the largest in all of the tutorials, with over 134 million parameters.
+<center>{% include image.html url="http://i.imgur.com/KCylRbk.png"
+description="data sample with labels overlaid" size="800" %}</center>
 
-### Build Network Code
-For this network we're going to be modifying VGG19 into a fully convolutional network, and then implementing a "deconvolution network" at the end, similar to the transfer learning tutorial.
+VGG19 is a convolutional neural network built by Oxford Universty. It , along with a family of VGG models, was entered in  ILSVRC-2014 and won first and second place for localization and classification. [1] It contains 19 layers of convolution, fully connected, and softmax layers. This model is going to be used as the basis for the fully convolutional network, as the paper uses. We'll load VGG19 by defining each layer of the network in code, and then we'll use a file that contains preloaded data to set the weights of the network. Afterwards we'll use transfer learning and create a new network that is called the deconvolution network. 
 
 # Deconvolution Layer
-The deconvolution layer, or more aptly named transpose convolution layer, takes input and performance transpose convolution. This can also be seen as convolution with a 1/k stride, where k is <=1. This essentially upsamples the input into a larger output. The goal of this layer is to construct the input as a semantically segmented image. In the paper by Long et all they use 3 transpose convolution layers, where two layers share similar shapes with earlier pooling layers in the VGG architecture, and the last layer outputs the final semantically segmented image. The first two layers get two pooling layers added to it. The reason for this is the input for the first deconvolution layer is very small, and upsampling that input will create a very coarse, blocky image. Earlier layers are fed to these two layers to help inject detail that was lost.
-
-Put in code for how this is set up.
-
-Ready to train stuff.
+The deconvolution layer, or more aptly named transpose convolution layer, takes input and performance transpose convolution. This can also be seen as convolution with a 1/k stride, where k is <=1. This essentially upsamples the input into a larger output. The goal of this layer is to construct the input as a semantically segmented image. In the paper by Long et all they use 3 transpose convolution layers, where two layers share similar shapes with earlier pooling layers in the VGG architecture, and the last layer outputs the final semantically segmented image. The first two layers get two pooling layers added to it. The reason for this is the input for the first deconvolution layer is very small, and upsampling that input will create a very coarse, blocky image. Earlier layers from VGG19 are fed to these two layers to help inject detail that was lost.
 
 
+{% highlight python %}
+def createConvolutionTransposeLayer(x_input, output_shape, weight_shape, stride=2):
+    weights = tf.get_variable('weights', initializer = tf.truncated_normal(weight_shape, stddev=0.02))
+    biases = tf.get_variable('biases', shape=[weight_shape[2]], initializer=tf.constant_initializer(0))
+
+    convolution = tf.nn.conv2d_transpose(x_input, weights, output_shape, strides=[1,stride,stride,1], padding = 'SAME')
+    return tf.nn.bias_add(convolution, biases)
+
+{% endhighlight %}
+
+The network consists of 3 transpose convolution layers, with the first two recieving skip connects from the 3rd and 4th pooling layer in VGG19. The final transpose convolution layer is the output layer and the final layer in the entire network. This layer will output the predicted label as an image of class based pixels.
+
+{% highlight python %}
+def createDeconvolutionNetwork(x_input, orig_input, pool_fuse1, pool_fuse2):
+    
+    with tf.variable_scope('dc1'):
+        deconvolution_layer1 = createConvolutionTransposeLayer(x_input, tf.shape(pool_fuse1), [4, 4, pool_fuse1.get_shape()[3].value, num_classes], stride=2)
+        print("dc1: " + str(deconvolution_layer1.get_shape()))
+        #fuse layer with pool 4
+        fuse_layer1 = tf.add(pool_fuse1, deconvolution_layer1)
+        print("fuse1: " + str(fuse_layer1.get_shape()))
+        
+    with tf.variable_scope('dc2'):
+        deconvolution_layer2 = createConvolutionTransposeLayer(fuse_layer1, tf.shape(pool_fuse2), [4, 4, pool_fuse2.get_shape()[3].value, pool_fuse1.get_shape()[3].value], stride=2)
+        print("dc2: " + str(deconvolution_layer2.get_shape()))
+        #fuse layer with pool 3
+        fuse_layer2 = tf.add(pool_fuse2, deconvolution_layer2)
+        print("fuse2: " + str(fuse_layer2.get_shape()))
+        
+    with tf.variable_scope('dc3'):
+        #determine size
+        shape1 = tf.shape(orig_input)
+        shape2 = tf.pack([shape1[0], shape1[1], shape1[2], num_classes])
+        #conv layer
+        deconvolution_layer3 = createConvolutionTransposeLayer(fuse_layer2, shape2, [16, 16, num_classes, pool_fuse2.get_shape()[3].value], stride=8)
+        print("output_layer: " + str(deconvolution_layer3.get_shape()))
+        
+    output = tf.argmax(deconvolution_layer3, dimension=3)
+    
+    return tf.expand_dims(output, dim=3), deconvolution_layer3
+{% endhighlight %}
 
 # Training
-For this network training has to be done somewhat carefully. One problem is that this network as over 200M parameters, and is nearly filling up all of the VRAM in my GPU. Because of this you can only run a few batches at a time. In the paper they run 20 batches, but for most of us we'll only be able to run between 1-3 at a time. This poses another issue. When obtaining training and validation loss we can once again only have 1-3 batches at a time. This increases the variance in the loss, which will result in a much more jagged curve. This can be combatted by simply obtaining the loss for multiple batches, however this will decrease the speed of training, and so you need to balance out the accuracy in your loss with the time it will take to finish. With a GTX 1070 I had to run the machine for over 48 hours before getting coherent segmentation predictions.
+Training this fully connected network has to be done somewhat carefully. One issue is that this network has over 200M parameters, and is nearly filling up all of the VRAM in my GPU. Because of this you can only run a few batches at a time. In the paper they run 20 batches, but for most of us we'll only be able to run between 1-3 at a time. This poses another issue. When obtaining training and validation loss we can once again only have 1-3 batches at a time. This increases the variance in the loss, which will result in a much more jagged curve. This can be combatted by simply obtaining the loss for multiple batches, however this will decrease the speed of training, and so you need to balance out the accuracy in your loss with the time it will take to finish. With a GTX 1070 I had to run the machine for over 48 hours before beginning to get coherent segmentation predictions.
 
 
 # Results
@@ -295,3 +328,6 @@ As we can see it's starting to see bushes.
 ![](http://imgur.com/1XUpg8k.png)
 
 I want to show a few train/validation predictions over the course over training the network. Also recording loss over time.
+
+References:
+1. https://arxiv.org/pdf/1409.1556/
