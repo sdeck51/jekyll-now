@@ -13,17 +13,6 @@ For this tutorial I'm following the paper [here](https://people.eecs.berkeley.ed
 # Purpose/Goal
 The purpose of this tutorial is to demonstrate how to perform pixelwise classification using transpose convolution layers on a deep network. This process creates segmented images that can separate the class object in a scene.
 
-
-
-
-### Things to discuss
-- Loading the data
-- Building the Model (VGG 16/19)
-- Loading the weights
-- Implementing new classifier via transfer learning
-- Transpose Convolution Layers - new layer type
-- Fuse Layers/skip connections - adding previous layers to future layers
-
 ### What is Image Segmentation?
 ![](http://i.imgur.com/mSJDVCS.jpg)![](http://i.imgur.com/qZh484g.png)
 In computer vision, image segmentation is the idea of partitioning an image into segments. These segments represent objects and boundaries that can be used to more easily label or classify what is in an image. Semantic segmentation is a variation on segmentation, where not only are we partitioning an image into coherent parts, but also labeling the parts.
@@ -34,7 +23,8 @@ Fully Convolutional Networks(FCN) are fairly new architectures. Like Convnets, F
 # Data
 The data we'll be using is from the MIT Scene Parsing website [here](http://sceneparsing.csail.mit.edu/). It contains 20,000 training images, and 2000 validation images across 151 different classes. The data we need is simply formatted in 4 folders that contain training images, training labels, validation images, validation labels. Due to having so many images it's a good idea to cache them on disc for quicker access.
 
-The first thing we need to do is collect the names of the 
+The first thing we need to do is collect the names of the files we're reading in.
+
 {% highlight python %}
 def list_files(dire):
     r= []
@@ -51,7 +41,7 @@ training_label_list= list_files(os.getcwd() + '/data/MIT_SceneParsing/ADEChallen
 validation_label_list= list_files(os.getcwd() + '/data/MIT_SceneParsing/ADEChallengeData2016/annotations/validation')
 {% endhighlight %}
 
-This will allows us to then grab each image
+This will allows us to then grab each image in the dataset for training and testing purposes.
 
 {% highlight python %}
 def imageToArray(filename, size):
@@ -297,8 +287,6 @@ Predicted Label
 
 ![](http://i.imgur.com/6aKWtEJ.png) ![](http://imgur.com/BtJHdlP.png)
 
-My impressions here are that I still have a ways to dgo however the splotch of red in the top left corner and splotch of blue on the right side indicates its starting to learn. From the steps I've taken on it so far it has gone down a magnitude in training loss so I need to just let it run for an extended amount of time. Model saving/loading is working and will be pushed into the next build, so I can let it run overnight this week. I'll also try to get the models guess on training samples as well as the validation samples above.
-
 another 100k steps
 
 Actual Image
@@ -321,13 +309,7 @@ As we can see it's starting to see bushes.
 
 ![](http://imgur.com/svHMXUF.png)
 
-![](http://imgur.com/AyWvWf6.png)
-
-![](http://imgur.com/BhJCNm8.png)
-
-![](http://imgur.com/1XUpg8k.png)
-
-I want to show a few train/validation predictions over the course over training the network. Also recording loss over time.
+![](http://imgur.com/AyWvWf6.png)![](http://imgur.com/BhJCNm8.png)![](http://imgur.com/1XUpg8k.png)
 
 References:
 1. https://arxiv.org/pdf/1409.1556/
