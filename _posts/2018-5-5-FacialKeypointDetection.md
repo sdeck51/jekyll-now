@@ -40,3 +40,23 @@ More information about the optimizers can be found on the concepts page, with eq
 
 
 
+Let's also look at how they handle ConvNet.
+
+
+
+
+Say some things about both, move on to only using ConvNet.
+
+So with our weights initialized and a learning rate picked out, we should be ready to let a model train via cross validation, and verify the robustness of the models right? Well, there are a few more things we can do to improve our model beyond simply training it longer. One problem with our model is the dataset is rather small. I mentioned earlier that the dataset has over 7000 images. We're only using 2000 or so as only that many have full labels. This is somewhat of an issue so we should come up with a way to combat it. More data is generally always better. One method we can implement is data augmentation.
+
+# Data Augmentation
+When your dataset is too small one way to artificially increase it is to make variations of the data, such that it becomes a new image, but is still valid for the associating label. In our case there are many forms of data augmentation we can do. In this tutorial I'll perform two different augmentations. The first is flipping the images horizontally(along with the labels) to double the dataset. This makes our dataset "have" 4000 images now. Obviously not as good as an additional 2000 unique images, but better than without. The other method is image rotation. The reason I've added this is because in the dataset there are faces that are tilted, or crooked. These images make up a small subset of the overall set and so they are harder to get right, so implementing face rotations will teach the machine many more faces that have angled eyes, and mouths.
+
+Lets take our best learning rate example from ConvNet and apply data augmentation to it.
+
+Look at that! The training loss is worse, but validation loss is much better. This means the data we have is more generalized towards the unseen validation data. We want to work towards making the training and validation loss as close as can be, as that suggests our training data represents a distribution similar to the validation data.
+
+# Dropout
+To further work towards generalization we can implement methods to regularize our system. Dropout is one such method in doing that. Popularized by AlexNet in 2012, dropout is a method that strips certain neurons from learning during training phases. The proposed idea behind how this works is that by stopping certain neurons from learning, other neurons will learn features the unlearnable ones are, and as this process runs more and more the neurons learn different features instead of learning the same features. 
+
+# Momentum Increase
