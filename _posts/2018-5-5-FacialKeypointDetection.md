@@ -49,8 +49,8 @@ description="SimpleNet loss using SGD with Momentum" size="600" %}</center>
 ### ADAM 
 ADAM, or Adaptive Moment Estimation is an adaptive learning algorithm. With the previous methods you must set the learning rate that the optimizer will take steps at. In ADAM the expenentially decaying average of past square gradients and momentum are stored to estimate the moments and update the step size automatically. This is useful when you're not sure what you should be using for a learning rate. We'll see though that ADAM can have severe issues with overfitting.
 
-<center>{% include image.html url="http://i.imgur.com/V51Yvxl.jpg"
-description="SimpleNet loss using SGD" size="600" %}</center>
+<center>{% include image.html url="http://i.imgur.com/m6cWApN.jpg"
+description="SimpleNet loss using ADAM" size="600" %}</center>
 
 More information about the optimizers can be found on the concepts page, with equations. With these detailed lets look at how they handle optimizing SimpleNet at varying learning rates.
 
