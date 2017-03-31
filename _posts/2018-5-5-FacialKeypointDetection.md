@@ -20,7 +20,13 @@ We'll be looking at two different models. One will be a simple 2 layer neural ne
 # Weight Initialization
 In neural networks, weights are the parameters that get adjusted during optimization. The initialization of these weights can make or break a model. Let's look at what happens when SimpleNet is initialized with weights equal to zero.
 
+<center>{% include image.html url="http://i.imgur.com/h9Fp9w5.jpg"
+description="SimpleNet with zero initialized weights" size="600" %}</center>
+
 Since we don't have anything to compare it with it doesn't tell us much. Here's an equivalent SimpleNet model, but the weights are set using Xavier initialization.
+
+<center>{% include image.html url="http://i.imgur.com/WM4Ia55.jpg"
+description="SimpleNet with Xavier initialized weights" size="600" %}</center>
 
 As you can see, the Xavier initialized model is at a much lower training and validation loss. So why is the zero initialized model so much worse off? The reason is because at a weight of zero the gradient is also zero. The machine learns through updating the model using a delta of the gradient. If that gradient is zero then it doesn't learn. Too large of a gradient and the weight may explode.  This means we want a similar distribution among the weights. In Understanding the Difficulty of Training Deep Feedforward Neural Networks[1] Glorot and Bengio discuss using a uniform distribution  from -1/sqrtn to 1/sqrt(n), where n is the size of the previous layer. This is called Xavier initialization which is what is being used in the second graph. There are other ways to initialize weights, such as using a gaussian distribution with zero mean and some variance.
 
