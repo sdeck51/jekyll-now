@@ -17,6 +17,19 @@ Image classification is a method of inputting an image, and outputting a class o
 # What Convolutional Neural Networks do
 Knowing that we're dealing with arrays of numbers and want our computer to classify those numbers, we need to think how to differentiate all of the unique features that makes a class a class. If I gave you an image of a dog how do you know it's a dog? You can tell by the features that make up a dog. This isn't something we really have to think about, but we know when we see 4 legs with paws, a long snout, and floppy ears, that we're probably looking at a dog. A computer needs to be able to determine these features as well. Convolutional neural networks are able to classify images by looking for features, such as simple curves and edges, and build these features up into abstract features through series of convolution layers.
 
+# Neurons
+The neuron is the most basic building block in convolutional neural networks, and neural networks in general. Understanding it is fundamental in understanding convolutional neural networks. Their structure defines how optimization is handled, which is how a network can learn and function.
+
+<center>{% include image.html url="http://i.imgur.com/NiwPJXg.png"
+description="Neuron Structure" size="550" %}</center>
+
+The neuron is made up of several components. Every one has at least one input and at least one output. Each input connection has some weight w multiplied with it. The summation of these multiplied inputs are added with a bias.
+
+<center>{% include image.html url="http://i.imgur.com/ba5HGWt.gif"
+description="Neuron Structure" size="550" %}</center>
+
+
+
 # CNN Building Blocks
 Typical convolutional neural networks are built out of only a few different layers. Generally when you feed an image into a CNN it goes through some combination of convolution, an activation function, pooling or downsample, and then flattened out through fully connected layer. For classification the output can be a class or probability of classes. In other applications, like feature detection, you can have positions that represent the location on the image of features. Before moving on to the tutorials we should have a good understanding of what these components are doing. Not only is it beneficial to understand for the sake of understanding, but it also helps when having trouble working with a model and knowing what each component is doing for debugging purposes.
 
