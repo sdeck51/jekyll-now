@@ -28,6 +28,8 @@ The neuron is made up of several components. Every one has at least one input an
 <center>{% include image.html url="http://i.imgur.com/ba5HGWt.gif"
 description="Neuron Structure" size="150" %}</center>
 
+That is then fed through an activation function to transform the input into the output.
+
 ## Activation Functions
 After convolutions layers it is normal to implement a nonlinear function called an activation function. The reason is to introduce nonlinearity into the system, as the system is linear otherwise. Popular functions in the past where tanh and sigmoid, due to being differentiable and having strong gradients. The reason this is needed is because these functions are connected to each other repeatedly via other layers, and if the activation function has a small gradient, then stacks of small gradients will create smaller and smaller gradients. This is an issue, as the gradient is applied in how much a machine learns, and when it's near zero then the machine stops learning. This is called the vanishing gradient problem. These functions still have this issue though when they saturate. 
 
