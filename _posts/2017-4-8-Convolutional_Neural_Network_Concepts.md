@@ -26,7 +26,7 @@ description="Neuron Structure" size="450" %}</center>
 The neuron is made up of several components. Every one has at least one input and at least one output. Each input connection has some weight w multiplied with it. The summation of these multiplied inputs are added with a bias.
 
 <center>{% include image.html url="http://i.imgur.com/ba5HGWt.gif"
-description="Neuron Structure" size="150" %}</center>
+description="Neuron Structure" size="250" %}</center>
 
 That is then fed through an activation function to transform the input into the output.
 
