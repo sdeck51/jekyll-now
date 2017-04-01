@@ -21,12 +21,12 @@ Knowing that we're dealing with arrays of numbers and want our computer to class
 The neuron is the most basic building block in convolutional neural networks, and neural networks in general. Understanding it is fundamental in understanding convolutional neural networks. Their structure defines how optimization is handled, which is how a network can learn and function.
 
 <center>{% include image.html url="http://i.imgur.com/NiwPJXg.png"
-description="Neuron Structure" size="550" %}</center>
+description="Neuron Structure" size="450" %}</center>
 
 The neuron is made up of several components. Every one has at least one input and at least one output. Each input connection has some weight w multiplied with it. The summation of these multiplied inputs are added with a bias.
 
 <center>{% include image.html url="http://i.imgur.com/ba5HGWt.gif"
-description="Neuron Structure" size="550" %}</center>
+description="Neuron Structure" size="150" %}</center>
 
 
 
