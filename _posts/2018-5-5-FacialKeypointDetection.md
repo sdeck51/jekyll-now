@@ -36,8 +36,6 @@ Gradient Descent is perhaps the most simple algorithm for gradient finding. This
 <center>{% include image.html url="http://i.imgur.com/HkR8Pav.jpg"
 description="SimpleNet loss using SGD" size="800" %}</center>
 
-
-
 ### SGD with Momentum
 Momentum(I'll refer to it as this for now on) is an addition to SGD. Along with following the gradient it also applies an update from the previous step, so if the optimizer is following a certain direction for multiple steps it will gain momentum and move further in that direciton.
 
