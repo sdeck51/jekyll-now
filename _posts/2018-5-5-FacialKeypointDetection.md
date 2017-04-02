@@ -21,7 +21,7 @@ We'll be looking at two different models. One will be a simple 2 layer neural ne
 To start off, initialization is key in creating a well fit model. The initial weights of the network can impact how the model will learn. The first experiment to look at is initializing the models weights to zero. Xavier initialization will also be looked at for comparison.
 
 <center>{% include image.html url="http://i.imgur.com/oqrCUu9.jpg"
-description="SimpleNet and ConvNet with zero and xavier initialization" size="800" %}</center>
+description="SimpleNet and ConvNet with zero and xavier initialization" size="900" %}</center>
 
 From the graph above there is a clear difference between initializing the weights to be xavier and zero. In both cases the networks were trained using SGD with momentum and a learning rate of 0.01. The Xavier initialized models both continue to reduce in loss over time, while the zero initialized models halt around a loss of 0.0044. There are a few factors as to why this can be happening. As the model optimizes via the backwards pass, the weight of zero is passed to previous weights, which creates little to zero gradientsalso zero. If the gradient is zero then the neuron won't learn. Another reason is that the model is symmetric. This poses a problem, as once again when learning new features the neurons in similar layers will learn the same weights since the later layers all share the same weights among neurons. This means the model is learning redundant features. This combined with low gradients causes the model to stop learning.
 
