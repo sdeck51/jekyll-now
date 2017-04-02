@@ -43,7 +43,7 @@ Momentum(I'll refer to it as this for now on) is an addition to SGD. Along with 
 description="SimpleNet loss using SGD with Momentum" size="800" %}</center>
 
 <center>{% include image.html url="http://i.imgur.com/S0QetKl.jpg"
-description="ConvNet loss using SGD with Momentum" size="800" %}</center>
+description="ConvNet loss using SGD with Momentum" size="900" %}</center>
 
 ### ADAM 
 ADAM, or Adaptive Moment Estimation is an adaptive learning algorithm. With the previous methods you must set the learning rate that the optimizer will take steps at. In ADAM the expenentially decaying average of past square gradients and momentum are stored to estimate the moments and update the step size automatically. This is useful when you're not sure what you should be using for a learning rate. We'll see though that ADAM can have severe issues with overfitting.
@@ -53,7 +53,7 @@ description="SimpleNet loss using ADAM" size="800" %}</center>
 
 
 <center>{% include image.html url="http://i.imgur.com/42qsCzG.jpg"
-description="ConvNet loss using ADAM" size="800" %}</center>
+description="ConvNet loss using ADAM" size="900" %}</center>
 More information about the optimizers can be found on the concepts page, with equations. With these detailed lets look at how they handle optimizing SimpleNet at varying learning rates.
 
 
@@ -64,7 +64,7 @@ Artificially augmenting data to increase the variation of it, such that it becom
 
 
 <center>{% include image.html url="http://i.imgur.com/JFtVoqV.jpg"
-description="ConvNet loss using ADAM with data augmentation" size="800" %}</center>
+description="ConvNet loss using ADAM with data augmentation" size="900" %}</center>
 
 Look at that! The training loss is worse, but validation loss is much better. This means the data we have is more generalized towards the unseen validation data. We want to work towards making the training and validation loss as close as can be, as that suggests our training data represents a distribution similar to the validation data.
 
