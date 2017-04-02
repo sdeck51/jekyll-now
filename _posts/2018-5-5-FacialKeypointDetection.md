@@ -37,11 +37,15 @@ Gradient Descent is perhaps the most simple algorithm for gradient finding. This
 description="SimpleNet loss using SGD" size="800" %}</center>
 
 
+
 ### SGD with Momentum
 Momentum(I'll refer to it as this for now on) is an addition to SGD. Along with following the gradient it also applies an update from the previous step, so if the optimizer is following a certain direction for multiple steps it will gain momentum and move further in that direciton.
 
 <center>{% include image.html url="http://i.imgur.com/YJpNfFY.jpg"
 description="SimpleNet loss using SGD with Momentum" size="800" %}</center>
+
+<center>{% include image.html url="http://i.imgur.com/S0QetKl.jpg"
+description="ConvNet loss using SGD with Momentum" size="800" %}</center>
 
 ### ADAM 
 ADAM, or Adaptive Moment Estimation is an adaptive learning algorithm. With the previous methods you must set the learning rate that the optimizer will take steps at. In ADAM the expenentially decaying average of past square gradients and momentum are stored to estimate the moments and update the step size automatically. This is useful when you're not sure what you should be using for a learning rate. We'll see though that ADAM can have severe issues with overfitting.
@@ -49,6 +53,9 @@ ADAM, or Adaptive Moment Estimation is an adaptive learning algorithm. With the 
 <center>{% include image.html url="http://i.imgur.com/m6cWApN.jpg"
 description="SimpleNet loss using ADAM" size="800" %}</center>
 
+
+<center>{% include image.html url="http://i.imgur.com/42qsCzG.jpg"
+description="ConvNet loss using ADAM" size="800" %}</center>
 More information about the optimizers can be found on the concepts page, with equations. With these detailed lets look at how they handle optimizing SimpleNet at varying learning rates.
 
 
