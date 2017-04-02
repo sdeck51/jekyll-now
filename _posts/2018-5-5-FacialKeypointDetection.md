@@ -33,7 +33,7 @@ Since backpropagation involves minimization of a function using first order equa
 ### Stochastic Gradient Descent
 Gradient Descent is perhaps the most simple algorithm for gradient finding. This is because it literally follows the gradient to optimize the function. In SGD you feed all of your data to the model and then the model takes a step based on all of the input. This is good for finding the best averaged direction, but is slow. In Stochastic Gradient Descent(A better name, more often used name is MiniBatch Gradient Descent) a batch of the input is applied and the optimizer updates based on that batch. This is good as the model can learn without needing to go through the entire data set, which makes it quicker to learn, and uses less memory as the entire dataset need not be ran.
 
-<center>{% include image.html url="http://i.imgur.com/14P3pNk.jpg"
+<center>{% include image.html url="http://i.imgur.com/HkR8Pav.jpg"
 description="SimpleNet loss using SGD" size="800" %}</center>
 
 
