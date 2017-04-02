@@ -59,20 +59,14 @@ description="ConvNet loss using ADAM" size="800" %}</center>
 More information about the optimizers can be found on the concepts page, with equations. With these detailed lets look at how they handle optimizing SimpleNet at varying learning rates.
 
 
-
-Let's also look at how they handle ConvNet.
-
-
-
-
-Say some things about both, move on to only using ConvNet.
-
-So with our weights initialized and a learning rate picked out, we should be ready to let a model train via cross validation, and verify the robustness of the models right? Well, there are a few more things we can do to improve our model beyond simply training it longer. One problem with our model is the dataset is rather small. I mentioned earlier that the dataset has over 7000 images. We're only using 2000 or so as only that many have full labels. This is somewhat of an issue so we should come up with a way to combat it. More data is generally always better. One method we can implement is data augmentation.
+So with our weights initialized and a general idea about the learning rate, we can go ahead and run cross validation on a few models to verify the robustness across the dataset. However, there are additional techniques that can be used towards generating a better model. One problem with our model is the dataset is rather small. Of the 7000 images in the set only 2000 or so are being used, as only that many have full labels. This is somewhat of an issue, though there are ways to help alleviate the problem. While having more data is preferred, data augmentation is a method that helps generalize the training set by artificially increasing its size.
 
 # Data Augmentation
-When your dataset is too small one way to artificially increase it is to make variations of the data, such that it becomes a new image, but is still valid for the associating label. In our case there are many forms of data augmentation we can do. In this tutorial I'll perform two different augmentations. The first is flipping the images horizontally(along with the labels) to double the dataset. This makes our dataset "have" 4000 images now. Obviously not as good as an additional 2000 unique images, but better than without. The other method is image rotation. The reason I've added this is because in the dataset there are faces that are tilted, or crooked. These images make up a small subset of the overall set and so they are harder to get right, so implementing face rotations will teach the machine many more faces that have angled eyes, and mouths.
+Artificially augmenting data to increase the variation of it, such that it becomes a new image, but is still valid for the associating label, is a popular method in generalizing and regularizing a model. The original AlexNet paper[] demonstrated using augmentations such as translation and reflecting reduced model loss. There are several different methods for augmenting images. In this tutorial two methods will be employed. The first is reflecting images horizontally(along with the labels) to "double" the dataset. This makes the dataset "have" 4000 images now. Obviously not as good as an additional 2000 unique images, but better than without. The other method is image rotation, to help recognize images that have crooked heads. These smaller subsets in the data will become more recognized due to increasing the amount of images with those features. Below is a ConvNet with ADAM optimization employing rotation and reflection data augmentations.
 
-Lets take our best learning rate example from ConvNet and apply data augmentation to it.
+
+<center>{% include image.html url="http://i.imgur.com/JFtVoqV.jpg"
+description="ConvNet loss using ADAM with data augmentation" size="800" %}</center>
 
 Look at that! The training loss is worse, but validation loss is much better. This means the data we have is more generalized towards the unseen validation data. We want to work towards making the training and validation loss as close as can be, as that suggests our training data represents a distribution similar to the validation data.
 
