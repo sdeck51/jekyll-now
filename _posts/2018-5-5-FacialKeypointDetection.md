@@ -66,7 +66,10 @@ Artificially augmenting data to increase the variation of it, such that it becom
 <center>{% include image.html url="http://i.imgur.com/JFtVoqV.jpg"
 description="ConvNet loss using ADAM with data augmentation" size="900" %}</center>
 
-Look at that! The training loss is worse, but validation loss is much better. This means the data we have is more generalized towards the unseen validation data. We want to work towards making the training and validation loss as close as can be, as that suggests our training data represents a distribution similar to the validation data.
+The validation appears to be lower than without data augmentation. To verify, cross validation on this model with and without data augmentation can be done to get a better idea.
+
+<center>{% include image.html url="http://i.imgur.com/JFtVoqV.jpg"
+description="ConvNet loss using ADAM with and without data augmentation using 5 folds CV" size="900" %}</center>
 
 # Dropout
 To further work towards generalization we can implement methods to regularize our system. Dropout is one such method in doing that. Popularized by AlexNet in 2012, dropout is a method that strips certain neurons from learning during training phases. The proposed idea behind how this works is that by stopping certain neurons from learning, other neurons will learn features the unlearnable ones are, and as this process runs more and more the neurons learn different features instead of learning the same features. 
