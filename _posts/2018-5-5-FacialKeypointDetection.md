@@ -71,19 +71,13 @@ This was an interesting graph that should be included here. ADAM is jumping in a
 <center>{% include image.html url="http://i.imgur.com/X1eZw1Y.jpg"
 description="ConvNet loss using ADAM with data augmentation, learning rate 1e-5" size="900" %}</center>
 
-With a new learning rate of 1e-5 the loss function appears much smoother.
+With a new learning rate of 1e-5 the loss function appears much smoother. The mean loss is 0.000827 and the mean median is 0.000766. 
 
-|               |No Data Augmentation| Data Augmentation  |
-| ------------- | ------------- | ------------- |
-| CV0  | Content Cell  | 0.000788  |
-| CV1  | Content Cell  | 0.000766  |
-| CV2  | Content Cell  | 0.000879  |
-| CV3  | Content Cell  | 0.000937  |
-| CV4  | Content Cell  | 0.000766  |
-| Mean  | Content Cell  | 0.000827  |
-| Median| Content Cell  | 0.000766  |
 
 # Dropout
 To further work towards generalization we can implement methods to regularize our system. Dropout is one such method in doing that. Popularized by AlexNet in 2012, dropout is a method that strips certain neurons from learning during training phases. The proposed idea behind how this works is that by stopping certain neurons from learning, other neurons will learn features the unlearnable ones are, and as this process runs more and more the neurons learn different features instead of learning the same features. 
 
-# Momentum Increase
+<center>{% include image.html url="http://i.imgur.com/SbvWoA1.jpg"
+description="ConvNet loss using ADAM with data augmentation, learning rate 1e-5" size="900" %}</center>
+
+The ADAM model appears to begun converging, though SGD with Momentum looks like it needs additional iterations. One interesting thing to note is that the distance between training and validation between Momentum is smaller than ADAM. This suggests that with additional epochs SGD with Momentum could reach a lower validation loss than ADAM. As it is 
