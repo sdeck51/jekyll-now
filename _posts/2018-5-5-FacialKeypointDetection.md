@@ -73,14 +73,13 @@ description="ConvNet loss using ADAM with and without data augmentation using 5 
 
 |               |No Data Augmentation| Data Augmentation  |
 | ------------- | ------------- | ------------- |
-| CV0  | Content Cell  | Content Cell  |
-| CV1  | Content Cell  | Content Cell  |
-| CV2  | Content Cell  | Content Cell  |
-| CV3  | Content Cell  | Content Cell  |
-| CV4  | Content Cell  | Content Cell  |
-| ------------- | ------------- | ------------- |
-| Mean  | Content Cell  | Content Cell  |
-| Median  | Content Cell  | Content Cell  |
+| CV0  | Content Cell  | 0.000788  |
+| CV1  | Content Cell  | 0.000766  |
+| CV2  | Content Cell  | 0.000879  |
+| CV3  | Content Cell  | 0.000937  |
+| CV4  | Content Cell  | 0.000766  |
+| Mean  | Content Cell  | 0.000827.2  |
+| Median| Content Cell  | 0.000766  |
 
 # Dropout
 To further work towards generalization we can implement methods to regularize our system. Dropout is one such method in doing that. Popularized by AlexNet in 2012, dropout is a method that strips certain neurons from learning during training phases. The proposed idea behind how this works is that by stopping certain neurons from learning, other neurons will learn features the unlearnable ones are, and as this process runs more and more the neurons learn different features instead of learning the same features. 
