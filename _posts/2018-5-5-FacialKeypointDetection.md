@@ -62,6 +62,8 @@ So with our weights initialized and a general idea about the learning rate, we c
 # Data Augmentation
 Artificially augmenting data to increase the variation of it, such that it becomes a new image, but is still valid for the associating label, is a popular method in generalizing and regularizing a model. The original AlexNet paper[] demonstrated using augmentations such as translation and reflecting reduced model loss. There are several different methods for augmenting images. In this tutorial two methods will be employed. The first is reflecting images horizontally(along with the labels) to "double" the dataset. This makes the dataset "have" 4000 images now. Obviously not as good as an additional 2000 unique images, but better than without. The other method is image rotation, to help recognize images that have crooked heads. These smaller subsets in the data will become more recognized due to increasing the amount of images with those features. Below is a ConvNet with ADAM optimization employing rotation and reflection data augmentations.
 
+<center>{% include image.html url="http://i.imgur.com/X1eZw1Y.jpg"
+description="ConvNet loss using ADAM with data augmentation, learning rate 1e-5" size="900" %}</center>
 
 <center>{% include image.html url="http://i.imgur.com/JFtVoqV.jpg"
 description="ConvNet loss using ADAM with data augmentation" size="900" %}</center>
@@ -78,7 +80,7 @@ description="ConvNet loss using ADAM with and without data augmentation using 5 
 | CV2  | Content Cell  | 0.000879  |
 | CV3  | Content Cell  | 0.000937  |
 | CV4  | Content Cell  | 0.000766  |
-| Mean  | Content Cell  | 0.000827.2  |
+| Mean  | Content Cell  | 0.000827  |
 | Median| Content Cell  | 0.000766  |
 
 # Dropout
