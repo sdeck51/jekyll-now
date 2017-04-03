@@ -3,8 +3,6 @@ layout: post
 title: Tensorflow - Segmentation
 ---
 
-In this post I'll show how you can perform segmentation using CNNs! Full code [here](https://github.com/sdeck51/CNNTutorials/blob/master/6.%20Segmentation_Tutorial/Segmentation2.ipynb) Under construction!
-
 # Intro
 For this tutorial I'm following the paper [here](https://people.eecs.berkeley.edu/~jonlong/long_shelhamer_fcn.pdf). Fair warning, if you want to run this you'll need a gpu with at least 8GB, otherwise you'll have to use the cpu version which will take eons to finish(I'm running a 12 hour training test atm and will probably have a terrible model).
 
@@ -313,3 +311,6 @@ As we can see it's starting to see bushes.
 
 References:
 1. https://arxiv.org/pdf/1409.1556/
+
+## Full Code: https://github.com/sdeck51/CNNTutorials/blob/master/6.%20Segmentation_Tutorial/Segmentation2.ipynb
+
