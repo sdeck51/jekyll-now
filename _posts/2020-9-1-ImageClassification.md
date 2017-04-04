@@ -62,6 +62,18 @@ entry {
 ...
 Since inception v3 was trained on 1000 classes it has a 1000 vector output. This represents the probability of the input being each class. There are more than 1000 classes in the Imagenet dataset, so we need to know what each output represents in terms of output vector of the model and the class id it belongs to. This, paired with the mapping file above, will allow us to correctly state predictions in a human readable way.
 
+With the files understood, building the network and mapping the labels can be performed. With the architecture inside the tensorflow graph classification can be ran. The model accepts JPEG images using the model, and with some helping functions a top x results can be displayed.
+
+With the panda image we can run the network and view the top 5 results.
+
+<center>{% include image.html url="https://github.com/sdeck51/sdeck51.github.io/raw/master/images/cropped_panda.jpg" description="GoogleNet Inception v3 . [cite]" size="300" %}</center>
+
+    0.8923 giant panda
+    0.0086 indri
+    0.0026 lesser panda
+    0.0014 custard apple
+    0.0011 earthsta
+
 
 This experiment will compare the results of transfer learning on AlexNet from Visualizing and Understanding Convolution Network[2]. The paper performs an experiment running AlexNet on Caltech-101 and Caltech-256. This will repeat the same experiment, only using GoogleNet instead.
 
