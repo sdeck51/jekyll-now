@@ -3,6 +3,11 @@ layout: post
 title: Tensorflow - Classification with Transfer Learning
 ---
 
+
+
+This experiment will compare the results of transfer learning on AlexNet from Visualizing and Understanding Convolution Networks[cite]. The paper performs an experiment running AlexNet on Caltech-101 and Caltech-256. This will repeat the same experiment, only using GoogleNet instead.
+
+For Caltech101 there are 102 classes with 9145 images in total. The experiment follows as taking 15 and 30 images from each class, training the network and then comparing the accuracy. This is done 5 times for each split and each set takes random training samples.
 <style>
 .tablelines table, .tablelines td, .tablelines th {
         border: 1px solid black;
@@ -14,6 +19,9 @@ title: Tensorflow - Classification with Transfer Learning
 | AlexNet | 83.8 +- 0.5 | 86.5 +- 0.5 |
 | GoogleNet | wait | wait |
 {: .tablelines}
+
+
+For Caltech256 there are 257 classes total with 30,607 images in total. As this set has more images per class the splits are increased from 15, and 30 to 45 and 60 in addition. Each split is ran 5 times with random training samples and the final accuracy is recorded.
 
 | # Train | Acc % 15/class | Acc % 30/class | Acc % 45/class | Acc % 60/class |
 | - | - | - |
