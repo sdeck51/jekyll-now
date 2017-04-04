@@ -2,13 +2,20 @@
 layout: post
 title: Tensorflow - Segmentation
 ---
+
+<style>
+.tablelines table, .tablelines td, .tablelines th {
+        border: 1px solid black;
+        }
+</style>
+
 | P | Q | P * Q |
 | - | - | - |
 | T | T | T |
 | T | F | F |
 | F | T | F |
 | F | F | F |
-
+{: .tablelines}
 |====+====|
 +====|====+
 |=========|
@@ -18,23 +25,26 @@ title: Tensorflow - Segmentation
 |a  | b | c|
 
 | bff|sd|asd|
+{: .tablelines}
 
 |---|---|---|
 |a  | b | c|
 |---|---|---|
 | bff|sd|asd|
-
+{: .tablelines}
 
 |---|---|---|
 |a  | b | c|
 |---|---|---|
 | bff|sd|asd|
 |---|---|---|
+{: .tablelines}
 
 |---+---+---|
 + :-: |:------| ---:|
 | :-: :- -: -
 :-: | :-
+{: .tablelines}
 
 |-----------------+------------+-----------------+----------------|
 | Default aligned |Left aligned| Center aligned  | Right aligned  |
@@ -48,6 +58,7 @@ title: Tensorflow - Segmentation
 |=================+============+=================+================|
 | Footer row      |            |                 |                |
 |-----------------+------------+-----------------+----------------|
+{: .tablelines}
 # Intro
 This tutorial attempts to build a fully convolutional network along the lines of the paper "Fully Convolutional Networks for Semantic Segmentation"[cite].
 ![](http://i.imgur.com/ysw2ZZx.png?1)
