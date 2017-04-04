@@ -1,4 +1,7 @@
-
+---
+layout: post
+title: Tensorflow - Classification with Transfer Learning
+---
 
 <style>
 .tablelines table, .tablelines td, .tablelines th {
