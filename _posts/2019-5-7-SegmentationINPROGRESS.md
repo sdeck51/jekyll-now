@@ -2,7 +2,10 @@
 layout: post
 title: Tensorflow - Segmentation
 ---
+| First cell|Second cell|Third cell
+| First | Second | Third |
 
+First | Second | | Fourth |
 # Intro
 This tutorial attempts to build a fully convolutional network along the lines of the paper "Fully Convolutional Networks for Semantic Segmentation"[cite].
 ![](http://i.imgur.com/ysw2ZZx.png?1)
