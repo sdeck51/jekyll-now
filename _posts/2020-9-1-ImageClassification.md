@@ -8,21 +8,62 @@ title: Tensorflow - Classification with Transfer Learning
         }
 </style>
 
-0.869993329
-0.868417501
-0.87367034
-0.883387983
-0.882206023
+# Purpose
+The purpose of this tutorial is to demonstrate how to classify images using Inception v3 from Google's Tensorflow library. It is also to demonstrate how to perform transfer learning on the model. Many large companies, from Google to Microsoft, have deep convolutional neural networks that they use for image classification. These networks are trained on the ILSVRC dataset from Imagenet[1]. This dataset consists of over 14 million images of which networks are trained on 1000 classes. These are great networks to learn how to use, but for the average user training one of these networks from scratch on their own isn't feasible. These networks take weeks and months to train using the dataset, sometimes on hardware made specifically for these tasks.An experiment is ran on Inception v3 following an experiment from Visualizing and Understand Convolution Networks[2].
 
-0.908299208
-0.908956587
-0.909449637
-0.909449637
-0.903040349
+# Data
+The data required to run the experiments for this tutorial are the Caltech101Objects[3] and Caltech256Objects[4] datasets. The provided code however is created in a way such that you can import any jpeg images such that they are structured where the folder heirarchy is organized as classes, ie folder Horse has horse images in it.
+
+# Inception v3
+GoogleNet was the winner of 2014 ILSVRC[41 with a top-5 error of 6.67%. It is a 22 layer network that is detailed in the 2015 paper Going Deeper with Convolutions. Since its victory in the competition it has gone through different iterations. Inception v3 is a more recent model that we will be testing. There are newer version, a v4 as well as resnet version, that we are not looking at.  Google hosts the model online and it can be accessed [here] (http://download.tensorflow.org/models/image/imagenet/inception-2015-12-05.tgz). The model comes with several files that need some explaining.
+
+classification_image_graph_def.pb
+
+{% include image.html url="https://github.com/sdeck51/sdeck51.github.io/raw/master/images/inceptionArchitecture.png" description="GoogleNet Inception v3 . [5]" size="900" %}
+This is the model file that includes each layer, the connections to and from the layers, the weights of those connections, and the biases of each of the nodes. What we are going to do is load this into our program and classify with it.
+
+cropped_panda.jpg
+
+{% include image.html url="https://github.com/sdeck51/sdeck51.github.io/raw/master/images/cropped_panda.jpg" description="GoogleNet Inception v3 . [5]" size="300" %} This is a pretty cute panda that is included to use for classification. One of the classes in the model is giant pandas, so we can use this image to see if our classifier works.
+imagenet_2012_challenge_label_map_proto.pbtxt
+
+        ...
+        n02869249	bones, castanets, clappers, finger cymbals
+        n02869563	boneshaker
+        n02869737	bongo, bongo drum
+        n02869837	bonnet, poke bonnet
+        n02870526	book
+        n02870676	book bag
+        n02870772	bookbindery
+        n02870880	bookcase
+        n02871005	bookend
+        n02871147	bookmark, bookmarker
+        n02871314	bookmobile
+        n02871439	bookshelf
+        n02871525	bookshop, bookstore, bookstall
+        ...
+This includes all of the classes in the imagenet 2012 challenge. This file maps the class id and the human readable name. We are not going to understand when the model thinks the panda image is 89% class n01573342, so this will help us translate.
+
+imagenet_synset_to_human_label_map.txt
+
+...
+entry {
+  target_class: 391
+  target_class_string: "n01558993"
+}
+entry {
+  target_class: 392
+  target_class_string: "n01560419"
+}
+entry {
+  target_class: 393
+  target_class_string: "n01580077"
+}
+...
+Since inception v3 was trained on 1000 classes it has a 1000 vector output. This represents the probability of the input being each class. There are more than 1000 classes in the Imagenet dataset, so we need to know what each output represents in terms of output vector of the model and the class id it belongs to. This, paired with the mapping file above, will allow us to correctly state predictions in a human readable way.
 
 
-
-This experiment will compare the results of transfer learning on AlexNet from Visualizing and Understanding Convolution Networks[cite]. The paper performs an experiment running AlexNet on Caltech-101 and Caltech-256. This will repeat the same experiment, only using GoogleNet instead.
+This experiment will compare the results of transfer learning on AlexNet from Visualizing and Understanding Convolution Network[2]. The paper performs an experiment running AlexNet on Caltech-101 and Caltech-256. This will repeat the same experiment, only using GoogleNet instead.
 
 For Caltech101 there are 102 classes with 9145 images in total. The experiment follows as taking 15 and 30 images from each class, training the network and then comparing the accuracy. This is done 5 times for each split and each set takes random training samples.
 
@@ -47,3 +88,18 @@ For Caltech256 there are 257 classes total with 30,607 images in total. As this 
 |(Zeiler et al, 2013)|65.7 ± 0.2|70.6 ± 0.2|72.7 ± 0.4|74.2 ± 0.3|
 | Inception v3 | wait | wait |  wait | wait|
 {: .tablelines}
+
+
+## References
+1. Olga Russakovsky*, Jia Deng*, Hao Su, Jonathan Krause, Sanjeev Satheesh, Sean Ma, Zhiheng Huang, Andrej Karpathy, Aditya Khosla, Michael Bernstein, Alexander C. Berg and Li Fei-Fei. (* = equal contribution) ImageNet Large Scale Visual Recognition Challenge. IJCV,2015.
+
+2. M. D. Zeiler and R. Fergus. Visualizing and understanding convolutional networks. CoRR, abs/1311.2901v3, 2013.
+
+3. L. Fei-Fei, R. Fergus and P. Perona. One-Shot learning of object categories. IEEE Trans. Pattern Recognition and Machine Intelligence. In press.
+
+4. Griffin, G. Holub, AD. Perona, P. The Caltech 256. Caltech Technical Report
+
+5. C. Szegedy, W. Liu, Y. Jia, P. Sermanet, S. Reed, D. Anguelov, D. Erhan, V. Vanhoucke, and A. Rabinovich. Going deeper with convolutions. In Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition, pages 1–9, 2015
+
+6.
+
