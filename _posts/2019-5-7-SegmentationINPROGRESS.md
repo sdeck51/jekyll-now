@@ -8,6 +8,29 @@ title: Tensorflow - Segmentation
 | T | F | F |
 | F | T | F |
 | F | F | F |
+
+|====+====|
++====|====+
+|=========|
+|=
+
+|---+---+---|
++ :-: |:------| ---:|
+| :-: :- -: -
+:-: | :-
+
+|-----------------+------------+-----------------+----------------|
+| Default aligned |Left aligned| Center aligned  | Right aligned  |
+|-----------------|:-----------|:---------------:|---------------:|
+| First body part |Second cell | Third cell      | fourth cell    |
+| Second line     |foo         | **strong**      | baz            |
+| Third line      |quux        | baz             | bar            |
+|-----------------+------------+-----------------+----------------|
+| Second body     |            |                 |                |
+| 2 line          |            |                 |                |
+|=================+============+=================+================|
+| Footer row      |            |                 |                |
+|-----------------+------------+-----------------+----------------|
 # Intro
 This tutorial attempts to build a fully convolutional network along the lines of the paper "Fully Convolutional Networks for Semantic Segmentation"[cite].
 ![](http://i.imgur.com/ysw2ZZx.png?1)
