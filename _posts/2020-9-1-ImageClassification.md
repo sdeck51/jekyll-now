@@ -29,7 +29,7 @@ For Caltech101 there are 102 classes with 9145 images in total. The experiment f
 
 
 
-| # Train | Acc % 15/class | Acc % 30/class |
+| # Train | Acc(%) 15/class | Acc(%) 30/class |
 | - | - | - |
 | (Bo et al. 2013) | - | 81.4 ± 0.33|
 |(Jianchao et al., 2009) | 73.2 | 84.3 |
@@ -40,7 +40,7 @@ For Caltech101 there are 102 classes with 9145 images in total. The experiment f
 
 For Caltech256 there are 257 classes total with 30,607 images in total. As this set has more images per class the splits are increased from 15, and 30 to 45 and 60 in addition. Each split is ran 5 times with random training samples and the final accuracy is recorded.
 
-| # Train | Acc % 15/class | Acc % 30/class | Acc % 45/class | Acc % 60/class |
+| # Train | Acc(%) 15/class | Acc(%) 30/class | Acc(%) 45/class | Acc(%) 60/class |
 | - | - | - |
 |(Sohn et al., 2011)| 35.1  |   42.1    |   45.7    |   47.9    |
 |(Bo et al., 2013)|40.5 ± 0.4|48.0 ± 0.2|51.9 ± 0.2|55.2 ± 0.3|
