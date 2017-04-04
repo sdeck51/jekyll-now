@@ -30,6 +30,7 @@ For Caltech101 there are 102 classes with 9145 images in total. The experiment f
 
 
 | # Train | Acc % 15/class | Acc % 30/class |
+| - | - | - |
 | (Bo et al. 2013) | - | 81.4 ± 0.33|
 |(Jianchao et al., 2009) | 73.2 | 84.3 |
 | (Zeiler et al., 2013) P | 83.8 ± 0.5 | 86.5 ± 0.5 |
