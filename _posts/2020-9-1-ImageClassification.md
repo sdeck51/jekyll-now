@@ -66,7 +66,7 @@ With the files understood, building the network and mapping the labels can be pe
 
 With the panda image we can run the network and view the top 5 results.
 
-<center>{% include image.html url="https://github.com/sdeck51/sdeck51.github.io/raw/master/images/cropped_panda.jpg" description="GoogleNet Inception v3 . [cite]" size="300" %}</center>
+<center>{% include image.html url="https://github.com/sdeck51/sdeck51.github.io/raw/master/images/cropped_panda.jpg" description="Cropped panda" size="200" %}</center>
 
     0.8923 giant panda
     0.0086 indri
@@ -74,6 +74,35 @@ With the panda image we can run the network and view the top 5 results.
     0.0014 custard apple
     0.0011 earthsta
 
+Any jpeg image can be ran on the network. Below is the results using a stegosaurus with top 2 results.
+
+
+<center>{% include image.html url="http://i.imgur.com/v5jqKnV.jpg" description="Stegosaurus" size="200" %}</center>
+
+        0.9998 triceratops
+        0.0000 sunscreen
+
+The model is extremely confident that it is a triceratops. This isn't the case of course, but the explanation as to why it thinks that is simple. It does not know what a stegosaurus is. There is no stegosaurus class in the ImageNet set, and so there's no reason for it to know what it is. This is somewhat limiting, as this network can only classify the 1000 classes it was trained on. In the case that someone wants to classify something outside of that class then the network will need to be modified.
+
+## Transfer Learning
+
+![alt text](https://github.com/sdeck51/sdeck51.github.io/raw/master/images/inception2.png)
+
+Transfer Learning is a method where we transfer what a model has learned into a new classifier, one which we define on our own. We are interested in Inception v3's learned kernels. Since they can classify the 1000 classes it was given these kernels can most likely classify other classes. If we want to classify different types of birds then we know that this model will benefit that as it has trained on birds and has learned features from that. What we're going to do is create a new classification layer with the number of classes defined by us and attach it to inception v3. This process takes a few steps to optimally perform. Remember, we're dealing with a very large model and training it can take a lot of time if we're not clever about how to handle it.
+
+What we'll be doing is in essence training a small classification network. The input of this network will not be images, but an intermediate staged output from the inception model. This intermediate stage is called the "bottleneck" layer. This layer comes right before the classification layer, so you can understand we're simply replacing the classification layer with one we defined. Putting images through the model up to this layer can take quite a bit of time for larger datasets(One set was roughly 30 minutes for one pass of every image). If we want to train our new network for several epochs(an epoch meaning every image has passed through the network) then this will take hours to run. One technique we can use though is caching. Since we are passing each image through Inception v3 several times it'll yield the same output. We're not touching the weights of the original network, so what we're going to do is pass each image through inception v3 once, extract the bottleneck output for each image, and then cache that data. Then when we start training out model, we'll use these new bottleneck values instead of the original images. Running Inception with Caltech256 for instance takes 30 minutes to get through one epoch. Caching the data reduces the training time dramatically.
+
+With the new network created and bottleneck images cached, training can be performed on the new network. For loss I'm cross entropy and SGD with Momentum for the optimization. For a test I run the CalTech101Objects dataset split into 60% training, 40% validation/testing.
+
+<center>{% include image.html url="http://i.imgur.com/59R4tai.png" description="Model loss" size="700" %}</center>
+<center>{% include image.html url="http://i.imgur.com/uSmo8td.png" description="Model accuracy" size="700" %}</center>
+
+The model 
+
+
+
+
+## Experiment
 
 This experiment will compare the results of transfer learning on AlexNet from Visualizing and Understanding Convolution Network[2]. The paper performs an experiment running AlexNet on Caltech-101 and Caltech-256. This will repeat the same experiment, only using GoogleNet instead.
 
