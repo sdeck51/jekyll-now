@@ -19,12 +19,13 @@ GoogleNet was the winner of 2014 ILSVRC[41 with a top-5 error of 6.67%. It is a 
 
 classification_image_graph_def.pb
 
-{% include image.html url="https://github.com/sdeck51/sdeck51.github.io/raw/master/images/inceptionArchitecture.png" description="GoogleNet Inception v3 . [5]" size="900" %}
+<center>{% include image.html url="https://github.com/sdeck51/sdeck51.github.io/raw/master/images/inceptionArchitecture.png" description="GoogleNet Inception v3 . [5]" size="900" %}</center>
 This is the model file that includes each layer, the connections to and from the layers, the weights of those connections, and the biases of each of the nodes. What we are going to do is load this into our program and classify with it.
 
 cropped_panda.jpg
 
-{% include image.html url="https://github.com/sdeck51/sdeck51.github.io/raw/master/images/cropped_panda.jpg" description="GoogleNet Inception v3 . [5]" size="300" %} This is a pretty cute panda that is included to use for classification. One of the classes in the model is giant pandas, so we can use this image to see if our classifier works.
+<center>{% include image.html url="https://github.com/sdeck51/sdeck51.github.io/raw/master/images/cropped_panda.jpg" description="GoogleNet Inception v3 . [5]" size="100" %}</center> This is a cropped panda image that is included to use for classification. One of the classes in the model is giant pandas, so  this image can be used to see if the classifier works.
+
 imagenet_2012_challenge_label_map_proto.pbtxt
 
         ...
