@@ -99,7 +99,11 @@ With the new network created and bottleneck images cached, training can be perfo
 <center>{% include image.html url="http://i.imgur.com/59R4tai.png" description="Model loss" size="700" %}</center>
 <center>{% include image.html url="http://i.imgur.com/uSmo8td.png" description="Model accuracy" size="700" %}</center>
 
-The model ends up with an accuracy of 92.47% and loss of 0.3695.
+The model ends up with an accuracy of 92.47% and loss of 0.3695. On top of the accuracy and loss I display a confusion matrix and random selection of predictions.
+
+<center>{% include image.html url="http://i.imgur.com/1c7ngdw.jpg" description="Confusion Matrix for Caltech 101 Objects Dataset" size="900" %}</center>
+
+<center>{% include image.html url="http://i.imgur.com/3TB7hB2.jpg" description="Model accuracy" size="800" %}</center>
 
 
 
