@@ -136,6 +136,8 @@ For Caltech256 there are 257 classes total with 30,607 images in total. As this 
 | Inception v3 | wait | wait |  wait | wait|
 {: .tablelines}
 
+## Full Code
+
 
 ## References
 1. Olga Russakovsky*, Jia Deng*, Hao Su, Jonathan Krause, Sanjeev Satheesh, Sean Ma, Zhiheng Huang, Andrej Karpathy, Aditya Khosla, Michael Bernstein, Alexander C. Berg and Li Fei-Fei. (* = equal contribution) ImageNet Large Scale Visual Recognition Challenge. IJCV,2015.
@@ -147,6 +149,4 @@ For Caltech256 there are 257 classes total with 30,607 images in total. As this 
 4. Griffin, G. Holub, AD. Perona, P. The Caltech 256. Caltech Technical Report
 
 5. C. Szegedy, W. Liu, Y. Jia, P. Sermanet, S. Reed, D. Anguelov, D. Erhan, V. Vanhoucke, and A. Rabinovich. Going deeper with convolutions. In Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition, pages 1–9, 2015
-
-6.
 
