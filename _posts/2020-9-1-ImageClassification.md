@@ -47,20 +47,21 @@ This includes all of the classes in the imagenet 2012 challenge. This file maps 
 
 #### imagenet_synset_to_human_label_map.txt
 
-...
-entry {
-  target_class: 391
-  target_class_string: "n01558993"
-}
-entry {
-  target_class: 392
-  target_class_string: "n01560419"
-}
-entry {
-  target_class: 393
-  target_class_string: "n01580077"
-}
-...
+        ...
+        entry {
+          target_class: 391
+          target_class_string: "n01558993"
+        }
+        entry {
+          target_class: 392
+          target_class_string: "n01560419"
+        }
+        entry {
+          target_class: 393
+          target_class_string: "n01580077"
+        }
+        ...
+        
 Since inception v3 was trained on 1000 classes it has a 1000 vector output. This represents the probability of the input being each class. There are more than 1000 classes in the Imagenet dataset, so we need to know what each output represents in terms of output vector of the model and the class id it belongs to. This, paired with the mapping file above, will allow us to correctly state predictions in a human readable way.
 
 With the files understood, building the network and mapping the labels can be performed. With the architecture inside the tensorflow graph classification can be ran. The model accepts JPEG images using the model, and with some helping functions a top x results can be displayed.
@@ -98,7 +99,7 @@ With the new network created and bottleneck images cached, training can be perfo
 <center>{% include image.html url="http://i.imgur.com/59R4tai.png" description="Model loss" size="700" %}</center>
 <center>{% include image.html url="http://i.imgur.com/uSmo8td.png" description="Model accuracy" size="700" %}</center>
 
-The model 
+The model ends up with an accuracy of 92.47% and loss of 0.3695.
 
 
 
