@@ -17,16 +17,16 @@ The data required to run the experiments for this tutorial are the Caltech101Obj
 # Inception v3
 GoogleNet was the winner of 2014 ILSVRC[41 with a top-5 error of 6.67%. It is a 22 layer network that is detailed in the 2015 paper Going Deeper with Convolutions. Since its victory in the competition it has gone through different iterations. Inception v3 is a more recent model that we will be testing. There are newer version, a v4 as well as resnet version, that we are not looking at.  Google hosts the model online and it can be accessed [here] (http://download.tensorflow.org/models/image/imagenet/inception-2015-12-05.tgz). The model comes with several files that need some explaining.
 
-classification_image_graph_def.pb
+#### classification_image_graph_def.pb
 
 <center>{% include image.html url="https://github.com/sdeck51/sdeck51.github.io/raw/master/images/inceptionArchitecture.png" description="GoogleNet Inception v3 . [5]" size="900" %}</center>
 This is the model file that includes each layer, the connections to and from the layers, the weights of those connections, and the biases of each of the nodes. What we are going to do is load this into our program and classify with it.
 
-cropped_panda.jpg
+#### cropped_panda.jpg
 
 <center>{% include image.html url="https://github.com/sdeck51/sdeck51.github.io/raw/master/images/cropped_panda.jpg" description="GoogleNet Inception v3 . [5]" size="100" %}</center> This is a cropped panda image that is included to use for classification. One of the classes in the model is giant pandas, so  this image can be used to see if the classifier works.
 
-imagenet_2012_challenge_label_map_proto.pbtxt
+#### imagenet_2012_challenge_label_map_proto.pbtxt
 
         ...
         n02869249	bones, castanets, clappers, finger cymbals
@@ -45,7 +45,7 @@ imagenet_2012_challenge_label_map_proto.pbtxt
         ...
 This includes all of the classes in the imagenet 2012 challenge. This file maps the class id and the human readable name. We are not going to understand when the model thinks the panda image is 89% class n01573342, so this will help us translate.
 
-imagenet_synset_to_human_label_map.txt
+#### imagenet_synset_to_human_label_map.txt
 
 ...
 entry {
