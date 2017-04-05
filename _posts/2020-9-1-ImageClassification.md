@@ -67,7 +67,7 @@ With the files understood, building the network and mapping the labels can be pe
 
 With the panda image we can run the network and view the top 5 results.
 
-<center>{% include image.html url="https://github.com/sdeck51/sdeck51.github.io/raw/master/images/cropped_panda.jpg" description="Cropped panda" size="200" %}</center>
+<center>{% include image.html url="https://github.com/sdeck51/sdeck51.github.io/raw/master/images/cropped_panda.jpg" description="Cropped panda" size="100" %}</center>
 
     0.8923 giant panda
     0.0086 indri
