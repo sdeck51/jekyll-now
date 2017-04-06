@@ -34,26 +34,26 @@ Since backpropagation involves minimization of a function using first order equa
 Gradient Descent is perhaps the most simple algorithm for gradient finding. This is because it literally follows the gradient to optimize the function. In SGD you feed all of your data to the model and then the model takes a step based on all of the input. This is good for finding the best averaged direction, but is slow. In Stochastic Gradient Descent(A better name, more often used name is MiniBatch Gradient Descent) a batch of the input is applied and the optimizer updates based on that batch. This is good as the model can learn without needing to go through the entire data set, which makes it quicker to learn, and uses less memory as the entire dataset need not be ran.
 
 <center>{% include image.html url="http://i.imgur.com/HkR8Pav.jpg"
-description="SimpleNet loss using SGD" size="800" %}</center>
+description="SimpleNet loss using SGD" size="1000" %}</center>
 
 ### SGD with Momentum
 Momentum(I'll refer to it as this for now on) is an addition to SGD. Along with following the gradient it also applies an update from the previous step, so if the optimizer is following a certain direction for multiple steps it will gain momentum and move further in that direciton.
 
 <center>{% include image.html url="http://i.imgur.com/YJpNfFY.jpg"
-description="SimpleNet loss using SGD with Momentum" size="800" %}</center>
+description="SimpleNet loss using SGD with Momentum" size="1000" %}</center>
 
 <center>{% include image.html url="http://i.imgur.com/S0QetKl.jpg"
-description="ConvNet loss using SGD with Momentum" size="900" %}</center>
+description="ConvNet loss using SGD with Momentum" size="1000" %}</center>
 
 ### ADAM 
 ADAM, or Adaptive Moment Estimation is an adaptive learning algorithm. With the previous methods you must set the learning rate that the optimizer will take steps at. In ADAM the expenentially decaying average of past square gradients and momentum are stored to estimate the moments and update the step size automatically. This is useful when you're not sure what you should be using for a learning rate. We'll see though that ADAM can have severe issues with overfitting.
 
 <center>{% include image.html url="http://i.imgur.com/m6cWApN.jpg"
-description="SimpleNet loss using ADAM" size="800" %}</center>
+description="SimpleNet loss using ADAM" size="1000" %}</center>
 
 
 <center>{% include image.html url="http://i.imgur.com/42qsCzG.jpg"
-description="ConvNet loss using ADAM" size="900" %}</center>
+description="ConvNet loss using ADAM" size="1000" %}</center>
 More information about the optimizers can be found on the concepts page, with equations. With these detailed lets look at how they handle optimizing SimpleNet at varying learning rates.
 
 
@@ -64,12 +64,12 @@ Artificially augmenting data to increase the variation of it, such that it becom
 
 
 <center>{% include image.html url="http://i.imgur.com/cbYRHyV.jpg"
-description="ConvNet loss using ADAM with data augmentation" size="900" %}</center>
+description="ConvNet loss using ADAM with data augmentation" size="1000" %}</center>
 
 This was an interesting graph that should be included here. ADAM is jumping in and out of regions in the function due to its learning rate. This type of issue can be solved by lowering the learning rate so it isn't consistently jumping across the function.
 
 <center>{% include image.html url="http://i.imgur.com/X1eZw1Y.jpg"
-description="ConvNet loss using ADAM with data augmentation, learning rate 1e-5" size="900" %}</center>
+description="ConvNet loss using ADAM with data augmentation, learning rate 1e-5" size="1000" %}</center>
 
 With a new learning rate of 1e-5 the loss function appears much smoother. The mean loss is 0.000827 and the mean median is 0.000766. 
 
@@ -78,6 +78,6 @@ With a new learning rate of 1e-5 the loss function appears much smoother. The me
 To further work towards generalization we can implement methods to regularize our system. Dropout is one such method in doing that. Popularized by AlexNet in 2012, dropout is a method that strips certain neurons from learning during training phases. The proposed idea behind how this works is that by stopping certain neurons from learning, other neurons will learn features the unlearnable ones are, and as this process runs more and more the neurons learn different features instead of learning the same features. 
 
 <center>{% include image.html url="http://i.imgur.com/SbvWoA1.jpg"
-description="ConvNet loss using ADAM with data augmentation, learning rate 1e-5" size="900" %}</center>
+description="ConvNet loss using ADAM with data augmentation, learning rate 1e-5" size="1000" %}</center>
 
 The ADAM model appears to begun converging, though SGD with Momentum looks like it needs additional iterations. One interesting thing to note is that the distance between training and validation between Momentum is smaller than ADAM. This suggests that with additional epochs SGD with Momentum could reach a lower validation loss than ADAM. As it is 
