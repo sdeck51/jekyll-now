@@ -80,4 +80,7 @@ To further work towards generalization we can implement methods to regularize ou
 <center>{% include image.html url="http://i.imgur.com/SbvWoA1.jpg"
 description="ConvNet loss using ADAM with data augmentation, learning rate 1e-5" size="1000" %}</center>
 
-The ADAM model appears to begun converging, though SGD with Momentum looks like it needs additional iterations. One interesting thing to note is that the distance between training and validation between Momentum is smaller than ADAM. This suggests that with additional epochs SGD with Momentum could reach a lower validation loss than ADAM. As it is 
+The ADAM model appears to begun converging, though SGD with Momentum looks like it needs additional iterations. One interesting thing to note is that the distance between training and validation between Momentum is smaller than ADAM. This suggests that with additional epochs SGD with Momentum could reach a lower validation loss than ADAM.
+
+# Further Improvements
+I end the tutorial here, however there are additional improvements that can be made to the model. Additional training time can reduce the loss somewhat. The reason I stopped at 2000 epochs is due to time. Running 500 epochs on my laptop is roughly 30 minutes, so the final ADAM and Momentum models both took over 10 hours each to run. With a better system, or simply more time to let it run it can be better. Another improvement that can be made is to add additional augmentations to the data. Things like jitter can help regularize the system. Lastly, generating separate models for each label would increase the accuracy of the system. From the data given, only 2000 of the 7000 images have full labels, so using separate models to be able to use all of the data will improve performance.
