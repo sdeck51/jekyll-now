@@ -33,11 +33,10 @@ That is then fed through an activation function to transform the input into the 
 ## Activation Functions
 After convolutions layers it is normal to implement a nonlinear function called an activation function. The reason is to introduce nonlinearity into the system, as the system is linear otherwise. Popular functions in the past where tanh and sigmoid, due to being differentiable and having strong gradients. The reason this is needed is because these functions are connected to each other repeatedly via other layers, and if the activation function has a small gradient, then stacks of small gradients will create smaller and smaller gradients. This is an issue, as the gradient is applied in how much a machine learns, and when it's near zero then the machine stops learning. This is called the vanishing gradient problem. These functions still have this issue though when they saturate. 
 
-*image of tanh and sigmoid. Functions as well?*
-
 Recently these activation functions have been replace with ReLU, or linear rectifier units. These activate functions are linear functions with a floor at zero. This brings the advantage of not having a vanishing gradient problem. It also brings sparsity. This means when it falls into a region < 0 the output is exactly zero, instead of a near zero value. On top of this they are faster as sigmoid and tanh use exponential computations, which is said to be around 6x slower. [http://www.cs.toronto.edu/~fritz/absps/imagenet.pdf]
 
-*image of relu and function*
+<center>{% include image.html url="http://i.imgur.com/rRoJny7.jpg"
+description="Sigmoid TanH, Relu" size="350" %}</center>
 
 # CNN Building Blocks
 Typical convolutional neural networks are built out of only a few different layers. Generally when you feed an image into a CNN it goes through some combination of convolution, an activation function, pooling or downsample, and then flattened out through fully connected layer. For classification the output can be a class or probability of classes. In other applications, like feature detection, you can have positions that represent the location on the image of features. Before moving on to the tutorials we should have a good understanding of what these components are doing. Not only is it beneficial to understand for the sake of understanding, but it also helps when having trouble working with a model and knowing what each component is doing for debugging purposes.
