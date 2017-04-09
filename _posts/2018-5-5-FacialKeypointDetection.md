@@ -11,13 +11,14 @@ The purpose of this tutorial is to discuss several topics needed in understandin
 <center>{% include image.html url="http://i.imgur.com/pVDFdO0.png"
 description="SimpleNet" size="250" %}</center>
 
-SimpleNet is a neural network with 2 layers, a 1000 neuron hidden layer, and a 30 neuron output layer.
+SimpleNet is a neural network with 2 layers, a 1000 neuron hidden layer, and a 30 neuron output layer. The input is of size 9126, which is 96x96, the size of the image. The output is the 30 (x,y) coordinates
 
 
 <center>{% include image.html url="http://i.imgur.com/Y7VQEbL.png"
 description="ConvNet" size="250" %}</center>
 
-ConvNet is a 6 layer convolutional neural network. Obviously more complicated than SimpleNet, ConvNet has 
+ConvNet is a 6 layer convolutional neural network. Obviously more complicated than SimpleNet, ConvNet has 3 convolution layers, each followed with pooling layers using max pooling. 3 fully connected layers follow the last pooling layer of size 1000, 1000 and 30. The model takes in a 96x96 image and outputs 30 (x,y) keypoint coordinates.
+
 # Data
 Like all machine learning algorithms, data is crucial in building a regressor or classifier. This tutorial will use regression as we need to output a set of points that will define the positions of the facial keypoints. The data we'll be using can be found [here](https://www.kaggle.com/c/facial-keypoints-detection/data). It consists of 7049 96x96 grayscale images of faces. The labeling on the images are sparse though, so only a little over 2000 images have the full label. The labels for this set are 30 floating point values that represent 15 x and y coordinates to line up with facial features. The data is formatted in a single csv file.
 <center>{% include image.html url="http://i.imgur.com/rPjZh9h.png"
