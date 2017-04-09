@@ -15,7 +15,7 @@ SimpleNet is a neural network with 2 layers, a 1000 neuron hidden layer, and a 3
 
 
 <center>{% include image.html url="http://i.imgur.com/Y7VQEbL.png"
-description="ConvNet" size="250" %}</center>
+description="ConvNet" size="900" %}</center>
 
 ConvNet is a 6 layer convolutional neural network. Obviously more complicated than SimpleNet, ConvNet has 3 convolution layers, each followed with pooling layers using max pooling. 3 fully connected layers follow the last pooling layer of size 1000, 1000 and 30. The model takes in a 96x96 image and outputs 30 (x,y) keypoint coordinates.
 
