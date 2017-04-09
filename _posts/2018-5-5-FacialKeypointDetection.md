@@ -4,7 +4,7 @@ title: Tensorflow - Facial Feature Detector
 ---
 ![](http://i.imgur.com/90KjE6A.png?2)
 
-In this post I go over how to make a facial feature detector. Full code [here](https://github.com/sdeck51/CNNTutorials/blob/master/7.%20FacialFeatureDetection_Tutorial/FaceDetector4.ipynb).
+
 
 # Purpose
 The purpose of this tutorial is to discuss several topics needed in understanding how to model a convolutional neural network. This ranges from simple topics such as weight initialization to regularization techniques for generalizing data. We'll also discuss ways to further improve the model. The code used can be found [here](https://github.com/sdeck51/CNNTutorials/blob/master/7.%20FacialFeatureDetection_Tutorial/FaceDetector4.ipynb).
@@ -98,3 +98,7 @@ description="ConvNet loss using ADAM with data augmentation and dropout, learnin
 
 # Further Improvements
 I end the tutorial here, however there are additional improvements that can be made to the model. Additional training time can reduce the loss somewhat. The reason I stopped at 2000 epochs is due to time. Running 500 epochs on my laptop is roughly 30 minutes, so the final ADAM and Momentum models both took over 10 hours each to run. With a better system, or simply more time to let it run it can be better. Another improvement that can be made is to add additional augmentations to the data. Things like jitter can help regularize the system. Lastly, generating separate models for each label would increase the accuracy of the system. From the data given, only 2000 of the 7000 images have full labels, so using separate models to be able to use all of the data will improve performance.
+
+# Full Code
+The full code I used can be found below. Folders may need to be made for storing models, as well as the data.
+https://github.com/sdeck51/CNNTutorials/blob/master/7.%20FacialFeatureDetection_Tutorial/FaceDetector4.ipynb
