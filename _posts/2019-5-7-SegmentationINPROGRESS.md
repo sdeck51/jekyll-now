@@ -9,58 +9,10 @@ title: Tensorflow - Segmentation
         }
 </style>
 
-| P | Q | P * Q |
-| - | - | - |
-| T | T | T |
-| T | F | F |
-| F | T | F |
-| F | F | F |
-{: .tablelines}
-|====+====|
-+====|====+
-|=========|
-|=
 
-|---|---|---|
-|a  | b | c|
 
-| bff|sd|asd|
-{: .tablelines}
-
-|---|---|---|
-|a  | b | c|
-|---|---|---|
-| bff|sd|asd|
-{: .tablelines}
-
-|---|---|---|
-|a  | b | c|
-|---|---|---|
-| bff|sd|asd|
-|---|---|---|
-{: .tablelines}
-
-|---+---+---|
-+ :-: |:------| ---:|
-| :-: :- -: -
-:-: | :-
-{: .tablelines}
-
-|-----------------+------------+-----------------+----------------|
-| Default aligned |Left aligned| Center aligned  | Right aligned  |
-|-----------------|:-----------|:---------------:|---------------:|
-| First body part |Second cell | Third cell      | fourth cell    |
-| Second line     |foo         | **strong**      | baz            |
-| Third line      |quux        | baz             | bar            |
-|-----------------+------------+-----------------+----------------|
-| Second body     |            |                 |                |
-| 2 line          |            |                 |                |
-|=================+============+=================+================|
-| Footer row      |            |                 |                |
-|-----------------+------------+-----------------+----------------|
-{: .tablelines}
 # Intro
-This tutorial attempts to build a fully convolutional network along the lines of the paper "Fully Convolutional Networks for Semantic Segmentation"[cite].
+This tutorial attempts to build a fully convolutional network along the lines of the paper "Fully Convolutional Networks for Semantic Segmentation"[1].
 ![](http://i.imgur.com/ysw2ZZx.png?1)
 
 # Purpose/Goal
@@ -100,6 +52,13 @@ Training this fully connected network has to be done somewhat carefully. One iss
 
 # Results
 Results for this tutorial are the training and validation loss graphs as well as predictions. Below are some predictions from the machine I trained with their actual image and actual label. Each image comes from the validation set.
+
+
+|  | Pixel Accuracy | Mean Accuracy | Mean IU| FW IU |
+| (Long et al)[1] | 90.5 | 76.5 | 63.6 | 83.5 |
+| Mine | 81.5 | 33.7 | 26.3 | 69.9 |
+{: .tablelines}
+
 Actual Image
 
 ![](http://i.imgur.com/4SNhXib.png)
@@ -155,18 +114,5 @@ References:
 CVPR 2015
 
 
-## Full Code: https://github.com/sdeck51/CNNTutorials/blob/master/6.%20Segmentation_Tutorial/Segmentation2.ipynb
-|-----------------+------------+-----------------+----------------|
-| Default aligned |Left aligned| Center aligned  | Right aligned  |
-|-----------------|:-----------|:---------------:|---------------:|
-| First body part |Second cell | Third cell      | fourth cell    |
-| Second line     |foo         | **strong**      | baz            |
-| Third line      |quux        | baz             | bar            |
-|-----------------+------------+-----------------+----------------|
-| Second body     |            |                 |                |
-| 2 line          |            |                 |                |
-|=================+============+=================+================|
-| Footer row      |            |                 |                |
-|-----------------+------------+-----------------+----------------|
-
-After
+## Full Code: 
+https://github.com/sdeck51/CNNTutorials/blob/master/6.%20Segmentation_Tutorial/Segmentation2.ipynb
