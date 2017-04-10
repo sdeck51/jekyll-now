@@ -141,7 +141,7 @@ For Caltech256 there are 257 classes total with 30,607 images in total. As this 
 {: .tablelines}
 
 ## Full Code
-
+https://github.com/sdeck51/CNNTutorials/blob/master/5.%20TransferLearning_Tutorial/TransferLearning.ipynb
 
 ## References
 1. Olga Russakovsky*, Jia Deng*, Hao Su, Jonathan Krause, Sanjeev Satheesh, Sean Ma, Zhiheng Huang, Andrej Karpathy, Aditya Khosla, Michael Bernstein, Alexander C. Berg and Li Fei-Fei. (* = equal contribution) ImageNet Large Scale Visual Recognition Challenge. IJCV,2015.
