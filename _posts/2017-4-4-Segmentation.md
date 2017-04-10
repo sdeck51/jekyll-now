@@ -60,7 +60,6 @@ Results for this experiment show that I am not getting similar results to the pa
 description="Lamb Image" size="250" %}{% include image.html url="http://i.imgur.com/qg2xMWD.png"
 description="Lamb Label" size="250" %}{% include image.html url="http://i.imgur.com/1jffKTs.png"
 description="Lamb Prediction" size="250" %}</center>
-<center></center>
 
 
 References:
