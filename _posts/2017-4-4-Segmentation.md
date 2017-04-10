@@ -49,55 +49,12 @@ Results for this experiment show that I am not getting similar results to the pa
 | Mine | 81.5 | 33.7 | 26.3 | 69.9 |
 {: .tablelines}
 
-Actual Image
+<center>{% include image.html url="http://i.imgur.com/VqBKjR8.png"
+description="Lamb Image" size="250" %}{% include image.html url="http://i.imgur.com/qg2xMWD.png"
+description="Lamb Label" size="250" %}{% include image.html url="http://i.imgur.com/1jffKTs.png"
+description="Lamb Prediction" size="250" %}</center>
+<center></center>
 
-![](http://i.imgur.com/4SNhXib.png)
-
-Actual Label
-
-![](http://i.imgur.com/gdXqSpD.png)
-
-Predicted Label
-
-![](http://i.imgur.com/OYQFusp.png)
-
-100k steps
-
-Actual Image
-
-![](http://imgur.com/Xs6wPpb.png)
-
-Actual Label
-
-![](http://imgur.com/2twn4A8.png) ![](http://imgur.com/WGWmOon.png)
-
-Predicted Label
-
-![](http://i.imgur.com/6aKWtEJ.png) ![](http://imgur.com/BtJHdlP.png)
-
-another 100k steps
-
-Actual Image
-
-![](http://imgur.com/Cf9OvDD.png)
-
-Actual Label
-
-![](http://imgur.com/2psC6Dv.png)
-
-Predicted Label
-
-![](http://imgur.com/ZVykfPn.png)
-
-As we can see it's starting to see bushes.
-
-![](http://imgur.com/vFVNBXv.png)
-
-![](http://imgur.com/Rgkqubs.png)
-
-![](http://imgur.com/svHMXUF.png)
-
-![](http://imgur.com/AyWvWf6.png)![](http://imgur.com/BhJCNm8.png)![](http://imgur.com/1XUpg8k.png)
 
 References:
 1. Long, J., Shelhamer, E., and Darrell, T. Fully convolutional networks for semantic segmentation.
