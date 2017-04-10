@@ -167,6 +167,4 @@ This covers the basics in understanding convolutional neural networks, how they 
 
 
 ## References
-I need to cite more things here.
-ADAM
 Kingma, D. P., & Ba, J. L. (2015). Adam: a Method for Stochastic Optimization. International Conference on Learning Representations, 1–13
