@@ -68,4 +68,4 @@ CVPR 2015
 
 
 ## Full Code: 
-https://github.com/sdeck51/CNNTutorials/blob/master/6.%20Segmentation_Tutorial/Segmentation2.ipynb
+https://github.com/sdeck51/CNNTutorials/blob/master/6.%20Segmentation_Tutorial/SemanticSegmentation.ipynb
