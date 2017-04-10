@@ -103,4 +103,4 @@ I end the tutorial here, however there are additional improvements that can be m
 
 # Full Code
 The full code I used can be found below. Folders may need to be made for storing models, as well as the data.
-https://github.com/sdeck51/CNNTutorials/blob/master/7.%20FacialFeatureDetection_Tutorial/FaceDetector4.ipynb
+https://github.com/sdeck51/CNNTutorials/blob/master/7.%20FacialFeatureDetection_Tutorial/FacialKeypointDetector.ipynb
